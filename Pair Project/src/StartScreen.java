@@ -14,7 +14,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		start = new JButton();
 		howToPlay = new JButton();
 		name = new JTextField();
-		difficulty = new JComboBox();
+		difficulty = new JComboBox(difficulties);
 		start.setActionCommand(this.getName());
 		start.addActionListener(this);
 		howToPlay.setActionCommand(this.getName());
