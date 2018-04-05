@@ -4,8 +4,8 @@ import java.awt.event.*;
 
 public class StartScreen extends JPanel implements ActionListener{
 	JFrame screen;
-	JPanel panel;
-	JButton start, howToPlay;
+	JPanel panel,instructionPanel;
+	JButton start, howToPlay, back;
 	JTextField name;
 	JComboBox difficulty;
 	String[] difficulties = {"Easy","Medium","Hard"};
@@ -59,30 +59,56 @@ public class StartScreen extends JPanel implements ActionListener{
 		gbc_howbtn.gridy = 2;
 		panel.add(howToPlay,gbc_howbtn);
 		
-		screen.setContentPane(panel);
+		screen.add(panel);
 		screen.pack();
 		screen.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("start")) {
+		if(e.getActionCommand().equals("Start")) {
 			
-		}else if(e.getActionCommand().equals("howToPlay")) {
-			screen.remove(panel);
+		}else if(e.getActionCommand().equals("How to Play")) {
+			panel.setVisible(false);
 			howToPlayScreen();
+		}else if(e.getActionCommand().equals("Back")){
+			instructionPanel.setVisible(false);
+			panel.setVisible(true);
+			screen.setSize(new Dimension(275,150));
 		}
 	}
 	
 	public void howToPlayScreen(){
-		JPanel instructionScreen=new JPanel();
-		instructionScreen.setLayout(new GridLayout(2,1,0,0));
-		JLabel instructions=new JLabel("How to Play Here");
-		instructionScreen.add(instructions);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
 		
-		JButton back=new JButton("Back");
-		instructionScreen.add(back);
+		instructionPanel=new JPanel();
+		instructionPanel.setLayout(gridBagLayout);
 		
-		screen.setContentPane(instructionScreen);
+		JLabel instructions=new JLabel("<html>"+"Use the arrow keys to move around. Your goal is to dodge asteroids and"
+				+ " avoid enemy shots while shooting at them. Shooting is automatic, and you will do so continuously."+"</html");
+		GridBagConstraints gbc_instructions = new GridBagConstraints();
+		gbc_instructions.gridwidth = GridBagConstraints.REMAINDER;
+		gbc_instructions.insets = new Insets(0, 0, 10, 0);
+		gbc_instructions.gridx = 0;
+		gbc_instructions.gridwidth=2;
+		gbc_instructions.gridy = 0;
+		gbc_instructions.gridheight=2;
+		instructionPanel.add(instructions, gbc_instructions);
+		
+		back=new JButton("Back");
+		back.setActionCommand(this.getName());
+		back.addActionListener(this);
+		GridBagConstraints gbc_backBtn = new GridBagConstraints();
+		gbc_backBtn.insets = new Insets(10, 0, 0, 0);
+		gbc_backBtn.gridx = 1;
+		gbc_backBtn.gridy = 2;
+		instructionPanel.add(back, gbc_backBtn);
+		
+		screen.add(instructionPanel);
+		screen.pack();
 	}
 	public static void main(String[] args) {
 		StartScreen s = new StartScreen();
