@@ -16,9 +16,9 @@ public class Hitbox {
 		height = Math.abs(c1.y-c2.y);
 	}
 
-	boolean contact(Hitbox a, Hitbox b){
-		return (Math.abs(a.centerx - b.centerx) * 2 < (a.width + b.width)) &&
-				(Math.abs(a.centery - b.centery) * 2 < (a.height + b.height));
+	boolean contact(Hitbox b){
+		return (Math.abs(this.centerx - b.centerx) * 2 < (this.width + b.width)) &&
+				(Math.abs(this.centery - b.centery) * 2 < (this.height + b.height));
 
 	}
 	

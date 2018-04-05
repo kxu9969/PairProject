@@ -1,11 +1,19 @@
 
 public class Bullet {
 	Hitbox hitbox;
+	int[] increment = {0,0};
 	Bullet(Hitbox hitbox){
 		this.hitbox=hitbox;
 	}
 	
 	void move(){
-		//increments this bullet
+		hitbox.move(increment[0], increment[1]);
+	}
+	
+	boolean hasHit (Player p){
+		return hitbox.contact(p.hitbox);
+	}
+	boolean hasHit (Enemy e){
+		return hitbox.contact(e.hitbox);
 	}
 }
