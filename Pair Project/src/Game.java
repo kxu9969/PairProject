@@ -7,8 +7,8 @@ public class Game extends JFrame{
 	Player p;
 	static Timer t = new Timer();
 	
-	Game(){
-		p = new Player();
+	Game(String playerName){
+		p = new Player(playerName);
 		vis = new Visuals();
 		this.add(vis);
 		this.pack();

@@ -21,4 +21,9 @@ public class Hitbox {
 				(Math.abs(a.centery - b.centery) * 2 < (a.height + b.height));
 
 	}
+	
+	void move(int x, int y){
+		c1.move(x,y);
+		c2.move(x,y);
+	}
 }
