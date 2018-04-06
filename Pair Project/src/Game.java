@@ -56,7 +56,7 @@ public class Game extends JFrame implements KeyListener{
 		}, 0, 10);
 	}
 
-	class Visuals extends JFrame{
+	class Visuals extends JPanel{
 		final int WIDTH = 500;
 		final int HEIGHT = 500;
 		Visuals(){

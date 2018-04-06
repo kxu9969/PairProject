@@ -69,7 +69,6 @@ public class StartScreen extends JPanel implements ActionListener{
 			String userName=name.getText();
 			panel.setVisible(false);
 			Game game=new Game(userName);
-			screen.add(game);
 			game.setVisible(true);
 		}else if(e.getActionCommand().equals("How to Play")) {
 			panel.setVisible(false);
