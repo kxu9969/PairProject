@@ -2,8 +2,10 @@
 public class Bullet {
 	Hitbox hitbox;
 	int[] increment = {0,0};
-	Bullet(Hitbox hitbox){
-		this.hitbox=hitbox;
+	final int WIDTH = 5;//placeholder values, will instead draw the bullet image not a rectangle
+	final int HEIGHT = 10;
+	Bullet(Coordinate spawn){
+		hitbox= new Hitbox(spawn,new Coordinate(spawn.x+WIDTH,spawn.y+HEIGHT));
 	}
 	
 	void move(){

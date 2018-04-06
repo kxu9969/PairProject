@@ -15,6 +15,12 @@ public class Hitbox {
 		width = Math.abs(c1.x-c2.x);
 		height = Math.abs(c1.y-c2.y);
 	}
+	int getCornerX(){
+		return c1.x;
+	}
+	int getCornerY(){
+		return c1.y;
+	}
 
 	boolean contact(Hitbox b){
 		return (Math.abs(this.centerx - b.centerx) * 2 < (this.width + b.width)) &&

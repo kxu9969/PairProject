@@ -1,5 +1,8 @@
 import javax.swing.*;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -53,6 +56,34 @@ public class Game extends JFrame implements KeyListener{
 		}, 0, 10);
 	}
 
+	class Visuals extends JFrame{
+		final int WIDTH = 500;
+		final int HEIGHT = 500;
+		Visuals(){
+			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+		}
+		
+		public void paint(Graphics g){
+			super.paint(g);
+			g.setColor(Color.RED);
+			for(Enemy e : enemies){
+				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
+			}
+			g.setColor(Color.GREEN);
+			g.fillRect(p.hitbox.getCornerX(), p.hitbox.getCornerY(), p.WIDTH, p.HEIGHT);
+			g.setColor(Color.YELLOW);
+			for(Bullet b: enemyBullets){
+				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+			}
+			g.setColor(Color.ORANGE);
+			for(Bullet b: playerBullets){
+				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+			}
+			//code here to draw explosions of blown up bullets and ships
+		}
+		
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP ){
 			p.increment[1]=-INCREMENT_AMOUNT;
