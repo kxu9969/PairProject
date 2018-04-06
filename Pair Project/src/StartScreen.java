@@ -8,6 +8,7 @@ public class StartScreen extends JPanel implements ActionListener{
 	JButton start, howToPlay, back;
 	JTextField name;
 	JComboBox difficulty;
+	Game game;
 	String[] difficulties = {"Easy","Medium","Hard"};
 	StartScreen(){
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -67,9 +68,8 @@ public class StartScreen extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Start")) {
 			String userName=name.getText();
-			panel.setVisible(false);
-			Game game=new Game(userName);
-			screen.add(game);
+			screen.setVisible(false);
+			game=new Game(userName);
 			game.setVisible(true);
 		}else if(e.getActionCommand().equals("How to Play")) {
 			panel.setVisible(false);
@@ -82,34 +82,18 @@ public class StartScreen extends JPanel implements ActionListener{
 	}
 	
 	public void howToPlayScreen(){
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
-		
 		instructionPanel=new JPanel();
-		instructionPanel.setLayout(gridBagLayout);
+		instructionPanel.setLayout(new GridLayout(2,1,0,0));
 		
-		JLabel instructions=new JLabel("Use the arrow keys to move around. Your goal is to dodge asteroids and"
-				+ " avoid enemy shots while shooting at them. Shooting is automatic, and you will do so continuously.");
-		GridBagConstraints gbc_instructions = new GridBagConstraints();
-		gbc_instructions.gridwidth = GridBagConstraints.REMAINDER;
-		gbc_instructions.insets = new Insets(0, 0, 10, 0);
-		gbc_instructions.gridx = 0;
-		gbc_instructions.gridwidth=2;
-		gbc_instructions.gridy = 0;
-		gbc_instructions.gridheight=2;
-		instructionPanel.add(instructions, gbc_instructions);
+		JLabel instructions=new JLabel("<html>Use the arrow keys to move around. Your goal is to dodge asteroids and"
+				+ " avoid enemy <br/>shots while shooting at them. Shooting is automatic, and you will do so continuously.</html>");
+		instructions.setHorizontalAlignment(JLabel.CENTER);
+		instructionPanel.add(instructions);
 		
 		back=new JButton("Back");
 		back.setActionCommand(this.getName());
 		back.addActionListener(this);
-		GridBagConstraints gbc_backBtn = new GridBagConstraints();
-		gbc_backBtn.insets = new Insets(0, 0, 0, 0);
-		gbc_backBtn.gridx = 1;
-		gbc_backBtn.gridy = 2;
-		instructionPanel.add(back, gbc_backBtn);
+		instructionPanel.add(back);
 		
 		screen.add(instructionPanel);
 		screen.pack();
