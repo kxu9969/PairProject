@@ -44,7 +44,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		start.addActionListener(this);
 		GridBagConstraints gbc_startbtn = new GridBagConstraints();
 		gbc_startbtn.gridwidth = 1;
-		gbc_startbtn.insets = new Insets(0, 0, 5, 0);
+		gbc_startbtn.insets = new Insets(0, 0, 0, 0);
 		gbc_startbtn.gridx = 0;
 		gbc_startbtn.gridy = 2;
 		panel.add(start,gbc_startbtn);
@@ -54,7 +54,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		howToPlay.addActionListener(this);
 		GridBagConstraints gbc_howbtn = new GridBagConstraints();
 		gbc_howbtn.gridwidth = 1;
-		gbc_howbtn.insets = new Insets(0, 0, 5, 0);
+		gbc_howbtn.insets = new Insets(0, 0, 0, 0);
 		gbc_howbtn.gridx = 2;
 		gbc_howbtn.gridy = 2;
 		panel.add(howToPlay,gbc_howbtn);
@@ -66,14 +66,18 @@ public class StartScreen extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Start")) {
-			
+			String userName=name.getText();
+			panel.setVisible(false);
+			Game game=new Game(userName);
+			screen.add(game);
+			game.setVisible(true);
 		}else if(e.getActionCommand().equals("How to Play")) {
 			panel.setVisible(false);
 			howToPlayScreen();
 		}else if(e.getActionCommand().equals("Back")){
 			instructionPanel.setVisible(false);
 			panel.setVisible(true);
-			screen.setSize(new Dimension(275,150));
+			screen.setSize(new Dimension(250,130));
 		}
 	}
 	
@@ -87,8 +91,8 @@ public class StartScreen extends JPanel implements ActionListener{
 		instructionPanel=new JPanel();
 		instructionPanel.setLayout(gridBagLayout);
 		
-		JLabel instructions=new JLabel("<html>"+"Use the arrow keys to move around. Your goal is to dodge asteroids and"
-				+ " avoid enemy shots while shooting at them. Shooting is automatic, and you will do so continuously."+"</html");
+		JLabel instructions=new JLabel("Use the arrow keys to move around. Your goal is to dodge asteroids and"
+				+ " avoid enemy shots while shooting at them. Shooting is automatic, and you will do so continuously.");
 		GridBagConstraints gbc_instructions = new GridBagConstraints();
 		gbc_instructions.gridwidth = GridBagConstraints.REMAINDER;
 		gbc_instructions.insets = new Insets(0, 0, 10, 0);
@@ -102,7 +106,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		back.setActionCommand(this.getName());
 		back.addActionListener(this);
 		GridBagConstraints gbc_backBtn = new GridBagConstraints();
-		gbc_backBtn.insets = new Insets(10, 0, 0, 0);
+		gbc_backBtn.insets = new Insets(0, 0, 0, 0);
 		gbc_backBtn.gridx = 1;
 		gbc_backBtn.gridy = 2;
 		instructionPanel.add(back, gbc_backBtn);
