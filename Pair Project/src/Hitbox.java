@@ -31,5 +31,7 @@ public class Hitbox {
 	void move(int x, int y){
 		c1.move(x,y);
 		c2.move(x,y);
+		centerx = Math.abs((c1.x+c2.x)/2);
+		centery = Math.abs((c1.y+c2.y)/2);
 	}
 }

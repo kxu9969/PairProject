@@ -24,7 +24,8 @@ public class Game extends JFrame implements KeyListener{
 		vis = new Visuals();
 		this.add(vis);
 		this.pack();
-		this.setVisible(true);		
+		this.setVisible(true);
+		addKeyListener(this);
 		t.schedule(new TimerTask(){
 			public void run() {
 				p.move();
