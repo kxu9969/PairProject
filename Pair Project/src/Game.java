@@ -17,7 +17,7 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 	ArrayList<Bullet> toBeRemoved = new ArrayList<Bullet>();
 	static Timer t = new Timer();
-	final int INCREMENT_AMOUNT = 10;
+	final int INCREMENT_AMOUNT = 5;
 	
 	Game(String playerName){
 		p = new Player(playerName);
@@ -58,8 +58,8 @@ public class Game extends JFrame implements KeyListener{
 	}
 
 	class Visuals extends JPanel{
-		final int WIDTH = 500;
-		final int HEIGHT = 500;
+		final static int WIDTH = 500;
+		final static int HEIGHT = 500;
 		Visuals(){
 			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		}
