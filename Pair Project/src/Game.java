@@ -23,6 +23,8 @@ public class Game extends JFrame implements KeyListener{
 	
 	Game(String playerName){
 		p = new Player(playerName);
+		Enemy e= new Enemy();
+		enemies.add(e);
 		vis = new Visuals();
 		this.add(vis);
 		this.pack();
