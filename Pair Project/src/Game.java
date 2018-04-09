@@ -58,11 +58,11 @@ public class Game extends JFrame implements KeyListener{
 	}
 
 	class Visuals extends JPanel{
-		final static int WIDTH = 500;
-		final static int HEIGHT = 500;
+		final static int WIDTH = 430;
+		final static int HEIGHT = 580;
 		Visuals(){
 			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-			ImageIcon background=new ImageIcon("Background.jpg");
+			ImageIcon background=new ImageIcon("Background.png");
 			JLabel back=new JLabel();
 			back.setIcon(background);
 			back.setAlignmentX(JLabel.LEFT_ALIGNMENT);
@@ -73,7 +73,8 @@ public class Game extends JFrame implements KeyListener{
 		public void paint(Graphics g){
 			super.paint(g);
 			g.setColor(Color.BLACK);
-			g.fillRect(0, 0, 500, 10);
+			g.fillRect(0, 0, 430, 10);
+			g.fillRect(0, 0, 5, 580);
 			g.setColor(Color.RED);
 			for(Enemy e : enemies){
 				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
