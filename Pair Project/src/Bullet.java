@@ -4,8 +4,10 @@ public class Bullet {
 	int[] increment = {0,0};
 	final int WIDTH = 5;//placeholder values, will instead draw the bullet image not a rectangle
 	final int HEIGHT = 10;
-	Bullet(Coordinate spawn){
+	Bullet(Coordinate spawn,int[] move){
 		hitbox= new Hitbox(spawn,new Coordinate(spawn.x+WIDTH,spawn.y+HEIGHT));
+		increment[0]=move[0];
+		increment[1]=move[1];
 	}
 	
 	void move(){

@@ -18,6 +18,8 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Bullet> toBeRemoved = new ArrayList<Bullet>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 5;
+	final int counterMax = 5;
+	int counterDelay = 0;
 	
 	Game(String playerName){
 		p = new Player(playerName);
@@ -29,6 +31,12 @@ public class Game extends JFrame implements KeyListener{
 		t.schedule(new TimerTask(){
 			public void run() {
 				p.move();
+//				if(counterDelay == 0){
+//					playerBullets.add(new Bullet(p.hitbox.c1,new int[]{-1,-1}));
+//					counterDelay = counterMax;
+//				}else{
+//					counterDelay--;
+//				}
 				for(Enemy e: enemies){
 					e.move();
 				}
