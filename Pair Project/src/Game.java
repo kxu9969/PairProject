@@ -17,7 +17,7 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 	ArrayList<Bullet> toBeRemoved = new ArrayList<Bullet>();
 	static Timer t = new Timer();
-	final int INCREMENT_AMOUNT = 10;
+	final int INCREMENT_AMOUNT = 5;
 	
 	Game(String playerName){
 		p = new Player(playerName);
@@ -62,10 +62,18 @@ public class Game extends JFrame implements KeyListener{
 		final int HEIGHT = 500;
 		Visuals(){
 			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+			ImageIcon background=new ImageIcon("Background.jpg");
+			JLabel back=new JLabel();
+			back.setIcon(background);
+			back.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+			back.setAlignmentY(JLabel.TOP_ALIGNMENT);
+			this.add(back);
 		}
 		
 		public void paint(Graphics g){
 			super.paint(g);
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, 500, 10);
 			g.setColor(Color.RED);
 			for(Enemy e : enemies){
 				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
