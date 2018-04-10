@@ -9,6 +9,9 @@ public class Enemy {
 	final int height=(int) (Math.random()*290)+1;
 	boolean moveLeft=false;
 	boolean moveRight=true;
+	final int bulletSpeed = 1;
+	final int counterMax = 30;
+	int counterDelay = 0;
 	Enemy(){
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
@@ -31,5 +34,9 @@ public class Enemy {
 			increment[1]=0;
 		}
 		hitbox.move(increment[0], increment[1]);
+	}
+	
+	void whenHit(){
+		System.out.println("Enemy hit!");
 	}
 }

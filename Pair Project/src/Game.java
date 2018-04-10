@@ -18,8 +18,7 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Bullet> toBeRemoved = new ArrayList<Bullet>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 5;
-	final int counterMax = 30;
-	int counterDelay = 0;
+
 	
 	Game(String playerName){
 		p = new Player(playerName);
@@ -33,29 +32,34 @@ public class Game extends JFrame implements KeyListener{
 		t.schedule(new TimerTask(){
 			public void run() {
 				p.move();
-				if(counterDelay == 0){
-					playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-3}));
-					counterDelay = counterMax;
+				if(p.counterDelay == 0){
+					playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
+					p.counterDelay = p.counterMax;
 				}else{
-					counterDelay--;
+					p.counterDelay--;
 				}
 				for(Enemy e: enemies){
 					e.move();
 					System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
+					if(e.counterDelay == 0){
+						enemyBullets.add(new Bullet(e.hitbox.c1,new int[]{0,e.bulletSpeed}));
+						e.counterDelay = e.counterMax;
+					}else{
+						e.counterDelay--;
+					}
 				}
 				for(Bullet b: playerBullets){
 					b.move();
 					//System.out.println(p.hitbox.c1.x+" "+p.hitbox.c1.y+" "+p.hitbox.c2.x+" "+p.hitbox.c2.y);
 					for(Enemy e: enemies){
 						if(b.hasHit(e)){
-							b.hit();
 							toBeRemoved.add(b);
 						}
 					}
 					boolean moved = b.move();
 					for(Enemy e: enemies){
 						if(b.hasHit(e)){
-							b.hit();
+							e.whenHit();
 							toBeRemoved.add(b);
 						}
 					}
@@ -67,7 +71,7 @@ public class Game extends JFrame implements KeyListener{
 				for(Bullet b: enemyBullets){
 					boolean moved = b.move();
 					if(b.hasHit(p)){
-						b.hit();
+						p.whenHit();
 						toBeRemoved.add(b);
 					}
 					if(!moved) {
