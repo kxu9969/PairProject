@@ -25,6 +25,7 @@ public class Hitbox {
 	}
 	
 	void move(int x, int y){
+//		System.out.println(c1.x+" "+c1.y+" "+c2.x+" "+c2.y);
 		if((c1.x+x)>=0&&(c1.y+y)>=0&&(c2.x+x)<=Game.Visuals.WIDTH&&(c2.y+y)<=Game.Visuals.HEIGHT){
 			c1.move(x,y);
 			c2.move(x,y);
