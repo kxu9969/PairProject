@@ -105,11 +105,31 @@ public class Game extends JFrame implements KeyListener{
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 430, 10);
 			g.fillRect(0, 0, 5, 580);
-			g.setColor(Color.RED);
 			for(Enemy e : enemies){
+				if(e.flash){
+					g.setColor(Color.WHITE);
+					if(e.flashCounter == 0){
+						e.flash=false;
+						e.flashCounter = e.flashMax;
+					}else{
+						e.flashCounter--;
+					}
+				}else{
+					g.setColor(Color.RED);
+				}
 				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
 			}
-			g.setColor(Color.GREEN);
+			if(p.flash){
+				g.setColor(Color.WHITE);
+				if(p.flashCounter == 0){
+					p.flash=false;
+					p.flashCounter = p.flashMax;
+				}else{
+					p.flashCounter--;
+				}
+			}else{
+				g.setColor(Color.GREEN);
+			}
 			g.fillRect(p.hitbox.getCornerX(), p.hitbox.getCornerY(), p.WIDTH, p.HEIGHT);
 			g.setColor(Color.YELLOW);
 			for(Bullet b: enemyBullets){

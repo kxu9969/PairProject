@@ -10,6 +10,9 @@ public class Player {
 	final int bulletSpeed = 6;
 	final int counterMax = 30;
 	int counterDelay = 0;
+	boolean flash = false;
+	int flashMax = 8;
+	int flashCounter = 0;
 	Player(String name){
 		this.name = name;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
@@ -23,5 +26,6 @@ public class Player {
 	
 	void whenHit(){
 		System.out.println("PLAYER HIT");
+		flash = true;
 	}
 }
