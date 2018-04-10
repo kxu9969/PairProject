@@ -6,6 +6,9 @@ public class Enemy {
 	final int DEFAULT_START_Y = 0;
 	final int WIDTH = 10;
 	final int HEIGHT = 10;
+	final int bulletSpeed = 1;
+	final int counterMax = 30;
+	int counterDelay = 0;
 	Enemy(){
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
@@ -16,6 +19,6 @@ public class Enemy {
 	}
 	
 	void whenHit(){
-		
+		System.out.println("Enemy hit!");
 	}
 }
