@@ -17,4 +17,8 @@ public class Player {
 	void move(){
 		hitbox.move(increment[0], increment[1]);
 	}
+	
+	void whenHit(){
+		
+	}
 }

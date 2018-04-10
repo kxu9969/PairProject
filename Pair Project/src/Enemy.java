@@ -14,4 +14,8 @@ public class Enemy {
 		int height=(int) (Math.random()*290);//add stuff about having it move randomly left and right
 		hitbox.move(increment[0], increment[1]);
 	}
+	
+	void whenHit(){
+		
+	}
 }
