@@ -41,10 +41,11 @@ public class Game extends JFrame implements KeyListener{
 				}
 				for(Enemy e: enemies){
 					e.move();
+					System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
 				}
 				for(Bullet b: playerBullets){
 					b.move();
-					System.out.println(p.hitbox.c1.x+" "+p.hitbox.c1.y+" "+p.hitbox.c2.x+" "+p.hitbox.c2.y);
+					//System.out.println(p.hitbox.c1.x+" "+p.hitbox.c1.y+" "+p.hitbox.c2.x+" "+p.hitbox.c2.y);
 					for(Enemy e: enemies){
 						if(b.hasHit(e)){
 							b.hit();
