@@ -40,6 +40,7 @@ public class Game extends JFrame implements KeyListener{
 				}
 				for(Enemy e: enemies){
 					e.move();
+					System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
 					if(e.counterDelay == 0){
 						enemyBullets.add(new Bullet(e.hitbox.c1,new int[]{0,e.bulletSpeed}));
 						e.counterDelay = e.counterMax;
