@@ -18,11 +18,13 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Bullet> toBeRemoved = new ArrayList<Bullet>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 5;
-	final int counterMax = 5;
+	final int counterMax = 30;
 	int counterDelay = 0;
 	
 	Game(String playerName){
 		p = new Player(playerName);
+		Enemy e= new Enemy();
+		enemies.add(e);
 		vis = new Visuals();
 		this.add(vis);
 		this.pack();
@@ -31,36 +33,51 @@ public class Game extends JFrame implements KeyListener{
 		t.schedule(new TimerTask(){
 			public void run() {
 				p.move();
-////				if(counterDelay == 0){
-////					playerBullets.add(new Bullet(p.hitbox.c1,new int[]{-10,-10}));
-////					counterDelay = counterMax;
-////				}else{
-////					counterDelay--;
-////				}
-//				for(Enemy e: enemies){
-//					e.move();
-//				}
+				if(counterDelay == 0){
+					playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-3}));
+					counterDelay = counterMax;
+				}else{
+					counterDelay--;
+				}
+				for(Enemy e: enemies){
+					e.move();
+				}
 				for(Bullet b: playerBullets){
 					b.move();
 					System.out.println(p.hitbox.c1.x+" "+p.hitbox.c1.y+" "+p.hitbox.c2.x+" "+p.hitbox.c2.y);
-//					for(Enemy e: enemies){
-//						if(b.hasHit(e)){
-//							b.hit();
-//							toBeRemoved.add(b);
-//						}
-//					}
+					for(Enemy e: enemies){
+						if(b.hasHit(e)){
+							b.hit();
+							toBeRemoved.add(b);
+						}
+					}
+					boolean moved = b.move();
+					for(Enemy e: enemies){
+						if(b.hasHit(e)){
+							b.hit();
+							toBeRemoved.add(b);
+						}
+					}
+					if(!moved) {
+						toBeRemoved.add(b);
+					}
+					
 				}
-//				for(Bullet b: enemyBullets){
-//					b.move();
-//					if(b.hasHit(p)){
-//						b.hit();
-//						toBeRemoved.add(b);
-//					}
-//				}
-//				for(Bullet b: toBeRemoved){
-//					playerBullets.remove(b);
-//					enemyBullets.remove(b);
-//				}
+				for(Bullet b: enemyBullets){
+					boolean moved = b.move();
+					if(b.hasHit(p)){
+						b.hit();
+						toBeRemoved.add(b);
+					}
+					if(!moved) {
+						toBeRemoved.add(b);
+					}
+				}
+				for(Bullet b: toBeRemoved){
+					playerBullets.remove(b);
+					enemyBullets.remove(b);
+				}
+				toBeRemoved.clear();
 				vis.repaint();
 			}
 		}, 0, 10);

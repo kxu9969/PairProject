@@ -5,13 +5,13 @@ public class Bullet {
 	final int WIDTH = 5;//placeholder values, will instead draw the bullet image not a rectangle
 	final int HEIGHT = 10;
 	Bullet(Coordinate spawn,int[] move){
-		hitbox= new Hitbox(spawn,new Coordinate(spawn.x+WIDTH,spawn.y+HEIGHT));
+		hitbox= new Hitbox(new Coordinate(spawn.x,spawn.y),new Coordinate(spawn.x+WIDTH,spawn.y+HEIGHT));
 		increment[0]=move[0];
 		increment[1]=move[1];
 	}
 	
-	void move(){
-		hitbox.move(increment[0], increment[1]);
+	boolean move(){
+		return hitbox.move(increment[0], increment[1]);
 	}
 	void hit(){
 		//makes an explosion and does stuff

@@ -11,6 +11,7 @@ public class Enemy {
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
 	}
 	void move(){
+		int height=(int) (Math.random()*290);//add stuff about having it move randomly left and right
 		hitbox.move(increment[0], increment[1]);
 	}
 }
