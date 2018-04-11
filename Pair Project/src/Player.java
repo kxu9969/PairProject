@@ -27,7 +27,7 @@ public class Player {
 	}
 	
 	void whenHit(){
-		System.out.println("PLAYER HIT");
+		//System.out.println("PLAYER HIT");
 		flash = true;
 	}
 }
