@@ -21,8 +21,6 @@ public class Player {
 	}
 
 	void move(){
-
-		//System.out.println("called");
 		hitbox.move(increment[0], increment[1]);
 	}
 	
