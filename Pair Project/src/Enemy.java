@@ -6,7 +6,8 @@ public class Enemy {
 	final int DEFAULT_START_Y = 0;
 	final int WIDTH = 10;
 	final int HEIGHT = 10;
-	final int height=(int) (Math.random()*290)+1;
+	final int lineSwitchProbability= 100;
+	int yHover=(int) (Math.random()*290)+1;
 	boolean moveLeft=false;
 	boolean moveRight=true;
 	final int bulletSpeed = 1;
@@ -22,6 +23,12 @@ public class Enemy {
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
 	}
 	void move(){
+		int random=(int) (Math.random()*lineSwitchProbability);
+		System.out.println(random);
+		if(random==25){
+			System.out.println("RANDOM");
+			yHover=(int) (Math.random()*290)+1;
+		}
 		if(moveRight){
 			increment[0]=1;
 		}else if (moveLeft){
@@ -34,14 +41,19 @@ public class Enemy {
 			moveRight=true;
 			moveLeft=false;
 		}
-		increment[1]=1;
-		if(hitbox.getCornerY()>=height){
+		
+		if(hitbox.getCornerY()>yHover){
+			increment[1]=-1;
+		}else if(hitbox.getCornerY()<yHover){
+			increment[1]=1;
+		}else if(hitbox.getCornerY()==yHover){
 			increment[1]=0;
 		}
 		hitbox.move(increment[0], increment[1]);
 	}
 	
 	void whenHit(){
+		//System.out.println("Enemy hit!");
 		flash = true;
 		health--;
 		if(health==0){

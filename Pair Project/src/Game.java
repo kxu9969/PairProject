@@ -34,6 +34,12 @@ public class Game extends JFrame implements KeyListener{
 			public void run() {
 				if(!p.dead){
 					p.move();
+					if(p.counterDelay == 0){
+						playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
+						p.counterDelay = p.counterMax;
+					}else{
+						p.counterDelay--;
+					}
 					for(Enemy e: enemies){
 						e.move();
 						//System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
@@ -97,6 +103,7 @@ public class Game extends JFrame implements KeyListener{
 			}
 		}, 0, 10);
 	}
+
 
 	class Visuals extends JPanel{
 		final static int WIDTH = 430;
@@ -190,3 +197,4 @@ public class Game extends JFrame implements KeyListener{
 
 
 }
+

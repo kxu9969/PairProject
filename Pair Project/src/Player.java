@@ -27,6 +27,7 @@ public class Player {
 	}
 	
 	void whenHit(){
+		//System.out.println("PLAYER HIT");
 		flash = true;
 		health--;
 		if(health==0){
