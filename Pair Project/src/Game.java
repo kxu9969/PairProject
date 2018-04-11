@@ -16,10 +16,11 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Bullet> playerBullets = new ArrayList<Bullet>();
 	ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 	ArrayList<Bullet> toBeRemoved = new ArrayList<Bullet>();
+	ArrayList<Enemy> ded = new ArrayList<Enemy>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 5;
 
-	
+
 	Game(String playerName){
 		p = new Player(playerName);
 		Enemy e= new Enemy();
@@ -31,59 +32,68 @@ public class Game extends JFrame implements KeyListener{
 		addKeyListener(this);
 		t.schedule(new TimerTask(){
 			public void run() {
-				p.move();
-				if(p.counterDelay == 0){
-					playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
-					p.counterDelay = p.counterMax;
-				}else{
-					p.counterDelay--;
-				}
-				for(Enemy e: enemies){
-					e.move();
-					//System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
-					if(e.counterDelay == 0){
-						enemyBullets.add(new Bullet(e.hitbox.c1,new int[]{0,e.bulletSpeed}));
-						e.counterDelay = e.counterMax;
+				if(!p.dead){
+					p.move();
+					if(p.counterDelay == 0){
+						playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
+						p.counterDelay = p.counterMax;
 					}else{
-						e.counterDelay--;
+						p.counterDelay--;
 					}
-				}
-				for(Bullet b: playerBullets){
-					b.move();
-					//System.out.println(p.hitbox.c1.x+" "+p.hitbox.c1.y+" "+p.hitbox.c2.x+" "+p.hitbox.c2.y);
 					for(Enemy e: enemies){
-						if(b.hasHit(e)){
+						e.move();
+						//System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
+						if(e.counterDelay == 0){
+							enemyBullets.add(new Bullet(e.hitbox.c1,new int[]{0,e.bulletSpeed}));
+							e.counterDelay = e.counterMax;
+						}else{
+							e.counterDelay--;
+						}
+					}
+					for(Bullet b: playerBullets){
+						b.move();
+						//System.out.println(p.hitbox.c1.x+" "+p.hitbox.c1.y+" "+p.hitbox.c2.x+" "+p.hitbox.c2.y);
+						for(Enemy e: enemies){
+							if(b.hasHit(e)){
+								toBeRemoved.add(b);
+							}
+						}
+						boolean moved = b.move();
+						for(Enemy e: enemies){
+							if(b.hasHit(e)){
+								e.whenHit();
+								toBeRemoved.add(b);
+								if(e.dead){
+									ded.add(e);
+								}
+							}
+						}
+						if(!moved) {
+							toBeRemoved.add(b);
+						}
+
+					}
+					for(Bullet b: enemyBullets){
+						boolean moved = b.move();
+						if(b.hasHit(p)){
+							p.whenHit();
+							toBeRemoved.add(b);
+						}
+						if(!moved) {
 							toBeRemoved.add(b);
 						}
 					}
-					boolean moved = b.move();
-					for(Enemy e: enemies){
-						if(b.hasHit(e)){
-							e.whenHit();
-							toBeRemoved.add(b);
-						}
+					for(Bullet b: toBeRemoved){
+						playerBullets.remove(b);
+						enemyBullets.remove(b);
 					}
-					if(!moved) {
-						toBeRemoved.add(b);
+					for(Enemy e: ded){
+						enemies.remove(e);
 					}
-					
+					toBeRemoved.clear();
+					ded.clear();
+					vis.repaint();
 				}
-				for(Bullet b: enemyBullets){
-					boolean moved = b.move();
-					if(b.hasHit(p)){
-						p.whenHit();
-						toBeRemoved.add(b);
-					}
-					if(!moved) {
-						toBeRemoved.add(b);
-					}
-				}
-				for(Bullet b: toBeRemoved){
-					playerBullets.remove(b);
-					enemyBullets.remove(b);
-				}
-				toBeRemoved.clear();
-				vis.repaint();
 			}
 		}, 0, 10);
 	}
@@ -100,7 +110,7 @@ public class Game extends JFrame implements KeyListener{
 			back.setAlignmentY(JLabel.TOP_ALIGNMENT);
 			this.add(back);
 		}
-		
+
 		public void paint(Graphics g){
 			super.paint(g);
 			g.setColor(Color.BLACK);
@@ -120,7 +130,9 @@ public class Game extends JFrame implements KeyListener{
 				}
 				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
 			}
-			if(p.flash){
+			if(p.dead){
+				g.setColor(Color.GRAY);
+			}else if(p.flash){
 				g.setColor(Color.WHITE);
 				if(p.flashCounter == 0){
 					p.flash=false;
@@ -142,9 +154,9 @@ public class Game extends JFrame implements KeyListener{
 			}
 			//code here to draw explosions of blown up bullets and ships
 		}
-		
+
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP ){
 			p.increment[1]=-INCREMENT_AMOUNT;
@@ -173,8 +185,8 @@ public class Game extends JFrame implements KeyListener{
 
 	public void keyTyped(KeyEvent e) {	
 	}
-	
-	
-	
-	
+
+
+
+
 }
