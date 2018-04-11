@@ -2,8 +2,8 @@
 public class Asteroid {
 	Hitbox hitbox;
 	int[] increment = {0,0};
-	final int WIDTH = 10;
-	final int HEIGHT = 10;
+	final static int WIDTH = 10;
+	final static int HEIGHT = 10;
 	int health;
 	
 	Asteroid(Coordinate spawn, int[] move){
@@ -12,7 +12,14 @@ public class Asteroid {
 		increment[1] = move[1];
 	}
 	
-	void move(){
-		
+	boolean move(){
+		return hitbox.move(increment[0], increment[1]);
+	}
+	
+	boolean hasHit (Player p){
+		return hitbox.contact(p.hitbox);
+	}
+	boolean hasHit (Enemy e){
+		return hitbox.contact(e.hitbox);
 	}
 }

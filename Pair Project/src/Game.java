@@ -17,6 +17,7 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 	ArrayList<Bullet> toBeRemoved = new ArrayList<Bullet>();
 	ArrayList<Enemy> ded = new ArrayList<Enemy>();
+	ArrayList<Asteroid> steroids = new ArrayList<Asteroid>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 2;
 
@@ -49,12 +50,6 @@ public class Game extends JFrame implements KeyListener{
 						}else{
 							e.counterDelay--;
 						}
-					}
-					if(p.counterDelay == 0){
-						playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
-						p.counterDelay = p.counterMax;
-					}else{
-						p.counterDelay--;
 					}
 					for(Bullet b: playerBullets){
 						boolean moved = b.move();
@@ -97,6 +92,18 @@ public class Game extends JFrame implements KeyListener{
 		}, 0, 10);
 	}
 
+	private void makeAsteroid(){
+		int x = 0,y = 0;
+		int[] increment;
+		if(Math.random()<0.5){
+			x = (int)(Math.random()*WIDTH-Asteroid.WIDTH);
+			increment = new int[]{0,10};
+		}else{
+			y = (int)(Math.random()*HEIGHT-Asteroid.HEIGHT);
+			increment = new int[]{10,0};
+		}
+		Asteroid a = new Asteroid(new Coordinate(x,y),increment);
+	}
 
 	class Visuals extends JPanel{
 		final static int WIDTH = 430;
