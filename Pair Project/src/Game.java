@@ -92,11 +92,19 @@ public class Game extends JFrame implements KeyListener{
 					toBeRemoved.clear();
 					ded.clear();
 					vis.repaint();
+				}else{
+					gameOver();
 				}
 			}
-		}, 0, 10);
-	}
 
+			
+		}, 0, 10);
+		
+	}
+	private void gameOver() {
+			this.setVisible(false);
+			EndScreen endScreen=new EndScreen(p.name,p.score+"");
+			}
 
 	class Visuals extends JPanel{
 		final static int WIDTH = 430;

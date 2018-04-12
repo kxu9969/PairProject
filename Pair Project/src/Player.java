@@ -15,6 +15,7 @@ public class Player {
 	int flashCounter = 0;
 	boolean dead = false;
 	int health = 2;
+	int score=0;
 	Player(String name){
 		this.name = name;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
