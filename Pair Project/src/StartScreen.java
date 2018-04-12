@@ -45,6 +45,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		start.addActionListener(this);
 		GridBagConstraints gbc_startbtn = new GridBagConstraints();
 		gbc_startbtn.gridwidth = 1;
+		gbc_startbtn.ipadx=30;
 		gbc_startbtn.insets = new Insets(0, 0, 0, 0);
 		gbc_startbtn.gridx = 0;
 		gbc_startbtn.gridy = 2;
