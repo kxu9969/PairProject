@@ -64,8 +64,4 @@ public class EndScreen extends JPanel implements ActionListener{
 			System.exit(0);
 		}
 	}
-	
-	public static void main(String[] args){
-		EndScreen gameOver=new EndScreen("2000","hotdog");
-	}
 }
