@@ -21,8 +21,8 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Asteroid> noSteroids = new ArrayList<Asteroid>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 2;
-	final int ENEMY_SPAWN_RATE = 1000;
-	final int ASTEROID_SPAWN_RATE = 1000;
+	final int ENEMY_SPAWN_RATE = 500;
+	final int ASTEROID_SPAWN_RATE = 700;
 
 
 	Game(String playerName){
