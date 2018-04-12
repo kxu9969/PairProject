@@ -24,7 +24,7 @@ public class Enemy {
 	}
 	void move(){
 		int random=(int) (Math.random()*lineSwitchProbability);
-		System.out.println(random);
+		//System.out.println(random);
 		if(random==25){
 			System.out.println("RANDOM");
 			yHover=(int) (Math.random()*290)+1;
