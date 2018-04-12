@@ -21,6 +21,8 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Asteroid> noSteroids = new ArrayList<Asteroid>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 2;
+	final int ENEMY_SPAWN_RATE = 1000;
+	final int ASTEROID_SPAWN_RATE = 1000;
 
 
 	Game(String playerName){
@@ -87,6 +89,12 @@ public class Game extends JFrame implements KeyListener{
 							toBeRemoved.add(b);
 						}
 					}
+					if((int)(Math.random()*ENEMY_SPAWN_RATE)==0){
+						makeEnemies();
+					}
+					if((int)(Math.random()*ASTEROID_SPAWN_RATE)==0){
+						makeAsteroid();
+					}
 					for(Bullet b: toBeRemoved){
 						playerBullets.remove(b);
 						enemyBullets.remove(b);
@@ -104,6 +112,11 @@ public class Game extends JFrame implements KeyListener{
 				}
 			}
 		}, 0, 10);
+	}
+	
+	private void makeEnemies(){
+		Enemy e = new Enemy();
+		enemies.add(e);
 	}
 
 	private void makeAsteroid(){
