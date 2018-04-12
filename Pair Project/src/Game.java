@@ -102,6 +102,7 @@ public class Game extends JFrame implements KeyListener{
 					noSteroids.clear();
 					vis.repaint();
 				}else{
+					this.cancel();
 					gameOver();
 				}
 			}
@@ -111,7 +112,7 @@ public class Game extends JFrame implements KeyListener{
 	}
 	private void gameOver() {
 		this.setVisible(false);
-		EndScreen endScreen=new EndScreen(p.name,p.score+"");
+		EndScreen endScreen=new EndScreen(p.score+"",p.name);
 	}
 	private void makeAsteroid(){
 		int x = 0,y = 0;
