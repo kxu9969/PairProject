@@ -109,6 +109,8 @@ public class Game extends JFrame implements KeyListener{
 					ded.clear();
 					noSteroids.clear();
 					vis.repaint();
+				}else{
+					gameOver();
 				}
 			}
 		}, 0, 10);
@@ -118,7 +120,11 @@ public class Game extends JFrame implements KeyListener{
 		Enemy e = new Enemy();
 		enemies.add(e);
 	}
-
+	
+	private void gameOver() {
+		this.setVisible(false);
+		EndScreen endScreen=new EndScreen(p.name,p.score+"");
+	}
 	private void makeAsteroid(){
 		int x = 0,y = 0;
 		int[] increment;
@@ -135,6 +141,7 @@ public class Game extends JFrame implements KeyListener{
 		Asteroid a = new Asteroid(new Coordinate(x,y),increment,horizontal);
 		steroids.add(a);
 	}
+
 
 	class Visuals extends JPanel{
 		final static int WIDTH = 430;
@@ -190,7 +197,7 @@ public class Game extends JFrame implements KeyListener{
 			for(Bullet b: playerBullets){
 				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 			}
-			
+
 			for(Asteroid a: steroids){
 				g.setColor(Color.RED);
 				if(a.horizontal){
