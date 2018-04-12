@@ -10,7 +10,7 @@ public class Bullet {
 		increment[1]=move[1];
 	}
 	
-	boolean move(){
+	boolean move(){//returns true if the bullet moved
 		return hitbox.move(increment[0], increment[1]);
 	}
 	

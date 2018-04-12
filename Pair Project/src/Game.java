@@ -17,6 +17,8 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 	ArrayList<Bullet> toBeRemoved = new ArrayList<Bullet>();
 	ArrayList<Enemy> ded = new ArrayList<Enemy>();
+	ArrayList<Asteroid> steroids = new ArrayList<Asteroid>();
+	ArrayList<Asteroid> noSteroids = new ArrayList<Asteroid>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 2;
 
@@ -50,11 +52,14 @@ public class Game extends JFrame implements KeyListener{
 							e.counterDelay--;
 						}
 					}
-					if(p.counterDelay == 0){
-						playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
-						p.counterDelay = p.counterMax;
-					}else{
-						p.counterDelay--;
+					for(Asteroid a: steroids){
+						boolean moved = a.move();
+						if(a.hasHit(p)){
+							p.kill();
+						}
+						if(!moved){
+							noSteroids.add(a);
+						}
 					}
 					for(Bullet b: playerBullets){
 						boolean moved = b.move();
@@ -89,22 +94,42 @@ public class Game extends JFrame implements KeyListener{
 					for(Enemy e: ded){
 						enemies.remove(e);
 					}
+					for(Asteroid a: noSteroids){
+						steroids.remove(a);
+					}
 					toBeRemoved.clear();
 					ded.clear();
+					noSteroids.clear();
 					vis.repaint();
 				}else{
 					gameOver();
 				}
 			}
 
-			
 		}, 0, 10);
-		
+
 	}
 	private void gameOver() {
-			this.setVisible(false);
-			EndScreen endScreen=new EndScreen(p.name,p.score+"");
-			}
+		this.setVisible(false);
+		EndScreen endScreen=new EndScreen(p.name,p.score+"");
+	}
+	private void makeAsteroid(){
+		int x = 0,y = 0;
+		int[] increment;
+		boolean horizontal;
+		if(Math.random()<0.5){
+			x = (int)(Math.random()*Game.Visuals.WIDTH)-Asteroid.WIDTH;
+			increment = new int[]{0,2};
+			horizontal = false;
+		}else{
+			y = (int)(Math.random()*Game.Visuals.HEIGHT)-Asteroid.HEIGHT;
+			increment = new int[]{2,0};
+			horizontal = true;
+		}
+		Asteroid a = new Asteroid(new Coordinate(x,y),increment,horizontal);
+		steroids.add(a);
+	}
+
 
 	class Visuals extends JPanel{
 		final static int WIDTH = 430;
@@ -160,6 +185,17 @@ public class Game extends JFrame implements KeyListener{
 			for(Bullet b: playerBullets){
 				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 			}
+
+			for(Asteroid a: steroids){
+				g.setColor(Color.RED);
+				if(a.horizontal){
+					g.drawLine(a.spawnX, a.spawnY, Game.Visuals.WIDTH, a.spawnY);
+				}else{
+					g.drawLine(a.spawnX, a.spawnY, a.spawnX, Game.Visuals.HEIGHT);
+				}
+				g.setColor(new Color(160,82,45));
+				g.fillRect(a.hitbox.getCornerX(), a.hitbox.getCornerY(), a.WIDTH, a.HEIGHT);
+			}
 			//code here to draw explosions of blown up bullets and ships
 		}
 
@@ -174,6 +210,8 @@ public class Game extends JFrame implements KeyListener{
 			p.increment[0] = -INCREMENT_AMOUNT;
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
 			p.increment[0] = INCREMENT_AMOUNT;
+		} else if(e.getKeyCode() == KeyEvent.VK_SPACE){
+			makeAsteroid();
 		}
 	}
 
@@ -186,9 +224,7 @@ public class Game extends JFrame implements KeyListener{
 			p.increment[0] = 0;
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
 			p.increment[0] = 0;
-		} else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-10}));
-		}
+		} 
 	}
 
 	public void keyTyped(KeyEvent e) {	

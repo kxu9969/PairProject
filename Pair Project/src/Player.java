@@ -23,6 +23,11 @@ public class Player {
 		
 	}
 
+	void kill(){
+		health = 0;
+		dead = true;
+	}
+	
 	void move(){
 		hitbox.move(increment[0], increment[1]);
 	}
