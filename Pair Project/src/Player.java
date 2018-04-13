@@ -8,7 +8,7 @@ public class Player {
 	final int DEFAULT_START_X = Game.Visuals.WIDTH/2;
 	final int DEFAULT_START_Y = Game.Visuals.HEIGHT-HEIGHT;
 	final int bulletSpeed = 6;
-	final int counterMax = 30;
+	final int counterMax = 10;
 	int counterDelay = 0;
 	boolean flash = false;
 	int flashMax = 8;
