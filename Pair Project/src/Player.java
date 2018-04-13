@@ -3,10 +3,10 @@ public class Player {
 	String name;
 	Hitbox hitbox;
 	int[] increment = {0,0};
-	final int DEFAULT_START_X = 50;
-	final int DEFAULT_START_Y = 50;
 	final int WIDTH = 10;//placeholder vlaues, will draw the player instead of rectangle
 	final int HEIGHT = 10;
+	final int DEFAULT_START_X = Game.Visuals.WIDTH/2;
+	final int DEFAULT_START_Y = Game.Visuals.HEIGHT-HEIGHT;
 	final int bulletSpeed = 6;
 	final int counterMax = 30;
 	int counterDelay = 0;

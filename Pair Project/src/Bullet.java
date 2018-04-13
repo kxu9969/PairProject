@@ -20,4 +20,7 @@ public class Bullet {
 	boolean hasHit (Enemy e){
 		return hitbox.contact(e.hitbox);
 	}
+	boolean hasHit(Asteroid a){
+		return hitbox.contact(a.hitbox);
+	}
 }

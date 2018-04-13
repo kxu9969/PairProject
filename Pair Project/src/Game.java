@@ -73,6 +73,10 @@ public class Game extends JFrame implements KeyListener{
 									ded.add(e);
 									p.score++;
 								}
+							}for(Asteroid a: steroids){
+								if(b.hasHit(a)){
+									toBeRemoved.add(b);
+								}
 							}
 						}
 						if(!moved) {
@@ -85,6 +89,11 @@ public class Game extends JFrame implements KeyListener{
 						if(b.hasHit(p)){
 							p.whenHit();
 							toBeRemoved.add(b);
+						}
+						for(Asteroid a: steroids){
+							if(b.hasHit(a)){
+								toBeRemoved.add(b);
+							}
 						}
 						if(!moved) {
 							toBeRemoved.add(b);
