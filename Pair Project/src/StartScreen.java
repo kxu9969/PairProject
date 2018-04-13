@@ -10,6 +10,7 @@ public class StartScreen extends JPanel implements ActionListener{
 	JComboBox difficulty;
 	Game game;
 	String[] difficulties = {"Easy","Medium","Hard"};
+	Dimension screenSize;
 	StartScreen(){
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
@@ -63,6 +64,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		
 		screen.add(panel);
 		screen.pack();
+		screenSize=screen.getBounds().getSize();
 		screen.setVisible(true);
 	}
 
@@ -79,7 +81,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		}else if(e.getActionCommand().equals("Back")){
 			instructionPanel.setVisible(false);
 			panel.setVisible(true);
-			screen.setSize(new Dimension(250,130));
+			screen.setSize(screenSize);
 		}
 	}
 	
