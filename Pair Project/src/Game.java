@@ -37,78 +37,16 @@ public class Game extends JFrame implements KeyListener{
 		t.schedule(new TimerTask(){
 			public void run() {
 				if(!p.dead){
-					p.move();
-					if(p.counterDelay == 0){
-						playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
-						p.counterDelay = p.counterMax;
-					}else{
-						p.counterDelay--;
-					}
-					for(Enemy e: enemies){
-						e.move();
-						//System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
-						if(e.counterDelay == 0){
-							enemyBullets.add(new Bullet(e.hitbox.c1,new int[]{0,e.bulletSpeed}));
-							e.counterDelay = e.counterMax;
-						}else{
-							e.counterDelay--;
-						}
-					}
-					for(Asteroid a: steroids){
-						boolean moved = a.move();
-						if(a.hasHit(p)){
-							p.kill();
-						}
-						if(!moved){
-							noSteroids.add(a);
-						}
-					}
-					for(Bullet b: playerBullets){
-						boolean moved = b.move();
-						for(Enemy e: enemies){
-							if(b.hasHit(e)){
-								e.whenHit();
-								toBeRemoved.add(b);
-								if(e.dead){
-									ded.add(e);
-									p.score++;
-								}
-							}
-						}
-						if(!moved) {
-							toBeRemoved.add(b);
-						}
-
-					}
-					for(Bullet b: enemyBullets){
-						boolean moved = b.move();
-						if(b.hasHit(p)){
-							p.whenHit();
-							toBeRemoved.add(b);
-						}
-						if(!moved) {
-							toBeRemoved.add(b);
-						}
-					}
+					moveShips();
+					makeBullets();
+					moveProjectiles();
 					if((int)(Math.random()*ENEMY_SPAWN_RATE)==0){
 						makeEnemies();
 					}
 					if((int)(Math.random()*ASTEROID_SPAWN_RATE)==0){
 						makeAsteroid();
 					}
-					for(Bullet b: toBeRemoved){
-						playerBullets.remove(b);
-						enemyBullets.remove(b);
-					}
-					for(Enemy e: ded){
-						enemies.remove(e);
-					}
-					for(Asteroid a: noSteroids){
-						steroids.remove(a);
-					}
-					toBeRemoved.clear();
-					ded.clear();
-					noSteroids.clear();
+					reset();
 					vis.repaint();
 				}else{
 					this.cancel();
@@ -116,6 +54,79 @@ public class Game extends JFrame implements KeyListener{
 				}
 			}
 		}, 0, 10);
+	}
+	
+	private void moveShips(){
+		p.move();		
+		for(Enemy e: enemies){
+			e.move();
+			//System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
+		}
+	}
+	
+	private void makeBullets(){
+		if(p.counterDelay == 0){
+			playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
+			p.counterDelay = p.counterMax;
+		}else{
+			p.counterDelay--;
+		}
+		for(Enemy e: enemies){
+			if(e.counterDelay == 0){
+				enemyBullets.add(new Bullet(e.hitbox.c1,new int[]{0,e.bulletSpeed}));
+				e.counterDelay = e.counterMax;
+			}else{
+				e.counterDelay--;
+			}
+		}
+	}
+	
+	private void moveProjectiles(){
+		for(Asteroid a: steroids){
+			boolean moved = a.move();
+			if(a.hasHit(p)){
+				p.kill();
+			}
+			if(!moved){
+				noSteroids.add(a);
+			}
+		}
+		for(Bullet b: playerBullets){
+			boolean moved = b.move();
+			for(Enemy e: enemies){
+				if(b.hasHit(e)){
+					e.whenHit();
+					toBeRemoved.add(b);
+					if(e.dead){
+						ded.add(e);
+						p.score++;
+					}
+				}for(Asteroid a: steroids){
+					if(b.hasHit(a)){
+						toBeRemoved.add(b);
+					}
+				}
+			}
+			if(!moved) {
+				toBeRemoved.add(b);
+			}
+
+		}
+		for(Bullet b: enemyBullets){
+			boolean moved = b.move();
+			if(b.hasHit(p)){
+				p.whenHit();
+				toBeRemoved.add(b);
+			}
+			for(Asteroid a: steroids){
+				if(b.hasHit(a)){
+					toBeRemoved.add(b);
+				}
+			}
+			if(!moved) {
+				toBeRemoved.add(b);
+			}
+		}
 	}
 	
 	private void makeEnemies(){
@@ -144,6 +155,21 @@ public class Game extends JFrame implements KeyListener{
 		steroids.add(a);
 	}
 
+	private void reset(){
+		for(Bullet b: toBeRemoved){
+			playerBullets.remove(b);
+			enemyBullets.remove(b);
+		}
+		for(Enemy e: ded){
+			enemies.remove(e);
+		}
+		for(Asteroid a: noSteroids){
+			steroids.remove(a);
+		}
+		toBeRemoved.clear();
+		ded.clear();
+		noSteroids.clear();
+	}
 
 	class Visuals extends JPanel{
 		final static int WIDTH = 430;

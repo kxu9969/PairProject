@@ -24,7 +24,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		panel=new JPanel();
 		panel.setLayout(gridBagLayout);
 		
-		name = new JTextField();
+		name = new JTextField("Player 1");
 		GridBagConstraints gbc_nameField = new GridBagConstraints();
 		gbc_nameField.gridwidth = 1;
 		gbc_nameField.fill=GridBagConstraints.HORIZONTAL;
