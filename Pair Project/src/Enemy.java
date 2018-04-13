@@ -17,7 +17,7 @@ public class Enemy {
 	int flashMax = 8;
 	int flashCounter = 0;
 	boolean dead = false;
-	int health = 6;
+	int health = 2;
 	Enemy(){
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));

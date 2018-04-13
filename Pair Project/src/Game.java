@@ -71,6 +71,7 @@ public class Game extends JFrame implements KeyListener{
 								toBeRemoved.add(b);
 								if(e.dead){
 									ded.add(e);
+									p.score++;
 								}
 							}
 						}
