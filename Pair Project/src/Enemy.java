@@ -2,15 +2,15 @@
 public class Enemy {
 	Hitbox hitbox;
 	int[] increment = {0,0};//needs functionality
-	final int DEFAULT_START_X = 0;
-	final int DEFAULT_START_Y = 0;
+	final int DEFAULT_START_X = (int)(Math.random()*Game.Visuals.WIDTH+1);
+	final int DEFAULT_START_Y = (int)(Math.random()*40+1);
 	final int WIDTH = 10;
 	final int HEIGHT = 10;
 	final int lineSwitchProbability= 100;
 	int yHover=(int) (Math.random()*290)+1;
 	boolean moveLeft=false;
 	boolean moveRight=true;
-	final int bulletSpeed = 1;
+	final int bulletSpeed = 2;
 	final int counterMax = 30;
 	int counterDelay = 0;
 	boolean flash = false;
