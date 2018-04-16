@@ -19,10 +19,12 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Enemy> ded = new ArrayList<Enemy>();
 	ArrayList<Asteroid> steroids = new ArrayList<Asteroid>();
 	ArrayList<Asteroid> noSteroids = new ArrayList<Asteroid>();
+	Boss b;
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 2;
 	final int ENEMY_SPAWN_RATE = 500;
 	final int ASTEROID_SPAWN_RATE = 700;
+	boolean bossMode;
 
 
 	Game(String playerName){
@@ -65,22 +67,32 @@ public class Game extends JFrame implements KeyListener{
 	}
 	
 	private void makeBullets(){
-		if(p.counterDelay == 0){
-			playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
-			p.counterDelay = p.counterMax;
-		}else{
-			p.counterDelay--;
-		}
-		for(Enemy e: enemies){
-			if(e.counterDelay == 0){
-				enemyBullets.add(new Bullet(e.hitbox.c1,new int[]{0,e.bulletSpeed}));
-				e.counterDelay = e.counterMax;
+		if(!bossMode){
+			if(p.counterDelay == 0){
+				playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
+				p.counterDelay = p.counterMax;
 			}else{
-				e.counterDelay--;
+				p.counterDelay--;
+			}
+			for(Enemy e: enemies){
+				if(e.counterDelay == 0){
+					enemyBullets.add(new Bullet(e.hitbox.c1,new int[]{0,e.bulletSpeed}));
+					e.counterDelay = e.counterMax;
+				}else{
+					e.counterDelay--;
+				}
+			}
+		}else{
+			b=new Boss();
+			if(b.counterDelay == 0 && b.stage1){
+				for(int i=0;(b.WIDTH/2)-i>0;i+=p.WIDTH*2){
+					enemyBullets.add(new Bullet());
+				}
 			}
 		}
+
 	}
-	
+
 	private void moveProjectiles(){
 		for(Asteroid a: steroids){
 			boolean moved = a.move();
