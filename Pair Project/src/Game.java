@@ -21,14 +21,14 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Asteroid> noSteroids = new ArrayList<Asteroid>();
 	static Timer t = new Timer();
 	final int INCREMENT_AMOUNT = 2;
-	final int ENEMY_SPAWN_RATE = 500;
 	final int ASTEROID_SPAWN_RATE = 700;
+	final int WAVE_DELAY = 1000;
+	int waveTimer = 0;
+	int waveCounter = 0;
 
 
 	Game(String playerName){
 		p = new Player(playerName);
-		Enemy e= new Enemy();
-		enemies.add(e);
 		vis = new Visuals();
 		this.add(vis);
 		this.pack();
@@ -40,8 +40,11 @@ public class Game extends JFrame implements KeyListener{
 					moveShips();
 					makeBullets();
 					moveProjectiles();
-					if((int)(Math.random()*ENEMY_SPAWN_RATE)==0){
+					if(waveTimer == 0){
 						makeEnemies();
+						waveTimer = WAVE_DELAY;
+					}else{
+						waveTimer--;
 					}
 					if((int)(Math.random()*ASTEROID_SPAWN_RATE)==0){
 						makeAsteroid();
@@ -130,8 +133,12 @@ public class Game extends JFrame implements KeyListener{
 	}
 	
 	private void makeEnemies(){
-		Enemy e = new Enemy();
-		enemies.add(e);
+		int totalEnemies = 4+(int)(waveCounter*1.25);
+		for(int i = 0;i<totalEnemies;i++){
+			Enemy e = new Enemy();
+			enemies.add(e);
+		}
+		waveCounter++;
 	}
 	
 	private void gameOver() {
