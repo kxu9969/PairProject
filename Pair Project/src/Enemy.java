@@ -1,3 +1,4 @@
+import java.awt.Color;
 
 public class Enemy {
 	Hitbox hitbox;
@@ -11,13 +12,14 @@ public class Enemy {
 	boolean moveLeft=false;
 	boolean moveRight=true;
 	final int bulletSpeed = 2;
-	final int counterMax = 30;
+	final int counterMax = 50;
 	int counterDelay = 0;
 	boolean flash = false;
 	int flashMax = 8;
 	int flashCounter = 0;
 	boolean dead = false;
-	int health = 2;
+	int health = 4;
+	Color color = Color.RED;
 	Enemy(){
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
