@@ -11,10 +11,10 @@ public class Player {
 	final int counterMax = 10;
 	int counterDelay = 0;
 	boolean flash = false;
-	int flashMax = 20;
+	int flashMax = 8;
 	int flashCounter = 0;
 	boolean dead = false;
-	int health = 2;
+	int health = 10;
 	int score=0;
 	Player(String name){
 		this.name = name;

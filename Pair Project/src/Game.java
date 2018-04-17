@@ -25,7 +25,7 @@ public class Game extends JFrame implements KeyListener{
 	final int ASTEROID_SPAWN_RATE = 700;
 	boolean bossMode;
 	final int WAVE_DELAY = 1000;
-	int waveTimer = 0;
+	int waveTimer = WAVE_DELAY/2;
 	int waveCounter = 0;
 
 
@@ -86,12 +86,12 @@ public class Game extends JFrame implements KeyListener{
 				}
 			}
 		}else{
-			b=new Boss();
-			if(b.counterDelay == 0 && b.stage1){
-				for(int i=0;(b.WIDTH/2)-i>0;i+=p.WIDTH*2){
-					enemyBullets.add(new Bullet());
-				}
-			}
+//			b=new Boss();
+//			if(b.counterDelay == 0 && b.stage1){
+//				for(int i=0;(b.WIDTH/2)-i>0;i+=p.WIDTH*2){
+//					enemyBullets.add(new Bullet());
+//				}
+//			}
 		}
 
 	}
@@ -101,6 +101,11 @@ public class Game extends JFrame implements KeyListener{
 			boolean moved = a.move();
 			if(a.hasHit(p)){
 				p.kill();
+			}
+			for(Enemy e: enemies){
+				if(a.hasHit(e)){
+					ded.add(e);
+				}
 			}
 			if(!moved){
 				noSteroids.add(a);
@@ -145,10 +150,15 @@ public class Game extends JFrame implements KeyListener{
 	}
 	
 	private void makeEnemies(){
-		int totalEnemies = 4+(int)(waveCounter*1.25);
-		for(int i = 0;i<totalEnemies;i++){
+		int enemyCount = 4+(int)(waveCounter*1.15);
+		for(int i = 0;i<enemyCount;i++){
 			Enemy e = new Enemy();
 			enemies.add(e);
+		}
+		if(waveCounter==10){//Boss wave
+			System.out.println("BOSS ROUND");
+			Boss b = new Boss();
+			enemies.add(b);
 		}
 		waveCounter++;
 	}
@@ -218,7 +228,7 @@ public class Game extends JFrame implements KeyListener{
 						e.flashCounter--;
 					}
 				}else{
-					g.setColor(Color.RED);
+					g.setColor(e.color);
 				}
 				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
 			}
@@ -229,14 +239,12 @@ public class Game extends JFrame implements KeyListener{
 				if(p.flashCounter == 0){
 					p.flash=false;
 					p.flashCounter = p.flashMax;
-					System.out.println("FLASH");
 				}else{
 					p.flashCounter--;
 				}
 			}else{
 				g.setColor(Color.GREEN);
 			}
-			System.out.println(g.getColor());
 			g.fillRect(p.hitbox.getCornerX(), p.hitbox.getCornerY(), p.WIDTH, p.HEIGHT);
 			g.setColor(Color.YELLOW);
 			for(Bullet b: enemyBullets){
