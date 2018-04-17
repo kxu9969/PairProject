@@ -79,7 +79,7 @@ public class Game extends JFrame implements KeyListener{
 				p.counterDelay--;
 			}
 			for(Enemy e: enemies){
-				if(e.counterDelay == 0){
+				if(e.getCounterDelay() == 0){
 					ArrayList<Bullet> a = e.spawnBullets();
 					for(Bullet b:a){
 						enemyBullets.add(b);
@@ -148,9 +148,8 @@ public class Game extends JFrame implements KeyListener{
 	
 	private void makeEnemies(){
 		int enemyCount = 4+(int)(waveCounter*1.15);
-		enemyCount = 1;
 		for(int i = 0;i<enemyCount;i++){
-			Enemy e = new Sloop();
+			Enemy e = new Enemy();
 			enemies.add(e);
 		}
 		if(waveCounter==10){//Boss wave; make waveCounter%10==0

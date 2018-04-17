@@ -32,6 +32,10 @@ public class Enemy {
 		counterDelay = counterMax;
 		return a;
 	}
+	int getCounterDelay() {
+		return counterDelay;
+	}
+	
 	void move(){
 		int random=(int) (Math.random()*lineSwitchProbability);
 		//System.out.println(random);
@@ -44,7 +48,7 @@ public class Enemy {
 		}else if (moveLeft){
 			increment[0]=-1;
 		}
-		if(hitbox.getCornerX()==420){
+		if(hitbox.getCornerX()==Game.Visuals.WIDTH-this.WIDTH){
 			moveRight=false;
 			moveLeft=true;
 		}else if(hitbox.getCornerX()==0){
