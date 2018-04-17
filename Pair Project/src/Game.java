@@ -217,12 +217,14 @@ public class Game extends JFrame implements KeyListener{
 				if(p.flashCounter == 0){
 					p.flash=false;
 					p.flashCounter = p.flashMax;
+					System.out.println("FLASH");
 				}else{
 					p.flashCounter--;
 				}
 			}else{
 				g.setColor(Color.GREEN);
 			}
+			System.out.println(g.getColor());
 			g.fillRect(p.hitbox.getCornerX(), p.hitbox.getCornerY(), p.WIDTH, p.HEIGHT);
 			g.setColor(Color.YELLOW);
 			for(Bullet b: enemyBullets){

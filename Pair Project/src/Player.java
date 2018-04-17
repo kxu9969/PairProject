@@ -11,7 +11,7 @@ public class Player {
 	final int counterMax = 10;
 	int counterDelay = 0;
 	boolean flash = false;
-	int flashMax = 8;
+	int flashMax = 20;
 	int flashCounter = 0;
 	boolean dead = false;
 	int health = 2;
