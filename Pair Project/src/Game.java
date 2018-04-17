@@ -30,10 +30,11 @@ public class Game extends JFrame implements KeyListener{
 
 
 	Game(String playerName){
+		this.setSize(new Dimension(Game.Visuals.WIDTH+5,Game.Visuals.HEIGHT+30));
+		this.setResizable(false);
 		p = new Player(playerName);
 		vis = new Visuals();
 		this.add(vis);
-		this.pack();
 		this.setVisible(true);
 		addKeyListener(this);
 		t.schedule(new TimerTask(){
@@ -218,8 +219,10 @@ public class Game extends JFrame implements KeyListener{
 		public void paint(Graphics g){
 			super.paint(g);
 			g.setColor(Color.BLACK);
-			g.fillRect(0, 0, 430, 10);
-			g.fillRect(0, 0, 5, 580);
+			g.fillRect(0, 0, 450, 10);
+			g.fillRect(0, 0, 10, 600);
+//			g.fillRect(430, 0, 10, 600);
+//			g.fillRect(0, 580, 450, 10);
 			for(Enemy e : enemies){
 				if(e.flash){
 					g.setColor(Color.WHITE);
