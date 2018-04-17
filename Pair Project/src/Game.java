@@ -89,12 +89,6 @@ public class Game extends JFrame implements KeyListener{
 				}
 			}
 		}else{
-//			b=new Boss();
-//			if(b.counterDelay == 0 && b.stage1){
-//				for(int i=0;(b.WIDTH/2)-i>0;i+=p.WIDTH*2){
-//					enemyBullets.add(new Bullet());
-//				}
-//			}
 		}
 
 	}
@@ -158,7 +152,7 @@ public class Game extends JFrame implements KeyListener{
 			Enemy e = new Enemy();
 			enemies.add(e);
 		}
-		if(waveCounter==10){//Boss wave
+		if(waveCounter==10){//Boss wave; make waveCounter%10==0
 			System.out.println("BOSS ROUND");
 			Boss b = new Boss();
 			enemies.add(b);
