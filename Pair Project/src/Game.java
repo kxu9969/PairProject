@@ -148,8 +148,9 @@ public class Game extends JFrame implements KeyListener{
 	
 	private void makeEnemies(){
 		int enemyCount = 4+(int)(waveCounter*1.15);
+		enemyCount = 1;
 		for(int i = 0;i<enemyCount;i++){
-			Enemy e = new Enemy();
+			Enemy e = new Sloop();
 			enemies.add(e);
 		}
 		if(waveCounter==10){//Boss wave; make waveCounter%10==0

@@ -4,16 +4,16 @@ import java.util.ArrayList;
 public class Enemy {
 	Hitbox hitbox;
 	int[] increment = {0,0};//needs functionality
-	final int DEFAULT_START_X = (int)(Math.random()*Game.Visuals.WIDTH+1);
-	final int DEFAULT_START_Y = (int)(Math.random()*40+1);
-	final int WIDTH = 10;
-	final int HEIGHT = 10;
-	final int lineSwitchProbability= 100;
+	int DEFAULT_START_X = (int)(Math.random()*Game.Visuals.WIDTH+1);
+	int DEFAULT_START_Y = (int)(Math.random()*40+1);
+	int WIDTH = 10;
+	int HEIGHT = 10;
+	int lineSwitchProbability= 100;
 	int yHover=(int) (Math.random()*290)+1;
 	boolean moveLeft=false;
 	boolean moveRight=true;
-	final int bulletSpeed = 2;
-	final int counterMax = 50;
+	int bulletSpeed = 2;
+	int counterMax = 50;
 	int counterDelay = 0;
 	boolean flash = false;
 	int flashMax = 8;
