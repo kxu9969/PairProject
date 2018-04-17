@@ -3,7 +3,7 @@ public class Player {
 	String name;
 	Hitbox hitbox;
 	int[] increment = {0,0};
-	final int WIDTH = 10;//placeholder vlaues, will draw the player instead of rectangle
+	final int WIDTH = 10;//placeholder values, will draw the player instead of rectangle
 	final int HEIGHT = 10;
 	final int DEFAULT_START_X = Game.Visuals.WIDTH/2;
 	final int DEFAULT_START_Y = Game.Visuals.HEIGHT-HEIGHT;
@@ -14,7 +14,7 @@ public class Player {
 	int flashMax = 8;
 	int flashCounter = 0;
 	boolean dead = false;
-	int health = 2;
+	int health = 100;
 	int score=0;
 	Player(String name){
 		this.name = name;
