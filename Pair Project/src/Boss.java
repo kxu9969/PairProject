@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Boss extends Enemy{
 	Hitbox hitbox;
@@ -25,12 +26,7 @@ public class Boss extends Enemy{
 		
 	}
 	
-	void whenHit(){
-		//System.out.println("Enemy hit!");
-		flash = true;
-		health--;
-		if(health==0){
-			dead = true;
-		}
+	ArrayList<Bullet> spawnBullets(){
+		return null;
 	}
 }
