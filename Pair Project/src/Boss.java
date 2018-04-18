@@ -14,6 +14,7 @@ public class Boss extends Enemy{
 		HEIGHT=40;
 		health=30;
 		counterMax=300;
+		counterDelay=30;
 		color= Color.MAGENTA;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
