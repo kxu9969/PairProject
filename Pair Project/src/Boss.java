@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class Boss extends Enemy{
-	Hitbox hitbox;
 	int[] increment = {0,0};//needs functionality
 	boolean stage1=true;
 	boolean stage2=false;
