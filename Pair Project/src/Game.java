@@ -149,17 +149,19 @@ public class Game extends JFrame implements KeyListener{
 	private void makeEnemies(){
 		int enemyCount = 4+(int)(waveCounter*1.15);
 		for(int i = 0;i<enemyCount;i++){
-			Enemy e = new Enemy();
+			Enemy e = new Sloop();
 			enemies.add(e);
 		}
-		if(waveCounter==1  ){//Boss wave; make waveCounter%10==0
+		if(waveCounter==1 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			System.out.println("BOSS ROUND");
 			bossMode=true;
 			Boss b = new Boss();
 			enemies.add(b);
 		}
 		waveCounter++;
-	}
+		}
+		
+	
 	
 	private void gameOver() {
 		this.setVisible(false);
