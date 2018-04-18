@@ -10,14 +10,14 @@ public class Sloop extends Enemy{
 		health = 3;
 		color = Color.BLUE;
 		counterMax = 300;
-		bulletSpeed = 4;
+		bulletSpeed = 2;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
 	}
 	ArrayList<Bullet> spawnBullets(){
 		ArrayList<Bullet> a = new ArrayList<Bullet>();
-		a.add(new Bullet(hitbox.c1,new int[]{0,bulletSpeed}));
-		a.add(new Bullet(new Coordinate(hitbox.c2.x,hitbox.c1.y),new int[]{0,bulletSpeed}));
+		a.add(new Bullet(hitbox.c1,new int[]{0,bulletSpeed},7,7));
+		a.add(new Bullet(new Coordinate(hitbox.c2.x,hitbox.c1.y),new int[]{0,bulletSpeed},7,7));
 		if(burstCounter==0){
 			burstCounter=burstCount;
 			counterDelay = counterMax;
