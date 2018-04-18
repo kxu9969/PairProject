@@ -21,10 +21,10 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Asteroid> noSteroids = new ArrayList<Asteroid>();
 	Boss b;
 	static Timer t = new Timer();
-	final int INCREMENT_AMOUNT = 2;
-	final int ASTEROID_SPAWN_RATE = 700;
+	int INCREMENT_AMOUNT = 2;
+	int ASTEROID_SPAWN_RATE = 700;
 	boolean bossMode;
-	final int WAVE_DELAY = 1000;
+	int WAVE_DELAY = 1000;
 	int waveTimer = WAVE_DELAY/2;
 	int waveCounter = 0;
 

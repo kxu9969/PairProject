@@ -10,6 +10,7 @@ public class Sloop extends Enemy{
 		health = 3;
 		color = Color.BLUE;
 		counterMax = 300;
+		bulletSpeed = 4;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
 	}

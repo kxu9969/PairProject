@@ -2,8 +2,8 @@
 public class Asteroid {
 	Hitbox hitbox;
 	int[] increment = {0,0};
-	final static int WIDTH = 30;
-	final static int HEIGHT = 30;
+	static int WIDTH = 30;
+	static int HEIGHT = 30;
 	int health;
 	int spawnX;
 	int spawnY;
