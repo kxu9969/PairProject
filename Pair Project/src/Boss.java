@@ -34,6 +34,7 @@ public class Boss extends Enemy{
 				}
 			}
 		}
+		counterDelay = counterMax;
 		return a;
 	}
 	
