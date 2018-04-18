@@ -152,8 +152,9 @@ public class Game extends JFrame implements KeyListener{
 			Enemy e = new Enemy();
 			enemies.add(e);
 		}
-		if(waveCounter==1){//Boss wave; make waveCounter%10==0
+		if(waveCounter==1  ){//Boss wave; make waveCounter%10==0
 			System.out.println("BOSS ROUND");
+			bossMode=true;
 			Boss b = new Boss();
 			enemies.add(b);
 		}
@@ -229,6 +230,8 @@ public class Game extends JFrame implements KeyListener{
 				}else{
 					g.setColor(e.color);
 				}
+				// if(bossMode)
+					//System.out.println(e.hitbox.c1.x+","+e.hitbox.c1.y+" Width:"+WIDTH);
 				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
 			}
 			if(p.dead){
