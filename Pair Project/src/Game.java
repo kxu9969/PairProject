@@ -71,24 +71,21 @@ public class Game extends JFrame implements KeyListener{
 	}
 	
 	private void makeBullets(){
-		if(!bossMode){
-			if(p.counterDelay == 0){
-				playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
-				p.counterDelay = p.counterMax;
-			}else{
-				p.counterDelay--;
-			}
-			for(Enemy e: enemies){
-				if(e.getCounterDelay() == 0){
-					ArrayList<Bullet> a = e.spawnBullets();
-					for(Bullet b:a){
-						enemyBullets.add(b);
-					}
-				}else{
-					e.counterDelay--;
-				}
-			}
+		if(p.counterDelay == 0){
+			playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
+			p.counterDelay = p.counterMax;
 		}else{
+			p.counterDelay--;
+		}
+		for(Enemy e: enemies){
+			if(e.getCounterDelay() == 0){
+				ArrayList<Bullet> a = e.spawnBullets();
+				for(Bullet b:a){
+					enemyBullets.add(b);
+				}
+			}else{
+				e.counterDelay--;
+			}
 		}
 
 	}
