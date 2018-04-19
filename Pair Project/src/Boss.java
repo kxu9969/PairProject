@@ -11,7 +11,7 @@ public class Boss extends Enemy{
 		DEFAULT_START_Y = 40;
 		WIDTH=220;
 		HEIGHT=40;
-		health=30;
+		health=300;
 		counterMax=300;
 		counterDelay=30;
 		color= Color.MAGENTA;
@@ -23,7 +23,7 @@ public class Boss extends Enemy{
 	ArrayList<Bullet> spawnBullets(){
 		ArrayList<Bullet> a = new ArrayList<Bullet>();
 		if(this.counterDelay == 0 && this.stage1){
-			for(int i=0;(this.WIDTH/2)-i>0;i+=this.WIDTH*2){
+			for(int i=0;(this.WIDTH/2)-i>0;i+=10*3){//playerWidth*2
 				if(i==0){
 					a.add(new Bullet(new Coordinate(hitbox.c1.x+this.WIDTH/2,hitbox.c1.y+this.HEIGHT),new int[]{0,bulletSpeed}));
 				}else{
@@ -32,6 +32,19 @@ public class Boss extends Enemy{
 
 				}
 			}
+		}
+		
+		
+		
+		if(health<200){
+			stage2=true;
+			stage1=false;
+			stage3=false;
+		}
+		if(health<100){
+			stage3=true;
+			stage1=false;
+			stage2=false;
 		}
 		counterDelay = counterMax;
 		return a;
