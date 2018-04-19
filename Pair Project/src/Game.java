@@ -97,7 +97,7 @@ public class Game extends JFrame implements KeyListener{
 				p.kill();
 			}
 			for(Enemy e: enemies){
-				if(a.hasHit(e)){
+				if(a.hasHit(e)&&!(e instanceof Boss)){
 					ded.add(e);
 				}
 			}
@@ -283,6 +283,11 @@ public class Game extends JFrame implements KeyListener{
 		} else if(e.getKeyCode() == KeyEvent.VK_SPACE){
 			makeAsteroid();
 		}
+		
+		if (DoublePress.isDoublePress(e) && DoublePress.released && DoublePress.lastKeyCode == e.getKeyCode()) {
+		    System.out.println("double pressed " + e.getKeyText(e.getKeyCode()));
+		}
+		DoublePress.released = false;
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -295,9 +300,29 @@ public class Game extends JFrame implements KeyListener{
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
 			p.increment[0] = 0;
 		} 
+		DoublePress.released = true;
 	}
 
 	public void keyTyped(KeyEvent e) {	
+	}
+	
+
+	static class DoublePress {
+	 
+	    private static int doublePressTime = 150; // double keypressed in ms
+	    private static long timeKeyDown = 0;       // last keyperessed time
+	    public static int lastKeyCode;
+	    public static boolean released = false;
+	 
+	    public static  boolean isDoublePress(KeyEvent ke) {
+	        if ((ke.getWhen() - timeKeyDown) < doublePressTime) {
+	            return true;
+	        } else {
+	            timeKeyDown = ke.getWhen();
+	        }
+	        lastKeyCode = ke.getKeyCode();
+	        return false;
+	    }
 	}
 
 
