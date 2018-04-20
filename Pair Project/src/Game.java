@@ -24,7 +24,7 @@ public class Game extends JFrame implements KeyListener{
 	int INCREMENT_AMOUNT = 2;
 	int ASTEROID_SPAWN_RATE = 700;
 	boolean bossMode;
-	int WAVE_DELAY = 1000;
+	int WAVE_DELAY = 1000;//one zero smaller because updates every 10 ms
 	int waveTimer = WAVE_DELAY/2;
 	int waveCounter = 0;
 	int lazorWarningCounter=10;
@@ -204,6 +204,9 @@ public class Game extends JFrame implements KeyListener{
 		toBeRemoved.clear();
 		ded.clear();
 		noSteroids.clear();
+		if(DoublePress.cooldown!=0){
+			DoublePress.cooldown--;
+		}
 	}
 
 	class Visuals extends JPanel{
@@ -224,8 +227,6 @@ public class Game extends JFrame implements KeyListener{
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 450, 10);
 			g.fillRect(0, 0, 10, 600);
-//			g.fillRect(430, 0, 10, 600);
-//			g.fillRect(0, 580, 450, 10);
 			for(Enemy e : enemies){
 				if(e.flash){
 					g.setColor(Color.WHITE);
@@ -304,10 +305,11 @@ public class Game extends JFrame implements KeyListener{
 		} else if(e.getKeyCode() == KeyEvent.VK_SPACE){
 			makeAsteroid();
 		}
-		
-		if (DoublePress.isDoublePress(e) && DoublePress.released && DoublePress.lastKeyCode == e.getKeyCode()) {
-		    System.out.println("double pressed " + e.getKeyText(e.getKeyCode()));
-		}
+		if (DoublePress.cooldown==0 && DoublePress.released && DoublePress.isDoublePress(e) && DoublePress.lastKeyCode == e.getKeyCode()) {
+			int scalar = 0;
+			p.barrelRoll = true;;
+			DoublePress.cooldown = DoublePress.cooldownMax;
+		} 
 		DoublePress.released = false;
 	}
 
@@ -330,13 +332,15 @@ public class Game extends JFrame implements KeyListener{
 
 	static class DoublePress {
 	 
-	    private static int doublePressTime = 150; // double keypressed in ms
+	    private static int doublePressTime = 200; // double keypressed in ms
 	    private static long timeKeyDown = 0;       // last keyperessed time
 	    public static int lastKeyCode;
 	    public static boolean released = false;
+	    public static int cooldownMax = 100;
+	    public static int cooldown = cooldownMax;
 	 
 	    public static  boolean isDoublePress(KeyEvent ke) {
-	        if ((ke.getWhen() - timeKeyDown) < doublePressTime) {
+	        if ((ke.getWhen() - timeKeyDown) < doublePressTime&&ke.getKeyCode()==lastKeyCode) {
 	            return true;
 	        } else {
 	            timeKeyDown = ke.getWhen();
