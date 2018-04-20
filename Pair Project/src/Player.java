@@ -7,7 +7,7 @@ public class Player {
 	static int HEIGHT = 10;
 	int DEFAULT_START_X = Game.Visuals.WIDTH/2;
 	int DEFAULT_START_Y = Game.Visuals.HEIGHT-HEIGHT;
-	int bulletSpeed = 6;
+	int bulletSpeed = 8;
 	int counterMax = 10;
 	int counterDelay = 0;
 	int barrelRollScalar = 40;

@@ -4,16 +4,16 @@ import java.util.ArrayList;
 public class Enemy {
 	Hitbox hitbox;
 	int[] increment = {0,0};//needs functionality
-	int DEFAULT_START_X = (int)(Math.random()*Game.Visuals.WIDTH+1);
-	int DEFAULT_START_Y = (int)(Math.random()*40+1);
 	int WIDTH = 10;
 	int HEIGHT = 10;
-	int lineSwitchProbability= 100;
+	int DEFAULT_START_X = (int)(Math.random()*Game.Visuals.WIDTH-WIDTH);
+	int DEFAULT_START_Y = (int)(Math.random()*40+1);
+	int lineSwitchProbability= 1000;
 	int yHover=(int) (Math.random()*290)+1;
 	boolean moveLeft=false;
 	boolean moveRight=true;
-	int bulletSpeed = 2;
-	int counterMax = 50;
+	int bulletSpeed = 3;
+	int counterMax = 100;
 	int counterDelay = 0;
 	boolean flash = false;
 	int flashMax = 8;
@@ -39,7 +39,7 @@ public class Enemy {
 	void move(){
 		int random=(int) (Math.random()*lineSwitchProbability);
 		//System.out.println(random);
-		if(random==25){
+		if(random==0){
 			//System.out.println("RANDOM");
 			yHover=(int) (Math.random()*290)+1;
 		}
@@ -48,7 +48,7 @@ public class Enemy {
 		}else if (moveLeft){
 			increment[0]=-1;
 		}
-		if(hitbox.getCornerX()==Game.Visuals.WIDTH-this.WIDTH){
+		if(hitbox.c2.x>=Game.Visuals.WIDTH-1){
 			moveRight=false;
 			moveLeft=true;
 		}else if(hitbox.getCornerX()==0){

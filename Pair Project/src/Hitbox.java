@@ -25,7 +25,7 @@ public class Hitbox {
 	}
 	
 	boolean move(int x, int y){//returns true if the hitbox moved
-		if((c1.x+x)>=0&&(c1.y+y)>=0&&(c2.x+x)<=Game.Visuals.WIDTH&&(c2.y+y)<=Game.Visuals.HEIGHT){
+		if((c1.x+x)>=0&&(c1.y+y)>=0&&(c2.x+x)<Game.Visuals.WIDTH&&(c2.y+y)<=Game.Visuals.HEIGHT){
 			c1.move(x,y);
 			c2.move(x,y);
 			centerx = Math.abs((c1.x+c2.x)/2);
