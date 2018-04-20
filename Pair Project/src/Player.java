@@ -10,12 +10,15 @@ public class Player {
 	int bulletSpeed = 6;
 	int counterMax = 10;
 	int counterDelay = 0;
+	int barrelRollScalar = 40;
 	boolean flash = false;
 	int flashMax = 8;
 	int flashCounter = 0;
 	boolean dead = false;
+	boolean barrelRoll = false;
 	int health = 100;
 	int score=0;
+	
 	Player(String name){
 		this.name = name;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
@@ -29,7 +32,12 @@ public class Player {
 	}
 	
 	void move(){
-		hitbox.move(increment[0], increment[1]);
+		if(barrelRoll){
+			hitbox.move(increment[0]*barrelRollScalar, increment[1]*barrelRollScalar);
+			barrelRoll = false;
+		}else{
+			hitbox.move(increment[0], increment[1]);
+		}
 	}
 	
 	void whenHit(){
