@@ -6,6 +6,8 @@ public class Boss extends Enemy{
 	boolean stage1=true;
 	boolean stage2=false;
 	boolean stage3=false;
+	int lazorsMax=300;
+	int lazorsDelay=30;
 	Boss(){
 		DEFAULT_START_X = 105;
 		DEFAULT_START_Y = 40;
@@ -13,7 +15,7 @@ public class Boss extends Enemy{
 		HEIGHT=40;
 		health=300;
 		counterMax=300;
-		counterDelay=30;
+		counterDelay=60;
 		color= Color.MAGENTA;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
@@ -33,7 +35,9 @@ public class Boss extends Enemy{
 				}
 			}
 		}
-		
+		if(this.counterDelay == 0 && this.stage2){
+			
+		}
 		
 		
 		if(health<200){
@@ -53,4 +57,10 @@ public class Boss extends Enemy{
 	void move(){
 		
 	}
+	int getLazorsDelay(){
+		return lazorsDelay;
+	}
+	
+	//class Lazor extends
+	
 }

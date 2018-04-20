@@ -27,6 +27,7 @@ public class Game extends JFrame implements KeyListener{
 	int WAVE_DELAY = 1000;
 	int waveTimer = WAVE_DELAY/2;
 	int waveCounter = 0;
+	int lazorWarningCounter=10;
 
 
 	Game(String playerName){
@@ -85,6 +86,14 @@ public class Game extends JFrame implements KeyListener{
 				}
 			}else{
 				e.counterDelay--;
+			}
+			if(bossMode){
+				if(b.lazorsDelay==0){
+					
+				}else{
+					b.lazorsDelay--;
+				}
+				
 			}
 		}
 
@@ -152,7 +161,7 @@ public class Game extends JFrame implements KeyListener{
 		if(waveCounter==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			System.out.println("BOSS ROUND");
 			bossMode=true;
-			Boss b = new Boss();
+			b = new Boss();
 			enemies.add(b);
 		}
 		waveCounter++;
@@ -229,8 +238,6 @@ public class Game extends JFrame implements KeyListener{
 				}else{
 					g.setColor(e.color);
 				}
-				// if(bossMode)
-					//System.out.println(e.hitbox.c1.x+","+e.hitbox.c1.y+" Width:"+WIDTH);
 				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
 			}
 			if(p.dead){
@@ -255,7 +262,7 @@ public class Game extends JFrame implements KeyListener{
 			for(Bullet b: playerBullets){
 				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 			}
-
+			
 			for(Asteroid a: steroids){
 				g.setColor(Color.RED);
 				if(a.horizontal){
@@ -265,6 +272,20 @@ public class Game extends JFrame implements KeyListener{
 				}
 				g.setColor(new Color(160,82,45));
 				g.fillRect(a.hitbox.getCornerX(), a.hitbox.getCornerY(), a.WIDTH, a.HEIGHT);
+			}
+			if(bossMode && b.lazorsDelay==0){
+				if(lazorWarningCounter<=0){
+					g.setColor(Color.RED);	
+					g.drawLine(b.DEFAULT_START_X+b.WIDTH/2, b.DEFAULT_START_Y+b.HEIGHT, b.DEFAULT_START_X+b.WIDTH/2, this.HEIGHT);
+					lazorWarningCounter--;
+					if(lazorWarningCounter==-10){
+						lazorWarningCounter=10;
+					}
+					
+				}else{
+					lazorWarningCounter--;
+				}
+				
 			}
 			//code here to draw explosions of blown up bullets and ships
 		}
