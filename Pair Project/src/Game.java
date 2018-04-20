@@ -89,7 +89,8 @@ public class Game extends JFrame implements KeyListener{
 			}
 			if(bossMode){
 				if(b.lazorsDelay==0){
-					
+					Hitbox lazorHitbox=new Hitbox(new Coordinate(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT),
+							new Coordinate(b.hitbox.c1.x+b.WIDTH/2+25,Game.Visuals.HEIGHT));
 				}else{
 					b.lazorsDelay--;
 				}
@@ -274,7 +275,7 @@ public class Game extends JFrame implements KeyListener{
 				g.setColor(new Color(160,82,45));
 				g.fillRect(a.hitbox.getCornerX(), a.hitbox.getCornerY(), a.WIDTH, a.HEIGHT);
 			}
-			if(bossMode && b.lazorsDelay==0){
+			if(bossMode && b.lazorsDelay<=15){
 				if(lazorWarningCounter<=0){
 					g.setColor(Color.RED);	
 					g.drawLine(b.DEFAULT_START_X+b.WIDTH/2, b.DEFAULT_START_Y+b.HEIGHT, b.DEFAULT_START_X+b.WIDTH/2, this.HEIGHT);
@@ -285,6 +286,10 @@ public class Game extends JFrame implements KeyListener{
 					
 				}else{
 					lazorWarningCounter--;
+				}
+				if(b.lazorsDelay==0){
+					g.setColor(Color.CYAN);
+					g.fillRect(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT,50,Game.Visuals.HEIGHT-b.hitbox.c1.y);
 				}
 				
 			}
