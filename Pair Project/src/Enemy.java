@@ -14,12 +14,13 @@ public class Enemy {
 	boolean moveRight=true;
 	int bulletSpeed = 3;
 	int counterMax = 100;
-	int counterDelay = 0;
+	int counterDelay = (int)(Math.random()*counterMax+1);
 	boolean flash = false;
 	int flashMax = 8;
 	int flashCounter = 0;
 	boolean dead = false;
 	int health = 4;
+	int score = 1;
 	Color color = Color.RED;
 	Enemy(){
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),

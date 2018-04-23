@@ -26,7 +26,7 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 1000;//one zero smaller because updates every 10 ms
 	int waveTimer = WAVE_DELAY/2;
-	int waveCounter = 0;
+	int waveCounter = 1;
 	int lazorWarningCounter=10;
 
 
@@ -122,7 +122,7 @@ public class Game extends JFrame implements KeyListener{
 					toBeRemoved.add(b);
 					if(e.dead){
 						ded.add(e);
-						p.score++;
+						p.score+=e.score;
 					}
 				}for(Asteroid a: steroids){
 					if(b.hasHit(a)){
