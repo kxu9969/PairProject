@@ -26,7 +26,7 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 1000;//one zero smaller because updates every 10 ms
 	int waveTimer = WAVE_DELAY/2;
-	int waveCounter = 8;
+	int waveCounter = 1;
 	int lazorWarningCounter=10;
 
 
