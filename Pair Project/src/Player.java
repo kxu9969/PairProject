@@ -48,4 +48,12 @@ public class Player {
 			dead = true;
 		}
 	}
+	void whenHit(int i){
+		//System.out.println("PLAYER HIT");
+		flash = true;
+		health-=i;
+		if(health==0){
+			dead = true;
+		}
+	}
 }

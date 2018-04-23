@@ -123,7 +123,7 @@ public class Game extends JFrame implements KeyListener{
 					toBeRemoved.add(b);
 					if(e.dead){
 						ded.add(e);
-						p.score+=e.score;
+						p.score++;
 					}
 				}for(Asteroid a: steroids){
 					if(b.hasHit(a)){
@@ -149,6 +149,12 @@ public class Game extends JFrame implements KeyListener{
 			}
 			if(!moved) {
 				toBeRemoved.add(b);
+			}
+		}
+		if(bossMode && b.lazorsDelay==0){
+			if(b.lazor.lazorHitbox.contact(p.hitbox)){
+				//System.out.println("OW");
+				p.whenHit(1);
 			}
 		}
 	}
@@ -284,11 +290,12 @@ public class Game extends JFrame implements KeyListener{
 			}
 			if(bossMode && b.lazorsDelay<=15){
 				if(lazorWarningCounter<=0){
-					g.setColor(Color.RED);	
+					g.setColor(Color.RED);
 					g.drawLine(b.DEFAULT_START_X+b.WIDTH/2, b.DEFAULT_START_Y+b.HEIGHT, b.DEFAULT_START_X+b.WIDTH/2, this.HEIGHT);
 					lazorWarningCounter--;
 					if(lazorWarningCounter==-10){
 						lazorWarningCounter=10;
+						
 					}
 					
 				}else{
@@ -297,6 +304,7 @@ public class Game extends JFrame implements KeyListener{
 				if(b.lazorsDelay==0){
 					g.setColor(Color.CYAN);
 					g.fillRect(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT,50,Game.Visuals.HEIGHT-b.hitbox.c1.y);
+					b.lazorsDelay=30;
 				}
 				
 			}
