@@ -8,6 +8,7 @@ public class Boss extends Enemy{
 	boolean stage3=false;
 	int lazorsMax=300;
 	int lazorsDelay=30;
+	Lazor lazor;
 	Boss(){
 		DEFAULT_START_X = 105;
 		DEFAULT_START_Y = 40;
@@ -17,9 +18,9 @@ public class Boss extends Enemy{
 		counterMax=300;
 		counterDelay=60;
 		color= Color.MAGENTA;
-		score = 10;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
+		lazor=new Lazor(this);
 		
 	}
 	
@@ -32,7 +33,6 @@ public class Boss extends Enemy{
 				}else{
 					a.add(new Bullet(new Coordinate(hitbox.c1.x+this.WIDTH/2-i,hitbox.c1.y+this.HEIGHT),new int[]{0,bulletSpeed}));
 					a.add(new Bullet(new Coordinate(hitbox.c1.x+this.WIDTH/2+i,hitbox.c1.y+this.HEIGHT),new int[]{0,bulletSpeed}));
-
 				}
 			}
 		}
@@ -62,6 +62,11 @@ public class Boss extends Enemy{
 		return lazorsDelay;
 	}
 	
-	//class Lazor extends
+	class Lazor{
+		Hitbox lazorHitbox;
+		Lazor(Boss b){
+			lazorHitbox=new Hitbox(new Coordinate(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT),new Coordinate(b.hitbox.c1.x+b.WIDTH/2+25,Game.Visuals.HEIGHT));
+		}
+	}
 	
 }
