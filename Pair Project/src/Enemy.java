@@ -6,7 +6,7 @@ public class Enemy {
 	int[] increment = {0,0};//needs functionality
 	int WIDTH = 10;
 	int HEIGHT = 10;
-	int DEFAULT_START_X = (int)(Math.random()*Game.Visuals.WIDTH-WIDTH);
+	int DEFAULT_START_X = Math.abs((int)(Math.random()*Game.Visuals.WIDTH-WIDTH));
 	int DEFAULT_START_Y = (int)(Math.random()*40+1);
 	int lineSwitchProbability= 1000;
 	int yHover=(int) (Math.random()*290)+1;
@@ -52,7 +52,7 @@ public class Enemy {
 		if(hitbox.c2.x>=Game.Visuals.WIDTH-1){
 			moveRight=false;
 			moveLeft=true;
-		}else if(hitbox.getCornerX()==0){
+		}else if(hitbox.getCornerX()==1){
 			moveRight=true;
 			moveLeft=false;
 		}

@@ -59,7 +59,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String whichButton=e.getActionCommand();
 		if(whichButton.equals("Play Again")){
-			this.setVisible(false);
+			screen.setVisible(false);
 			StartScreen start=new StartScreen();
 		}else if(whichButton.equals("Exit")){
 			System.exit(0);

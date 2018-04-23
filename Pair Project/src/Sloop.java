@@ -8,6 +8,8 @@ public class Sloop extends Enemy{
 	Sloop(){
 		WIDTH = 30;
 		health = 3;
+		DEFAULT_START_X = Math.abs((int)(Math.random()*Game.Visuals.WIDTH-WIDTH));
+		DEFAULT_START_Y = (int)(Math.random()*40+1);
 		color = Color.BLUE;
 		counterMax = 400;
 		bulletSpeed = 2;
