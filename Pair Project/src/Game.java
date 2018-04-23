@@ -24,8 +24,8 @@ public class Game extends JFrame implements KeyListener{
 	int INCREMENT_AMOUNT = 2;
 	int ASTEROID_SPAWN_RATE = 700;
 	boolean bossMode;
-	int WAVE_DELAY = 1000;//one zero smaller because updates every 10 ms
-	int waveTimer = WAVE_DELAY/2;
+	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
+	int waveTimer = 400;
 	int waveCounter = 1;
 	int lazorWarningCounter=10;
 
@@ -44,11 +44,14 @@ public class Game extends JFrame implements KeyListener{
 					moveShips();
 					makeBullets();
 					moveProjectiles();
-					if(waveTimer == 0){
-						makeEnemies();
-						waveTimer = WAVE_DELAY;
-					}else{
-						waveTimer--;
+					if(enemies.size()==0) {
+						if(waveTimer==0) {
+							makeEnemies();
+							waveTimer=WAVE_DELAY;
+						}
+						else {
+							waveTimer--;
+						}
 					}
 					if((int)(Math.random()*ASTEROID_SPAWN_RATE)==0){
 						makeAsteroid();
