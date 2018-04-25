@@ -89,15 +89,6 @@ public class Game extends JFrame implements KeyListener{
 			}else{
 				e.counterDelay--;
 			}
-			if(bossMode){
-				if(boss.lazorsDelay==0){
-					Hitbox lazorHitbox=new Hitbox(new Coordinate(boss.hitbox.c1.x+boss.WIDTH/2-25,boss.hitbox.c1.y+boss.HEIGHT),
-							new Coordinate(boss.hitbox.c1.x+boss.WIDTH/2+25,Game.Visuals.HEIGHT));
-				}else{
-					boss.lazorsDelay--;
-				}
-				
-			}
 		}
 
 	}
@@ -274,13 +265,16 @@ public class Game extends JFrame implements KeyListener{
 			g.fillRect(p.hitbox.getCornerX(), p.hitbox.getCornerY(), p.WIDTH, p.HEIGHT);
 			g.setColor(Color.YELLOW);
 			for(Bullet b: enemyBullets){
-				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
-			}
-			g.setColor(Color.ORANGE);
-			for(Bullet b: playerBullets){
 				if(b instanceof Boss.Lazor) {
 					g.setColor(Color.CYAN);
 				}
+				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+				g.setColor(Color.YELLOW);
+				
+			}
+			g.setColor(Color.ORANGE);
+			for(Bullet b: playerBullets){
+				
 				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 				g.setColor(Color.ORANGE);
 			}
@@ -295,11 +289,13 @@ public class Game extends JFrame implements KeyListener{
 				g.setColor(new Color(160,82,45));
 				g.fillRect(a.hitbox.getCornerX(), a.hitbox.getCornerY(), a.WIDTH, a.HEIGHT);
 			}
-			if(bossMode){
+			if(bossMode && boss.stage1){
 				if(!boss.fireLazor){
-					if(boss.lazorWarningCounter<=15) {
-						g.setColor(Color.RED);
-						g.drawLine(boss.DEFAULT_START_X+boss.WIDTH/2, boss.DEFAULT_START_Y+boss.HEIGHT, boss.DEFAULT_START_X+boss.WIDTH/2, this.HEIGHT);
+					if(boss.lazorWarningCounter<30) {
+						if(boss.lazorWarningCounter>5){
+							g.setColor(Color.RED);
+							g.drawLine(boss.DEFAULT_START_X+boss.WIDTH/2, boss.DEFAULT_START_Y+boss.HEIGHT, boss.DEFAULT_START_X+boss.WIDTH/2, this.HEIGHT);
+						}
 						boss.lazorWarningCounter--;
 						if(boss.lazorWarningCounter<-10){
 							boss.lazorWarningCounter=boss.lazorWarningMax;
@@ -307,8 +303,10 @@ public class Game extends JFrame implements KeyListener{
 						}
 						if(boss.lazorCounterCounter == 3) {
 							boss.lazorCounterCounter = 0;
+							boss.lazorWarningCounter = boss.lazorWarningMax;
 							boss.fireLazor = true;
 							enemyBullets.add(boss.new Lazor(boss));
+							boss.lazorWarningCounter=50; //increase for delay between stuff
 						}
 					}
 					else {

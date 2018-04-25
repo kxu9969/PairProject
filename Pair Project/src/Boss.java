@@ -6,8 +6,6 @@ public class Boss extends Enemy{
 	boolean stage1=true;
 	boolean stage2=false;
 	boolean stage3=false;
-	int lazorsMax=300;
-	int lazorsDelay=lazorsMax;
 	int lazorWarningMax = 30;
 	int lazorWarningCounter = lazorWarningMax;
 	int lazorCounterCounter= 0;
@@ -38,9 +36,6 @@ public class Boss extends Enemy{
 				}
 			}
 			counterDelay = counterMax;
-			if(fireLazor) {
-				fireLazor=!fireLazor;
-			}
 		}
 		if(this.counterDelay == 0 && this.stage2){
 			counterDelay = counterMax;
@@ -64,12 +59,9 @@ public class Boss extends Enemy{
 	void move(){
 		
 	}
-	int getLazorsDelay(){
-		return lazorsDelay;
-	}
 	
 	class Lazor extends Bullet{
-		int lazorTimer = 300;
+		int lazorTimer = 100;
 		Boss b;
 		Lazor(Boss b){
 			super();
