@@ -19,7 +19,7 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Enemy> ded = new ArrayList<Enemy>();
 	ArrayList<Asteroid> steroids = new ArrayList<Asteroid>();
 	ArrayList<Asteroid> noSteroids = new ArrayList<Asteroid>();
-	Boss b;
+	Boss boss;
 	static Timer t = new Timer();
 	int INCREMENT_AMOUNT = 2;
 	int ASTEROID_SPAWN_RATE = 700;
@@ -90,11 +90,11 @@ public class Game extends JFrame implements KeyListener{
 				e.counterDelay--;
 			}
 			if(bossMode){
-				if(b.lazorsDelay==0){
-					Hitbox lazorHitbox=new Hitbox(new Coordinate(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT),
-							new Coordinate(b.hitbox.c1.x+b.WIDTH/2+25,Game.Visuals.HEIGHT));
+				if(boss.lazorsDelay==0){
+					Hitbox lazorHitbox=new Hitbox(new Coordinate(boss.hitbox.c1.x+boss.WIDTH/2-25,boss.hitbox.c1.y+boss.HEIGHT),
+							new Coordinate(boss.hitbox.c1.x+boss.WIDTH/2+25,Game.Visuals.HEIGHT));
 				}else{
-					b.lazorsDelay--;
+					boss.lazorsDelay--;
 				}
 				
 			}
@@ -140,12 +140,18 @@ public class Game extends JFrame implements KeyListener{
 		}
 		for(Bullet b: enemyBullets){
 			boolean moved = b.move();
-			if(b.hasHit(p)){
+			if(b instanceof Boss.Lazor){
+				if(b.hasHit(p)){
+					//System.out.println("OW");
+					p.whenHit(1);
+				}
+			}
+			else if(b.hasHit(p)){
 				p.whenHit();
 				toBeRemoved.add(b);
 			}
 			for(Asteroid a: steroids){
-				if(b.hasHit(a)){
+				if(b.hasHit(a) && !(b instanceof Boss.Lazor)){
 					toBeRemoved.add(b);
 				}
 			}
@@ -153,12 +159,7 @@ public class Game extends JFrame implements KeyListener{
 				toBeRemoved.add(b);
 			}
 		}
-		if(bossMode && b.fireLazor){
-			if(b.lazor.lazorHitbox.contact(p.hitbox)){
-				//System.out.println("OW");
-				p.whenHit(1);
-			}
-		}
+		
 	}
 	
 	private void makeEnemies(){
@@ -177,8 +178,8 @@ public class Game extends JFrame implements KeyListener{
 		if(waveCounter!=0&&waveCounter%10==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			System.out.println("BOSS ROUND");
 			bossMode=true;
-			b = new Boss();
-			enemies.add(b);
+			boss = new Boss();
+			enemies.add(boss);
 		}
 		waveCounter++;
 		}
@@ -277,7 +278,11 @@ public class Game extends JFrame implements KeyListener{
 			}
 			g.setColor(Color.ORANGE);
 			for(Bullet b: playerBullets){
+				if(b instanceof Boss.Lazor) {
+					g.setColor(Color.CYAN);
+				}
 				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+				g.setColor(Color.ORANGE);
 			}
 			
 			for(Asteroid a: steroids){
@@ -291,29 +296,25 @@ public class Game extends JFrame implements KeyListener{
 				g.fillRect(a.hitbox.getCornerX(), a.hitbox.getCornerY(), a.WIDTH, a.HEIGHT);
 			}
 			if(bossMode){
-				if(!b.fireLazor){
-					if(b.lazorWarningCounter<=15) {
+				if(!boss.fireLazor){
+					if(boss.lazorWarningCounter<=15) {
 						g.setColor(Color.RED);
-						g.drawLine(b.DEFAULT_START_X+b.WIDTH/2, b.DEFAULT_START_Y+b.HEIGHT, b.DEFAULT_START_X+b.WIDTH/2, this.HEIGHT);
-						b.lazorWarningCounter--;
-						if(b.lazorWarningCounter<-10){
-							b.lazorWarningCounter=b.lazorWarningMax;
-							b.lazorCounterCounter++;
+						g.drawLine(boss.DEFAULT_START_X+boss.WIDTH/2, boss.DEFAULT_START_Y+boss.HEIGHT, boss.DEFAULT_START_X+boss.WIDTH/2, this.HEIGHT);
+						boss.lazorWarningCounter--;
+						if(boss.lazorWarningCounter<-10){
+							boss.lazorWarningCounter=boss.lazorWarningMax;
+							boss.lazorCounterCounter++;
 						}
-						if(b.lazorCounterCounter == 3) {
-							b.lazorCounterCounter = 0;
-							b.fireLazor = true;
+						if(boss.lazorCounterCounter == 3) {
+							boss.lazorCounterCounter = 0;
+							boss.fireLazor = true;
+							enemyBullets.add(boss.new Lazor(boss));
 						}
 					}
 					else {
-						b.lazorWarningCounter--;
+						boss.lazorWarningCounter--;
 					}
-				}else if(b.fireLazor){
-						g.setColor(Color.CYAN);
-						g.fillRect(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT,50,Game.Visuals.HEIGHT-b.hitbox.c1.y);
-						b.lazorsDelay=30;
 				}
-				
 			}
 			//code here to draw explosions of blown up bullets and ships
 		}

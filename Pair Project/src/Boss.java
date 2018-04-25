@@ -12,8 +12,6 @@ public class Boss extends Enemy{
 	int lazorWarningCounter = lazorWarningMax;
 	int lazorCounterCounter= 0;
 	boolean fireLazor = false;
-
-	Lazor lazor;
 	Boss(){
 		DEFAULT_START_X = 105;
 		DEFAULT_START_Y = 40;
@@ -25,7 +23,6 @@ public class Boss extends Enemy{
 		color= Color.MAGENTA;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
-		lazor=new Lazor(this);
 		
 	}
 	
@@ -71,10 +68,25 @@ public class Boss extends Enemy{
 		return lazorsDelay;
 	}
 	
-	class Lazor{
-		Hitbox lazorHitbox;
+	class Lazor extends Bullet{
+		int lazorTimer = 300;
+		Boss b;
 		Lazor(Boss b){
-			lazorHitbox=new Hitbox(new Coordinate(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT),new Coordinate(b.hitbox.c1.x+b.WIDTH/2+25,Game.Visuals.HEIGHT));
+			super();
+			this.b=b;
+			WIDTH = 50;
+			HEIGHT = Game.Visuals.HEIGHT-b.hitbox.c1.y;
+			hitbox =new Hitbox(new Coordinate(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT),new Coordinate(b.hitbox.c1.x+b.WIDTH/2+25,Game.Visuals.HEIGHT));
+		}
+		
+		boolean move() {
+			if(lazorTimer!=0) {
+				lazorTimer--;
+				return true;
+			}else {
+				b.fireLazor=false;
+				return false;
+			}
 		}
 	}
 	
