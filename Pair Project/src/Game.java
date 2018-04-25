@@ -26,8 +26,7 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
-	int waveCounter = 1;
-	int lazorWarningCounter=10;
+	int waveCounter = 10;
 
 
 	Game(String playerName){
@@ -154,7 +153,7 @@ public class Game extends JFrame implements KeyListener{
 				toBeRemoved.add(b);
 			}
 		}
-		if(bossMode && b.lazorsDelay==0){
+		if(bossMode && b.fireLazor){
 			if(b.lazor.lazorHitbox.contact(p.hitbox)){
 				//System.out.println("OW");
 				p.whenHit(1);
@@ -163,18 +162,18 @@ public class Game extends JFrame implements KeyListener{
 	}
 	
 	private void makeEnemies(){
-		int enemyCount = 4+(int)(waveCounter*1.15);
-		for(int i = 0;i<enemyCount;i++){
-			Enemy e = new Enemy();
-			enemies.add(e);
-		}
-		if(waveCounter>3){
-			enemyCount = (int)(waveCounter*1.15);
-			for(int i = 0;i<enemyCount;i++){
-				Enemy e = new Sloop();
-				enemies.add(e);
-			}
-		}
+//		int enemyCount = 4+(int)(waveCounter*1.15);
+//		for(int i = 0;i<enemyCount;i++){
+//			Enemy e = new Enemy();
+//			enemies.add(e);
+//		}
+//		if(waveCounter>3){
+//			enemyCount = (int)(waveCounter*1.15);
+//			for(int i = 0;i<enemyCount;i++){
+//				Enemy e = new Sloop();
+//				enemies.add(e);
+//			}
+//		}
 		if(waveCounter!=0&&waveCounter%10==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			System.out.println("BOSS ROUND");
 			bossMode=true;
@@ -291,23 +290,28 @@ public class Game extends JFrame implements KeyListener{
 				g.setColor(new Color(160,82,45));
 				g.fillRect(a.hitbox.getCornerX(), a.hitbox.getCornerY(), a.WIDTH, a.HEIGHT);
 			}
-			if(bossMode && b.lazorsDelay<=15){
-				if(lazorWarningCounter<=0){
-					g.setColor(Color.RED);
-					g.drawLine(b.DEFAULT_START_X+b.WIDTH/2, b.DEFAULT_START_Y+b.HEIGHT, b.DEFAULT_START_X+b.WIDTH/2, this.HEIGHT);
-					lazorWarningCounter--;
-					if(lazorWarningCounter==-10){
-						lazorWarningCounter=10;
-						
+			if(bossMode){
+				if(!b.fireLazor){
+					if(b.lazorWarningCounter<=15) {
+						g.setColor(Color.RED);
+						g.drawLine(b.DEFAULT_START_X+b.WIDTH/2, b.DEFAULT_START_Y+b.HEIGHT, b.DEFAULT_START_X+b.WIDTH/2, this.HEIGHT);
+						b.lazorWarningCounter--;
+						if(b.lazorWarningCounter<-10){
+							b.lazorWarningCounter=b.lazorWarningMax;
+							b.lazorCounterCounter++;
+						}
+						if(b.lazorCounterCounter == 3) {
+							b.lazorCounterCounter = 0;
+							b.fireLazor = true;
+						}
 					}
-					
-				}else{
-					lazorWarningCounter--;
-				}
-				if(b.lazorsDelay==0){
-					g.setColor(Color.CYAN);
-					g.fillRect(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT,50,Game.Visuals.HEIGHT-b.hitbox.c1.y);
-					b.lazorsDelay=30;
+					else {
+						b.lazorWarningCounter--;
+					}
+				}else if(b.fireLazor){
+						g.setColor(Color.CYAN);
+						g.fillRect(b.hitbox.c1.x+b.WIDTH/2-25,b.hitbox.c1.y+b.HEIGHT,50,Game.Visuals.HEIGHT-b.hitbox.c1.y);
+						b.lazorsDelay=30;
 				}
 				
 			}

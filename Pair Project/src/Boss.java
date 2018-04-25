@@ -7,7 +7,12 @@ public class Boss extends Enemy{
 	boolean stage2=false;
 	boolean stage3=false;
 	int lazorsMax=300;
-	int lazorsDelay=30;
+	int lazorsDelay=lazorsMax;
+	int lazorWarningMax = 30;
+	int lazorWarningCounter = lazorWarningMax;
+	int lazorCounterCounter= 0;
+	boolean fireLazor = false;
+
 	Lazor lazor;
 	Boss(){
 		DEFAULT_START_X = 105;
@@ -35,9 +40,13 @@ public class Boss extends Enemy{
 					a.add(new Bullet(new Coordinate(hitbox.c1.x+this.WIDTH/2+i,hitbox.c1.y+this.HEIGHT),new int[]{0,bulletSpeed}));
 				}
 			}
+			counterDelay = counterMax;
+			if(fireLazor) {
+				fireLazor=!fireLazor;
+			}
 		}
 		if(this.counterDelay == 0 && this.stage2){
-			
+			counterDelay = counterMax;
 		}
 		
 		
@@ -51,7 +60,7 @@ public class Boss extends Enemy{
 			stage1=false;
 			stage2=false;
 		}
-		counterDelay = counterMax;
+
 		return a;
 	}
 	
