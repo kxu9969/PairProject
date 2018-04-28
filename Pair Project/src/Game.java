@@ -293,18 +293,17 @@ public class Game extends JFrame implements KeyListener{
 					g.setColor(Color.CYAN);
 					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 				}else {
-					try {
-						g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
-					} catch (IOException e1) {
-					}
+//					try {
+//						g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
+//					} catch (IOException e1) {
+//					}
+					g.setColor(Color.YELLOW);
+					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 				}
 				
 			}
 			for(Bullet b: playerBullets){
-				try {
-					g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
-				} catch (IOException e1) {
-				}
+				g.drawImage(PlayerBullet.image, b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
 			}
 			
 			for(Asteroid a: steroids){

@@ -57,7 +57,7 @@ public class Enemy {
 		if(hitbox.c2.x>=Game.Visuals.WIDTH-1){
 			moveRight=false;
 			moveLeft=true;
-		}else if(hitbox.getCornerX()==1){
+		}else if(hitbox.getCornerX()<=1){
 			moveRight=true;
 			moveLeft=false;
 		}
