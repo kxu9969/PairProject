@@ -3,7 +3,7 @@ public class Bullet {
 	Hitbox hitbox;
 	int[] increment = {0,0};
 	int WIDTH = 5;//placeholder values, will instead draw the bullet image not a rectangle
-	int HEIGHT = 10;
+	int HEIGHT = 12;
 	Bullet(){
 		
 	}

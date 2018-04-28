@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public class Enemy {
 	Hitbox hitbox;
 	int[] increment = {0,0};//needs functionality
-	int WIDTH = 10;
-	int HEIGHT = 10;
+	int WIDTH = 26;
+	int HEIGHT = 19;
 	int DEFAULT_START_X = Math.abs((int)(Math.random()*Game.Visuals.WIDTH-WIDTH));
 	int DEFAULT_START_Y = (int)(Math.random()*40+1);
 	int lineSwitchProbability= 1000;
@@ -22,6 +22,7 @@ public class Enemy {
 	int health = 4;
 	int score = 1;
 	Color color = Color.RED;
+	String post = "Enemy.png";
 	Enemy(){
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
