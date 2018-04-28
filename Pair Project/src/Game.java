@@ -120,7 +120,7 @@ public class Game extends JFrame implements KeyListener{
 					toBeRemoved.add(b);
 					if(e.dead){
 						ded.add(e);
-						p.score++;
+						p.score+=e.score;
 					}
 				}for(Asteroid a: steroids){
 					if(b.hasHit(a)){
