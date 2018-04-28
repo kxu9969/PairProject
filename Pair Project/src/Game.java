@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
@@ -5,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,6 +30,7 @@ public class Game extends JFrame implements KeyListener{
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
 	int waveCounter = 10;
+	String pre = "E:/Eclipse/Workspace/PairProject/Pair Project/";
 
 
 	Game(String playerName){
@@ -75,7 +79,7 @@ public class Game extends JFrame implements KeyListener{
 	
 	private void makeBullets(){
 		if(p.counterDelay == 0){
-			playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
+			playerBullets.add(new Bullet(new Coordinate(p.hitbox.centerx-2,p.hitbox.c1.y),new int[]{0,-p.bulletSpeed}));
 			p.counterDelay = p.counterMax;
 		}else{
 			p.counterDelay--;
@@ -261,8 +265,12 @@ public class Game extends JFrame implements KeyListener{
 				}
 			}else{
 				g.setColor(Color.GREEN);
+				try {
+					g.drawImage(ImageIO.read(new File(pre+"Player1.png")), p.hitbox.getCornerX(), p.hitbox.getCornerY(), null);
+				} catch (IOException e1) {
+				}
 			}
-			g.fillRect(p.hitbox.getCornerX(), p.hitbox.getCornerY(), p.WIDTH, p.HEIGHT);
+			//g.fillRect(p.hitbox.getCornerX(), p.hitbox.getCornerY(), p.WIDTH, p.HEIGHT);
 			g.setColor(Color.YELLOW);
 			for(Bullet b: enemyBullets){
 				if(b instanceof Boss.Lazor) {

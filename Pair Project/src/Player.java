@@ -3,8 +3,8 @@ public class Player {
 	String name;
 	Hitbox hitbox;
 	int[] increment = {0,0};
-	static int WIDTH = 10;//placeholder values, will draw the player instead of rectangle
-	static int HEIGHT = 10;
+	static int WIDTH = 32;//placeholder values, will draw the player instead of rectangle
+	static int HEIGHT = 21;
 	int DEFAULT_START_X = Game.Visuals.WIDTH/2;
 	int DEFAULT_START_Y = Game.Visuals.HEIGHT-HEIGHT;
 	int bulletSpeed = 8;
