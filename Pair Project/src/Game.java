@@ -30,7 +30,7 @@ public class Game extends JFrame implements KeyListener{
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
 	int waveCounter = 3;
-	String pre = "E:/Eclipse/Workspace/PairProject/Pair Project/";
+	static String pre = "E:/Eclipse/Workspace/PairProject/Pair Project/";
 
 
 	Game(String playerName){
@@ -79,7 +79,7 @@ public class Game extends JFrame implements KeyListener{
 	
 	private void makeBullets(){
 		if(p.counterDelay == 0){
-			playerBullets.add(new Bullet(new Coordinate(p.hitbox.c1.x+p.bulletSpawn,p.hitbox.c1.y),new int[]{0,-p.bulletSpeed}));
+			playerBullets.add(new PlayerBullet(new Coordinate(p.hitbox.c1.x+p.bulletSpawn,p.hitbox.c1.y),new int[]{0,-p.bulletSpeed}));
 			p.counterDelay = p.counterMax;
 		}else{
 			p.counterDelay--;
@@ -288,20 +288,23 @@ public class Game extends JFrame implements KeyListener{
 				} catch (IOException e1) {
 				}
 			}
-			g.setColor(Color.YELLOW);
 			for(Bullet b: enemyBullets){
 				if(b instanceof Boss.Lazor) {
 					g.setColor(Color.CYAN);
+					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+				}else {
+					try {
+						g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
+					} catch (IOException e1) {
+					}
 				}
-				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
-				g.setColor(Color.YELLOW);
 				
 			}
-			g.setColor(Color.ORANGE);
 			for(Bullet b: playerBullets){
-				
-				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
-				g.setColor(Color.ORANGE);
+				try {
+					g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
+				} catch (IOException e1) {
+				}
 			}
 			
 			for(Asteroid a: steroids){

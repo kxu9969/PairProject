@@ -4,6 +4,7 @@ public class Bullet {
 	int[] increment = {0,0};
 	int WIDTH = 5;//placeholder values, will instead draw the bullet image not a rectangle
 	int HEIGHT = 12;
+	String post = "Bulletdown.png";
 	Bullet(){
 		
 	}
