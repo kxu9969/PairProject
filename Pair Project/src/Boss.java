@@ -14,7 +14,8 @@ public class Boss extends Enemy{
 	final int burstMax = 25;
 	final int burstCount = 2;
 	int burstCounter = burstCount;
-	Boss(){
+	Player human;
+	Boss(Player p){
 		DEFAULT_START_X = 105;
 		DEFAULT_START_Y = 40;
 		WIDTH=220;
@@ -24,6 +25,7 @@ public class Boss extends Enemy{
 		counterDelay=60;
 		score=10;
 		novaBulletSpeed=7;
+		human=p;
 		color= Color.MAGENTA;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
@@ -53,7 +55,7 @@ public class Boss extends Enemy{
 			}
 			counterDelay = counterMax;
 		}
-		if(this.counterDelay == 0 && this.stage2){
+		if(this.stage2){
 			if(burstCounter==0){
 				burstCounter=burstCount;
 				counterDelay = counterMax;
@@ -80,7 +82,10 @@ public class Boss extends Enemy{
 			a.add(new Bullet(new Coordinate(hitbox.centerx+ran, hitbox.c2.y),new int[]{-5,novaBulletSpeed-5},5,5));
 			a.add(new Bullet(new Coordinate(hitbox.centerx+ran, hitbox.c2.y),new int[]{-6,novaBulletSpeed-6},5,5));
 		}
-		
+		if(this.stage3){
+			counterDelay=10;
+			
+		}
 		
 		
 
