@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
@@ -5,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +29,8 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
-	int waveCounter = 10;
+	int waveCounter = 3;
+	static String pre = "E:/Eclipse/Workspace/PairProject/Pair Project/";
 
 
 	Game(String playerName){
@@ -75,7 +79,7 @@ public class Game extends JFrame implements KeyListener{
 	
 	private void makeBullets(){
 		if(p.counterDelay == 0){
-			playerBullets.add(new Bullet(p.hitbox.c1,new int[]{0,-p.bulletSpeed}));
+			playerBullets.add(new PlayerBullet(new Coordinate(p.hitbox.c1.x+p.bulletSpawn,p.hitbox.c1.y),new int[]{0,-p.bulletSpeed}));
 			p.counterDelay = p.counterMax;
 		}else{
 			p.counterDelay--;
@@ -154,18 +158,18 @@ public class Game extends JFrame implements KeyListener{
 	}
 	
 	private void makeEnemies(){
-//		int enemyCount = 4+(int)(waveCounter*1.15);
-//		for(int i = 0;i<enemyCount;i++){
-//			Enemy e = new Enemy();
-//			enemies.add(e);
-//		}
-//		if(waveCounter>3){
-//			enemyCount = (int)(waveCounter*1.15);
-//			for(int i = 0;i<enemyCount;i++){
-//				Enemy e = new Sloop();
-//				enemies.add(e);
-//			}
-//		}
+		int enemyCount = 4+(int)(waveCounter*1.15);
+		for(int i = 0;i<enemyCount;i++){
+			Enemy e = new Enemy();
+			enemies.add(e);
+		}
+		if(waveCounter>3){
+			enemyCount = (int)(waveCounter*1.15);
+			for(int i = 0;i<enemyCount;i++){
+				Enemy e = new Sloop();
+				enemies.add(e);
+			}
+		}
 		if(waveCounter!=0&&waveCounter%10==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			System.out.println("BOSS ROUND");
 			bossMode=true;
@@ -237,46 +241,69 @@ public class Game extends JFrame implements KeyListener{
 			g.fillRect(0, 0, 10, 600);
 			for(Enemy e : enemies){
 				if(e.flash){
-					g.setColor(Color.WHITE);
 					if(e.flashCounter == 0){
 						e.flash=false;
 						e.flashCounter = e.flashMax;
 					}else{
 						e.flashCounter--;
 					}
+					try {
+						g.drawImage(ImageIO.read(new File(pre+e.post.substring(0, e.post.length()-4)+"grey.png")), e.hitbox.getCornerX(), e.hitbox.getCornerY(), null);
+					} catch (IOException e1) {
+					}
 				}else{
-					g.setColor(e.color);
+					try {
+						g.drawImage(ImageIO.read(new File(pre+e.post)), e.hitbox.getCornerX(), e.hitbox.getCornerY(), null);
+					} catch (IOException e1) {
+					}
 				}
-				g.fillRect(e.hitbox.getCornerX(), e.hitbox.getCornerY(), e.WIDTH, e.HEIGHT);
 			}
-			if(p.dead){
-				g.setColor(Color.GRAY);
+			
+			if(p.warp) {//draw Player
+				if(p.warpCounter == 0){
+					p.warp=false;
+					p.warpCounter = p.warpMax;
+				}else{
+					p.warpCounter--;
+				}
+				try {
+					g.drawImage(ImageIO.read(new File(pre+p.post.substring(0, p.post.length()-4)+"dark.png")), p.warpBox.getCornerX(), p.warpBox.getCornerY(), null);
+					g.drawImage(ImageIO.read(new File(pre+p.post.substring(0, p.post.length()-4)+"light.png")), p.hitbox.getCornerX(), p.hitbox.getCornerY(), null);
+				} catch (IOException e1) {
+				}
 			}else if(p.flash){
-				g.setColor(Color.WHITE);
 				if(p.flashCounter == 0){
 					p.flash=false;
 					p.flashCounter = p.flashMax;
 				}else{
 					p.flashCounter--;
 				}
-			}else{
-				g.setColor(Color.GREEN);
+				try {
+					g.drawImage(ImageIO.read(new File(pre+p.post.substring(0, p.post.length()-4)+"grey.png")), p.hitbox.getCornerX(), p.hitbox.getCornerY(), null);
+				} catch (IOException e1) {
+				}
+			}else {
+				try {
+					g.drawImage(ImageIO.read(new File(pre+p.post)), p.hitbox.getCornerX(), p.hitbox.getCornerY(), null);
+				} catch (IOException e1) {
+				}
 			}
-			g.fillRect(p.hitbox.getCornerX(), p.hitbox.getCornerY(), p.WIDTH, p.HEIGHT);
-			g.setColor(Color.YELLOW);
 			for(Bullet b: enemyBullets){
 				if(b instanceof Boss.Lazor) {
 					g.setColor(Color.CYAN);
+					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+				}else {
+//					try {
+//						g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
+//					} catch (IOException e1) {
+//					}
+					g.setColor(Color.YELLOW);
+					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 				}
-				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
-				g.setColor(Color.YELLOW);
 				
 			}
-			g.setColor(Color.ORANGE);
 			for(Bullet b: playerBullets){
-				
-				g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
-				g.setColor(Color.ORANGE);
+				g.drawImage(PlayerBullet.image, b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
 			}
 			
 			for(Asteroid a: steroids){

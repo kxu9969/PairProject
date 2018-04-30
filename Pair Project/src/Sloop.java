@@ -6,7 +6,8 @@ public class Sloop extends Enemy{
 	final int burstCount = 2;
 	int burstCounter = burstCount;
 	Sloop(){
-		WIDTH = 30;
+		WIDTH = 37;
+		HEIGHT = 24;
 		health = 3;
 		DEFAULT_START_X = Math.abs((int)(Math.random()*Game.Visuals.WIDTH-WIDTH));
 		DEFAULT_START_Y = (int)(Math.random()*40+1);
@@ -14,6 +15,7 @@ public class Sloop extends Enemy{
 		counterMax = 400;
 		bulletSpeed = 2;
 		score = 2;
+		post = "Sloop.png";
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
 	}
