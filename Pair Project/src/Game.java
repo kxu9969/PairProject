@@ -30,7 +30,7 @@ public class Game extends JFrame implements KeyListener{
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
 	int waveCounter = 3;
-	static String pre = "E:/Eclipse/Workspace/PairProject/Pair Project/";
+	static String pre = "";
 
 
 	Game(String playerName){
