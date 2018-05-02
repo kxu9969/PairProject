@@ -30,7 +30,8 @@ public class Game extends JFrame implements KeyListener{
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
 	int waveCounter = 3;
-	static String pre = "";
+	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
+	static String pre = "img/";
 
 
 	Game(String playerName){
@@ -158,18 +159,18 @@ public class Game extends JFrame implements KeyListener{
 	}
 	
 	private void makeEnemies(){
-		int enemyCount = 4+(int)(waveCounter*1.15);
-		for(int i = 0;i<enemyCount;i++){
-			Enemy e = new Enemy();
-			enemies.add(e);
-		}
-		if(waveCounter>3){
-			enemyCount = (int)(waveCounter*1.15);
-			for(int i = 0;i<enemyCount;i++){
-				Enemy e = new Sloop();
-				enemies.add(e);
-			}
-		}
+//		int enemyCount = 4+(int)(waveCounter*1.15);
+//		for(int i = 0;i<enemyCount;i++){
+//			Enemy e = new Enemy();
+//			enemies.add(e);
+//		}
+//		if(waveCounter>3){
+//			enemyCount = (int)(waveCounter*1.15);
+//			for(int i = 0;i<enemyCount;i++){
+//				Enemy e = new Sloop();
+//				enemies.add(e);
+//			}
+//		}
 		if(waveCounter!=0&&waveCounter%10==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			System.out.println("BOSS ROUND");
 			bossMode=true;
@@ -226,7 +227,7 @@ public class Game extends JFrame implements KeyListener{
 		final static int HEIGHT = 580;
 		Visuals(){
 			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-			ImageIcon background=new ImageIcon("Background.png");
+			ImageIcon background=new ImageIcon(pre + "Background.png");
 			JLabel back=new JLabel();
 			back.setIcon(background);
 			back.setAlignmentX(JLabel.LEFT_ALIGNMENT);
@@ -293,12 +294,12 @@ public class Game extends JFrame implements KeyListener{
 					g.setColor(Color.CYAN);
 					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 				}else {
-//					try {
-//						g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
-//					} catch (IOException e1) {
-//					}
-					g.setColor(Color.YELLOW);
-					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+					try {
+						g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
+					} catch (IOException e1) {
+				}
+					//g.setColor(Color.YELLOW);
+					//g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 				}
 				
 			}

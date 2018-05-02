@@ -14,7 +14,7 @@ public class Enemy {
 	boolean moveRight=true;
 	int bulletSpeed = 3;
 	int counterMax = 100;
-	int counterDelay = (int)(Math.random()*counterMax+1);
+	int counterDelay = (int)(Math.random()*(counterMax*2)+1);
 	boolean flash = false;
 	int flashMax = 8;
 	int flashCounter = 0;
