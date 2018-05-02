@@ -9,7 +9,7 @@ public class StartScreen extends JPanel implements ActionListener{
 	JTextField name;
 	JComboBox difficulty;
 	Game game;
-	String[] difficulties = {"Easy","Medium","Hard"};
+	String[] difficulties = {"Easy","Normal","Hard"};
 	Dimension screenSize;
 	StartScreen(){
 		GridBagLayout gridBagLayout = new GridBagLayout();

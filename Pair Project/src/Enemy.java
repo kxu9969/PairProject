@@ -19,11 +19,18 @@ public class Enemy {
 	int flashMax = 8;
 	int flashCounter = 0;
 	boolean dead = false;
-	int health = 4;
+	int health;
 	int score = 1;
 	Color color = Color.RED;
 	String post = "Enemy.png";
 	Enemy(String dif){
+		if(dif.equals("Easy")){
+			health=1;
+		}else if(dif.equals("Normal")){
+			health=2;
+		}else if(dif.equals("Hard")){
+			health=3;
+		}
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
 		if(Math.random()<0.5){

@@ -1,5 +1,8 @@
 import java.awt.Color;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Boss extends Enemy{
 	int[] increment = {0,0};//needs functionality
@@ -24,7 +27,12 @@ public class Boss extends Enemy{
 		HEIGHT=40;
 		if(dif.equals("Easy")){
 			health=100;
-		}else if(dif.equals(arg0))
+		}else if(dif.equals("Normal")){
+			health=150;
+		}else if(dif.equals("Hard")){
+			health=300;
+		}
+		maxHealth=health;
 		counterMax=300;
 		counterDelay=60;
 		score=10;
@@ -38,16 +46,16 @@ public class Boss extends Enemy{
 	
 	ArrayList<Bullet> spawnBullets(){
 		ArrayList<Bullet> a = new ArrayList<Bullet>();
-//		if(health<200){
-//			stage2=true;
-//			stage1=false;
-//			stage3=false;
-//		}
-//		if(health<100){
-//			stage3=true;
-//			stage1=false;
-//			stage2=false;
-//		}
+		if(health<(int) maxHealth*2/3){
+			stage2=true;
+			stage1=false;
+			stage3=false;
+		}
+		if(health<(int) maxHealth*1/3){
+			stage3=true;
+			stage1=false;
+			stage2=false;
+		}
 		if(this.stage1){
 			for(int i=0;(this.WIDTH/2)-i>0;i+=Player.WIDTH*3){//playerWidth*2
 				if(i==0){
