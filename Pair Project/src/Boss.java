@@ -6,9 +6,9 @@ import javax.imageio.ImageIO;
 
 public class Boss extends Enemy{
 	int[] increment = {0,0};//needs functionality
-	boolean stage1=false;
+	boolean stage1=true;
 	boolean stage2=false;
-	boolean stage3=true;
+	boolean stage3=false;
 	int lazorWarningMax = 30;
 	int lazorWarningCounter = lazorWarningMax;
 	int lazorCounterCounter= 0;
@@ -46,12 +46,12 @@ public class Boss extends Enemy{
 	
 	ArrayList<Bullet> spawnBullets(){
 		ArrayList<Bullet> a = new ArrayList<Bullet>();
-		if(health<(int) maxHealth*2/3){
+		if(health<(int)(maxHealth*2/3)){
 			stage2=true;
 			stage1=false;
 			stage3=false;
 		}
-		if(health<(int) maxHealth*1/3){
+		if(health<(int)(maxHealth*1/3)){
 			stage3=true;
 			stage1=false;
 			stage2=false;
