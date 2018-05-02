@@ -23,6 +23,7 @@ public class Game extends JFrame implements KeyListener{
 	ArrayList<Asteroid> steroids = new ArrayList<Asteroid>();
 	ArrayList<Asteroid> noSteroids = new ArrayList<Asteroid>();
 	Boss boss;
+	String difficulty;
 	static Timer t = new Timer();
 	int INCREMENT_AMOUNT = 2;
 	int ASTEROID_SPAWN_RATE = 700;
@@ -32,7 +33,8 @@ public class Game extends JFrame implements KeyListener{
 	int waveCounter = 3;
 	static String pre = "img/";
 
-	Game(String playerName){
+	Game(String playerName, String dif){
+		difficulty=dif;
 		this.setSize(new Dimension(Game.Visuals.WIDTH+5,Game.Visuals.HEIGHT+30));
 		this.setResizable(false);
 		p = new Player(playerName);
@@ -159,20 +161,20 @@ public class Game extends JFrame implements KeyListener{
 	private void makeEnemies(){
 		int enemyCount = 4+(int)(waveCounter*1.15);
 		for(int i = 0;i<enemyCount;i++){
-			Enemy e = new Enemy();
+			Enemy e = new Enemy(difficulty);
 			enemies.add(e);
 		}
 		if(waveCounter>3){
 			enemyCount = (int)(waveCounter*1.15);
 			for(int i = 0;i<enemyCount;i++){
-				Enemy e = new Sloop();
+				Enemy e = new Sloop(difficulty);
 				enemies.add(e);
 			}
 		}
 		if(waveCounter!=0&&waveCounter%10==0 ){		
 			System.out.println("BOSS ROUND");
 			bossMode=true;
-			boss = new Boss(p);
+			boss = new Boss(p,difficulty);
 			enemies.add(boss);
 		}
 		waveCounter++;
