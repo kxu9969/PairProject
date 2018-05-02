@@ -9,7 +9,13 @@ public class Sloop extends Enemy{
 		super(dif);
 		WIDTH = 37;
 		HEIGHT = 24;
-		health = 3;
+		if(dif.equals("Easy")){
+			health=2;
+		}else if(dif.equals("Normal")){
+			health=3;
+		}else if(dif.equals("Hard")){
+			health=5;
+		}
 		DEFAULT_START_X = Math.abs((int)(Math.random()*Game.Visuals.WIDTH-WIDTH));
 		DEFAULT_START_Y = (int)(Math.random()*40+1);
 		color = Color.BLUE;

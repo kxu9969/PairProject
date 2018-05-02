@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -33,6 +34,7 @@ public class Game extends JFrame implements KeyListener{
 	int waveCounter = 3;
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
+	Image enemyBullet, playerBullet, enemyFlash, sloopFlash;
 
 
 	Game(String playerName, String dif){
@@ -44,6 +46,13 @@ public class Game extends JFrame implements KeyListener{
 		this.add(vis);
 		this.setVisible(true);
 		addKeyListener(this);
+		try{
+			enemyBullet=ImageIO.read(new File("img/Bulletdown.png"));
+			enemyFlash=ImageIO.read(new File("img/Enemygrey.png"));
+			playerBullet=ImageIO.read(new File("img/Bulletup.png"));
+			sloopFlash=ImageIO.read(new File("img/Sloopgrey.png"));
+		}catch(Exception e){
+		}
 		t.schedule(new TimerTask(){
 			public void run() {
 				if(!p.dead){
@@ -161,18 +170,18 @@ public class Game extends JFrame implements KeyListener{
 	}
 	
 	private void makeEnemies(){
-//		int enemyCount = 4+(int)(waveCounter*1.15);
-//		for(int i = 0;i<enemyCount;i++){
-//			Enemy e = new Enemy(difficulty);
-//			enemies.add(e);
-//		}
-//		if(waveCounter>3){
-//			enemyCount = (int)(waveCounter*1.15);
-//			for(int i = 0;i<enemyCount;i++){
-//				Enemy e = new Sloop(difficulty);
-//				enemies.add(e);
-//			}
-//		}
+		int enemyCount = 4+(int)(waveCounter*1.15);
+		for(int i = 0;i<enemyCount;i++){
+			Enemy e = new Enemy(difficulty);
+			enemies.add(e);
+		}
+		if(waveCounter>3){
+			enemyCount = (int)(waveCounter*1.15);
+			for(int i = 0;i<enemyCount;i++){
+				Enemy e = new Sloop(difficulty);
+				enemies.add(e);
+			}
+		}
 		if(waveCounter!=0&&waveCounter%10==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			System.out.println("BOSS ROUND");
 			bossMode=true;
@@ -251,13 +260,13 @@ public class Game extends JFrame implements KeyListener{
 						e.flashCounter--;
 					}
 					try {
-						g.drawImage(ImageIO.read(new File(pre+e.post.substring(0, e.post.length()-4)+"grey.png")), e.hitbox.getCornerX(), e.hitbox.getCornerY(), null);
-					} catch (IOException e1) {
+						g.drawImage(enemyFlash, e.hitbox.getCornerX(), e.hitbox.getCornerY(), null);
+					} catch (Exception e1) {
 					}
 				}else{
 					try {
 						g.drawImage(ImageIO.read(new File(pre+e.post)), e.hitbox.getCornerX(), e.hitbox.getCornerY(), null);
-					} catch (IOException e1) {
+					} catch (Exception e1) {
 					}
 				}
 			}
