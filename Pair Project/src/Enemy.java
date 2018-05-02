@@ -41,7 +41,7 @@ public class Enemy {
 	
 	ArrayList<Bullet> spawnBullets(){
 		ArrayList<Bullet> a = new ArrayList<Bullet>();
-		a.add(new Bullet(hitbox.c1,new int[]{0,bulletSpeed}));
+		a.add(new Bullet(new Coordinate(hitbox.centerx,hitbox.c1.y),new int[]{0,bulletSpeed}));
 		counterDelay = counterMax;
 		return a;
 	}
