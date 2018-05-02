@@ -5,7 +5,8 @@ public class Sloop extends Enemy{
 	final int burstMax = 50;
 	final int burstCount = 2;
 	int burstCounter = burstCount;
-	Sloop(){
+	Sloop(String dif){
+		super(dif);
 		WIDTH = 37;
 		HEIGHT = 24;
 		health = 3;

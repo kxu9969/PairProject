@@ -14,13 +14,17 @@ public class Boss extends Enemy{
 	final int burstMax = 25;
 	final int burstCount = 2;
 	int burstCounter = burstCount;
+	int maxHealth;
 	Player human;
-	Boss(Player p){
+	Boss(Player p, String dif){
+		super(dif);
 		DEFAULT_START_X = 105;
 		DEFAULT_START_Y = 40;
 		WIDTH=220;
 		HEIGHT=40;
-		health=300;
+		if(dif.equals("Easy")){
+			health=100;
+		}else if(dif.)
 		counterMax=300;
 		counterDelay=60;
 		score=10;

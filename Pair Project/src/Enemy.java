@@ -23,7 +23,7 @@ public class Enemy {
 	int score = 1;
 	Color color = Color.RED;
 	String post = "Enemy.png";
-	Enemy(){
+	Enemy(String dif){
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
 		if(Math.random()<0.5){
