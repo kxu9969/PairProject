@@ -30,7 +30,7 @@ public class Game extends JFrame implements KeyListener{
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
 	int waveCounter = 3;
-	static String pre = "E:/Eclipse/Workspace/PairProject/Pair Project/";
+	static String pre = "Z:/git/PairProject/Pair Project/";
 
 
 	Game(String playerName){
@@ -170,7 +170,7 @@ public class Game extends JFrame implements KeyListener{
 				enemies.add(e);
 			}
 		}
-		if(waveCounter!=0&&waveCounter%10==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
+		if(waveCounter!=0&&waveCounter%5==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			System.out.println("BOSS ROUND");
 			bossMode=true;
 			boss = new Boss(p);

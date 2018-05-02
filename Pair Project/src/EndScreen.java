@@ -55,7 +55,6 @@ public class EndScreen extends JPanel implements ActionListener{
 		screen.setVisible(true);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		String whichButton=e.getActionCommand();
 		if(whichButton.equals("Play Again")){
