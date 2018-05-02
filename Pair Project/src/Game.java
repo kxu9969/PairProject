@@ -30,8 +30,7 @@ public class Game extends JFrame implements KeyListener{
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
 	int waveCounter = 3;
-	static String pre = "Z:/git/PairProject/Pair Project/";
-
+	static String pre = "img/";
 
 	Game(String playerName){
 		this.setSize(new Dimension(Game.Visuals.WIDTH+5,Game.Visuals.HEIGHT+30));
@@ -68,7 +67,7 @@ public class Game extends JFrame implements KeyListener{
 			}
 		}, 0, 10);
 	}
-	
+
 	private void moveShips(){
 		p.move();		
 		for(Enemy e: enemies){
@@ -76,7 +75,7 @@ public class Game extends JFrame implements KeyListener{
 			//System.out.println(e.hitbox.c1.x+" "+e.hitbox.c1.y+" "+e.hitbox.c2.x+" "+e.hitbox.c2.y);
 		}
 	}
-	
+
 	private void makeBullets(){
 		if(p.counterDelay == 0){
 			playerBullets.add(new PlayerBullet(new Coordinate(p.hitbox.c1.x+p.bulletSpawn,p.hitbox.c1.y),new int[]{0,-p.bulletSpeed}));
@@ -154,9 +153,9 @@ public class Game extends JFrame implements KeyListener{
 				toBeRemoved.add(b);
 			}
 		}
-		
+
 	}
-	
+
 	private void makeEnemies(){
 		int enemyCount = 4+(int)(waveCounter*1.15);
 		for(int i = 0;i<enemyCount;i++){
@@ -170,21 +169,20 @@ public class Game extends JFrame implements KeyListener{
 				enemies.add(e);
 			}
 		}
-		if(waveCounter!=0&&waveCounter%5==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
+		if(waveCounter!=0&&waveCounter%10==0 ){		
 			System.out.println("BOSS ROUND");
 			bossMode=true;
 			boss = new Boss(p);
 			enemies.add(boss);
 		}
 		waveCounter++;
-		}
-		
-	
-	
+	}
+
 	private void gameOver() {
 		this.setVisible(false);
 		EndScreen endScreen=new EndScreen(p.score+"",p.name);
 	}
+
 	private void makeAsteroid(){
 		int x = 0,y = 0;
 		int[] increment;
@@ -226,7 +224,7 @@ public class Game extends JFrame implements KeyListener{
 		final static int HEIGHT = 580;
 		Visuals(){
 			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-			ImageIcon background=new ImageIcon("Background.png");
+			ImageIcon background=new ImageIcon(pre + "Background.png");
 			JLabel back=new JLabel();
 			back.setIcon(background);
 			back.setAlignmentX(JLabel.LEFT_ALIGNMENT);
@@ -239,7 +237,8 @@ public class Game extends JFrame implements KeyListener{
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 450, 10);
 			g.fillRect(0, 0, 10, 600);
-			for(Enemy e : enemies){
+			for(int i = 0; i<enemies.size();i++){
+				Enemy e = enemies.get(i);
 				if(e.flash){
 					if(e.flashCounter == 0){
 						e.flash=false;
@@ -258,7 +257,7 @@ public class Game extends JFrame implements KeyListener{
 					}
 				}
 			}
-			
+
 			if(p.warp) {//draw Player
 				if(p.warpCounter == 0){
 					p.warp=false;
@@ -288,25 +287,26 @@ public class Game extends JFrame implements KeyListener{
 				} catch (IOException e1) {
 				}
 			}
-			for(Bullet b: enemyBullets){
+			for(int i=0;i<enemyBullets.size();i++){
+				Bullet b = enemyBullets.get(i);
 				if(b instanceof Boss.Lazor) {
 					g.setColor(Color.CYAN);
 					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 				}else {
-//					try {
-//						g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
-//					} catch (IOException e1) {
-//					}
-					g.setColor(Color.YELLOW);
-					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+					try {
+						g.drawImage(ImageIO.read(new File(pre+b.post)), b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
+					} catch (IOException e1) {
+					}
 				}
-				
+
 			}
-			for(Bullet b: playerBullets){
+			for(int i = 0;i<playerBullets.size();i++){
+				Bullet b = playerBullets.get(i);
 				g.drawImage(PlayerBullet.image, b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
 			}
-			
-			for(Asteroid a: steroids){
+
+			for(int i = 0; i<steroids.size();i++){
+				Asteroid a = steroids.get(i);
 				g.setColor(Color.RED);
 				if(a.horizontal){
 					g.drawLine(a.spawnX, a.spawnY, Game.Visuals.WIDTH, a.spawnY);
@@ -381,26 +381,26 @@ public class Game extends JFrame implements KeyListener{
 
 	public void keyTyped(KeyEvent e) {	
 	}
-	
+
 
 	static class DoublePress {
-	 
-	    private static int doublePressTime = 200; // double keypressed in ms
-	    private static long timeKeyDown = 0;       // last keyperessed time
-	    public static int lastKeyCode;
-	    public static boolean released = false;
-	    public static int cooldownMax = 100;
-	    public static int cooldown = cooldownMax;
-	 
-	    public static  boolean isDoublePress(KeyEvent ke) {
-	        if ((ke.getWhen() - timeKeyDown) < doublePressTime&&ke.getKeyCode()==lastKeyCode) {
-	            return true;
-	        } else {
-	            timeKeyDown = ke.getWhen();
-	        }
-	        lastKeyCode = ke.getKeyCode();
-	        return false;
-	    }
+
+		private static int doublePressTime = 200; // double keypressed in ms
+		private static long timeKeyDown = 0;       // last keyperessed time
+		public static int lastKeyCode;
+		public static boolean released = false;
+		public static int cooldownMax = 100;
+		public static int cooldown = cooldownMax;
+
+		public static  boolean isDoublePress(KeyEvent ke) {
+			if ((ke.getWhen() - timeKeyDown) < doublePressTime&&ke.getKeyCode()==lastKeyCode) {
+				return true;
+			} else {
+				timeKeyDown = ke.getWhen();
+			}
+			lastKeyCode = ke.getKeyCode();
+			return false;
+		}
 	}
 
 

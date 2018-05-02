@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 public class Boss extends Enemy{
 	int[] increment = {0,0};//needs functionality
-	boolean stage1=true;
+	boolean stage1=false;
 	boolean stage2=false;
-	boolean stage3=false;
+	boolean stage3=true;
 	int lazorWarningMax = 30;
 	int lazorWarningCounter = lazorWarningMax;
 	int lazorCounterCounter= 0;
@@ -34,16 +34,16 @@ public class Boss extends Enemy{
 	
 	ArrayList<Bullet> spawnBullets(){
 		ArrayList<Bullet> a = new ArrayList<Bullet>();
-		if(health<200){
-			stage2=true;
-			stage1=false;
-			stage3=false;
-		}
-		if(health<100){
-			stage3=true;
-			stage1=false;
-			stage2=false;
-		}
+//		if(health<200){
+//			stage2=true;
+//			stage1=false;
+//			stage3=false;
+//		}
+//		if(health<100){
+//			stage3=true;
+//			stage1=false;
+//			stage2=false;
+//		}
 		if(this.stage1){
 			for(int i=0;(this.WIDTH/2)-i>0;i+=Player.WIDTH*3){//playerWidth*2
 				if(i==0){
@@ -83,17 +83,36 @@ public class Boss extends Enemy{
 			a.add(new Bullet(new Coordinate(hitbox.centerx+ran, hitbox.c2.y),new int[]{-6,novaBulletSpeed-6},5,5));
 		}
 		if(this.stage3){
-			counterDelay=10;
-			
+			counterDelay=50;
+			a.add(new HomingBullet(human,new Coordinate(this.hitbox.centerx,this.hitbox.c2.y),new int[] {1,3}));
+			a.add(new HomingBullet(human,new Coordinate(this.hitbox.c1.x,this.hitbox.c2.y),new int[] {1,3}));
+			a.add(new HomingBullet(human,new Coordinate(this.hitbox.c2.x,this.hitbox.c2.y),new int[] {1,3}));
 		}
-		
-		
-
 		return a;
 	}
 	
 	void move(){
 		
+	}
+	
+	class HomingBullet extends Bullet{
+		Player human;
+		int inc;
+		HomingBullet(Player p, Coordinate spawn, int[] move){
+			super(spawn, move);
+			human=p;
+			inc=increment[0];
+		}
+		boolean move(){
+			if(human.hitbox.c2.y<this.hitbox.c1.y || human.hitbox.centerx==this.hitbox.centerx){
+				increment[0]=inc*0;
+			}else if(human.hitbox.centerx>this.hitbox.centerx){
+				increment[0]=Math.abs(inc);
+			}else if(human.hitbox.centerx<this.hitbox.centerx){
+				increment[0]=-Math.abs(inc);
+			}
+			return hitbox.move(increment[0],increment[1]);
+		}
 	}
 	
 	class Lazor extends Bullet{

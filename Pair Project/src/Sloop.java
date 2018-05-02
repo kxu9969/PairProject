@@ -5,6 +5,7 @@ public class Sloop extends Enemy{
 	final int burstMax = 50;
 	final int burstCount = 2;
 	int burstCounter = burstCount;
+	
 	Sloop(){
 		WIDTH = 37;
 		HEIGHT = 24;
@@ -19,6 +20,7 @@ public class Sloop extends Enemy{
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
 	}
+	
 	ArrayList<Bullet> spawnBullets(){
 		ArrayList<Bullet> a = new ArrayList<Bullet>();
 		a.add(new Bullet(hitbox.c1,new int[]{0,bulletSpeed},7,7));
