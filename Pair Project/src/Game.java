@@ -198,7 +198,7 @@ public class Game extends JFrame implements KeyListener{
 	
 	private void gameOver() {
 		this.setVisible(false);
-		EndScreen endScreen=new EndScreen(p.score+"",p.name);
+		EndScreen endScreen=new EndScreen(p.score+"",p.name,difficulty);
 	}
 	private void makeAsteroid(){
 		int x = 0,y = 0;
