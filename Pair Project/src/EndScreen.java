@@ -1,12 +1,17 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 
 public class EndScreen extends JPanel implements ActionListener{
 	JFrame screen;
 	JButton playAgain,exit;
+	String file = "Z:/git/PairProject/Pair Project/src/Score";
 	EndScreen(String score, String username){
+		String highscore = score(Integer.parseInt(score));
 		screen=new JFrame("Game Over");
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -23,7 +28,7 @@ public class EndScreen extends JPanel implements ActionListener{
 		gbc_lblGameOver.insets = new Insets(5, 5, 10, 5);
 		this.add(lblGameOver, gbc_lblGameOver);
 		
-		JLabel lblScore = new JLabel(username+": "+score);
+		JLabel lblScore = new JLabel(username+": "+highscore + " "+score);
 		GridBagConstraints gbc_lblScore = new GridBagConstraints();
 		gbc_lblScore.gridx = 1;
 		gbc_lblScore.gridy = 1;
@@ -53,6 +58,32 @@ public class EndScreen extends JPanel implements ActionListener{
 		screen.add(this);
 		screen.pack();
 		screen.setVisible(true);
+	}
+	
+	public String score(int score){
+		boolean newScore = false;
+		String highscore = "0";
+		try {
+			Scanner scan = new Scanner(new File(file));
+			if(scan.hasNext()){
+				highscore = scan.nextLine();
+			}
+			try{
+				if(score>Integer.parseInt(highscore)){
+					highscore = Integer.toString(score);
+					newScore = true;
+				}
+			} catch(NumberFormatException e){
+				highscore = Integer.toString(score);
+			}
+			PrintWriter out = new PrintWriter(file);
+			out.print(highscore);
+			out.close();
+			scan = new Scanner(new File(file));
+		}catch(Exception e){
+			
+		}
+		return highscore;
 	}
 
 	public void actionPerformed(ActionEvent e) {
