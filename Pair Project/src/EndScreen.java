@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class EndScreen extends JPanel implements ActionListener{
 	JFrame screen;
 	JButton playAgain,exit;
-	String file = "Z:/git/PairProject/Pair Project/src/Score";
+	String easyFile = "Z:/git/PairProject/Pair Project/src/EasyScore";
 	EndScreen(String score, String username){
 		String highscore = score(Integer.parseInt(score));
 		screen=new JFrame("Game Over");
@@ -64,7 +64,7 @@ public class EndScreen extends JPanel implements ActionListener{
 		boolean newScore = false;
 		String highscore = "0";
 		try {
-			Scanner scan = new Scanner(new File(file));
+			Scanner scan = new Scanner(new File(easyFile));
 			if(scan.hasNext()){
 				highscore = scan.nextLine();
 			}
@@ -76,10 +76,10 @@ public class EndScreen extends JPanel implements ActionListener{
 			} catch(NumberFormatException e){
 				highscore = Integer.toString(score);
 			}
-			PrintWriter out = new PrintWriter(file);
+			PrintWriter out = new PrintWriter(easyFile);
 			out.print(highscore);
 			out.close();
-			scan = new Scanner(new File(file));
+			scan = new Scanner(new File(easyFile));
 		}catch(Exception e){
 			
 		}
