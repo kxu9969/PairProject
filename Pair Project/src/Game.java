@@ -211,9 +211,10 @@ public class Game extends JFrame implements KeyListener{
 	
 	private void gameOver() {
 		this.setVisible(false);
-		EndScreen endScreen=new EndScreen(p.score+"",p.name);
+
+		EndScreen endScreen=new EndScreen(p.score+"",p.name,difficulty);
 	}
-	
+
 	private void makeAsteroid(){
 		int x = 0,y = 0;
 		int[] increment;
@@ -255,7 +256,7 @@ public class Game extends JFrame implements KeyListener{
 		final static int HEIGHT = 580;
 		Visuals(){
 			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-			ImageIcon background=new ImageIcon(pre + "Background.png");
+			ImageIcon background=new ImageIcon(pre + "Background (1).jpg");
 			JLabel back=new JLabel();
 			back.setIcon(background);
 			back.setAlignmentX(JLabel.LEFT_ALIGNMENT);
