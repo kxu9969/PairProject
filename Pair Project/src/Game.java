@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -35,10 +36,21 @@ public class Game extends JFrame implements KeyListener{
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
 	Image enemyBullet, playerBullet, enemyFlash, sloopFlash;
+	JFrame infoFrame = new JFrame();
+	JPanel infoPanel = new JPanel();
+	HealthBar playerHealth = new HealthBar(p);
 
 
 	Game(String playerName, String dif){
 		difficulty=dif;
+		infoPanel.add(new JLabel(playerName));
+		infoPanel.add(playerHealth);
+		infoFrame.add(infoPanel);
+		infoFrame.pack();
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    	infoFrame.setLocation(dim.width/2-infoFrame.getSize().width/2-300, dim.height/2-infoFrame.getSize().height/2-100);
+    	infoFrame.setVisible(true);
+    	
 		this.setSize(new Dimension(Game.Visuals.WIDTH+5,Game.Visuals.HEIGHT+30));
 		this.setResizable(false);
 		p = new Player(playerName);
@@ -46,6 +58,9 @@ public class Game extends JFrame implements KeyListener{
 		this.add(vis);
 		this.setVisible(true);
 		addKeyListener(this);
+		
+		
+		
 		try{
 			enemyBullet=ImageIO.read(new File("img/Bulletdown.png"));
 			enemyFlash=ImageIO.read(new File("img/Enemygrey.png"));
@@ -193,13 +208,12 @@ public class Game extends JFrame implements KeyListener{
 		}
 		waveCounter++;
 		}
-		
-	
 	
 	private void gameOver() {
 		this.setVisible(false);
 		EndScreen endScreen=new EndScreen(p.score+"",p.name);
 	}
+	
 	private void makeAsteroid(){
 		int x = 0,y = 0;
 		int[] increment;
@@ -233,7 +247,7 @@ public class Game extends JFrame implements KeyListener{
 		noSteroids.clear();
 		if(DoublePress.cooldown!=0){
 			DoublePress.cooldown--;
-		}
+		}	
 	}
 
 	class Visuals extends JPanel{
@@ -365,11 +379,32 @@ public class Game extends JFrame implements KeyListener{
 					}
 				}
 			}
-			//code here to draw explosions of blown up bullets and ships
+
 		}
 
 	}
 
+	class HealthBar extends JPanel{
+		final static int WIDTH = 100;
+		final static int HEIGHT = 50;
+		Player p;
+		Boss b;
+		HealthBar(){
+			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+		}
+		HealthBar(Player p){
+			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+			this.p = p;
+		}
+		HealthBar(Boss b){
+			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+			this.b = b;
+		}
+		public void paint(Graphics g){
+			super.paint(g);
+		}
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP ){
 			p.increment[1]=-INCREMENT_AMOUNT;
@@ -406,7 +441,6 @@ public class Game extends JFrame implements KeyListener{
 	public void keyTyped(KeyEvent e) {	
 	}
 	
-
 	static class DoublePress {
 	 
 	    private static int doublePressTime = 200; // double keypressed in ms
