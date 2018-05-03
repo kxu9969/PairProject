@@ -251,7 +251,8 @@ public class Game extends JFrame implements KeyListener{
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 450, 10);
 			g.fillRect(0, 0, 10, 600);
-			for(Enemy e : enemies){
+			for(int i=0;i<enemies.size();i++){
+				Enemy e = enemies.get(i);
 				if(e.flash){
 					if(e.flashCounter == 0){
 						e.flash=false;
@@ -305,7 +306,8 @@ public class Game extends JFrame implements KeyListener{
 				} catch (IOException e1) {
 				}
 			}
-			for(Bullet b: enemyBullets){
+			for(int i = 0; i<enemyBullets.size();i++){
+				Bullet b = enemyBullets.get(i);
 				if(b instanceof Boss.Lazor) {
 					g.setColor(Color.CYAN);
 					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
@@ -319,11 +321,13 @@ public class Game extends JFrame implements KeyListener{
 				}
 				
 			}
-			for(Bullet b: playerBullets){
+			for(int i = 0; i<playerBullets.size();i++){
+				Bullet b = playerBullets.get(i);
 				g.drawImage(PlayerBullet.image, b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
 			}
 			
-			for(Asteroid a: steroids){
+			for(int i = 0;i<steroids.size();i++){
+				Asteroid a = steroids.get(i);
 				g.setColor(Color.RED);
 				if(a.horizontal){
 					g.drawLine(a.spawnX, a.spawnY, Game.Visuals.WIDTH, a.spawnY);
