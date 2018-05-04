@@ -14,9 +14,8 @@ public class EndScreen extends JPanel implements ActionListener{
 	String hardFile = "Z:/git/PairProject/Pair Project/src/HardScore";
 	String difficulty;
 	EndScreen(String score, String username, String dif){
-		String highscore = score(Integer.parseInt(score));
 		difficulty=dif;
-		System.out.println(difficulty);
+		String highscore = score(Integer.parseInt(score));
 		screen=new JFrame("Game Over");
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -71,14 +70,14 @@ public class EndScreen extends JPanel implements ActionListener{
 		String level="";
 		System.out.println(difficulty);
 		if(difficulty.equals("Easy")){
-			level="easy";
+			level="src/Easy";
 		}else if(difficulty.equals("Normal")){
-			level="normal";
+			level="src/Normal";
 		}else if(difficulty.equals("Hard")){
-			level="hard";
+			level="src/Hard";
 		}
 		try {
-			Scanner scan = new Scanner(new File(level+"File"));
+			Scanner scan = new Scanner(new File(level+"Score"));
 			if(scan.hasNext()){
 				highscore = scan.nextLine();
 			}
@@ -90,12 +89,12 @@ public class EndScreen extends JPanel implements ActionListener{
 			} catch(NumberFormatException e){
 				highscore = Integer.toString(score);
 			}
-			PrintWriter out = new PrintWriter(level+"File");
+			System.out.println(highscore);
+			PrintWriter out = new PrintWriter(level+"Score");
 			out.print(highscore);
 			out.close();
-			scan = new Scanner(new File(level+"File"));
+			scan = new Scanner(new File(level+"Score"));
 		}catch(Exception e){
-			
 		}
 		return highscore;
 	}
