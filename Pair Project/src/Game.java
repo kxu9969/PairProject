@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -31,21 +33,39 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
-	int waveCounter = 3;
+	int waveCounter = 10;
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
 	Image enemyBullet, playerBullet, enemyFlash, sloopFlash;
+	JFrame infoFrame = new JFrame();
+	JPanel infoPanel = new JPanel();
+	HealthBar playerHealth;
+	HealthBar bossHealth;
 
 
 	Game(String playerName, String dif){
 		difficulty=dif;
+		p = new Player(playerName);
+		infoPanel.setLayout(new GridLayout(1,2,0,0));
+		infoPanel.add(new JLabel(playerName));
+		playerHealth = new HealthBar(p);
+		bossHealth = new HealthBar(boss);
+		infoPanel.add(playerHealth);
+		infoFrame.add(infoPanel);
+		infoFrame.pack();
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    	infoFrame.setLocation(dim.width/2-infoFrame.getSize().width/2-200, dim.height/2-infoFrame.getSize().height/2-100);
+    	infoFrame.setVisible(true);
+    	
 		this.setSize(new Dimension(Game.Visuals.WIDTH+5,Game.Visuals.HEIGHT+30));
 		this.setResizable(false);
-		p = new Player(playerName);
 		vis = new Visuals();
 		this.add(vis);
 		this.setVisible(true);
 		addKeyListener(this);
+		
+	
+		
 		try{
 			enemyBullet=ImageIO.read(new File("img/Bulletdown.png"));
 			enemyFlash=ImageIO.read(new File("img/Enemygrey.png"));
@@ -189,15 +209,19 @@ public class Game extends JFrame implements KeyListener{
 			System.out.println("BOSS ROUND");
 			bossMode=true;
 			boss = new Boss(p,difficulty);
+			bossHealth=new HealthBar(boss);
+			bossHealth.Switch=true;
 			enemies.add(boss);
 		}
 		waveCounter++;
 		}
-		
+	
 	private void gameOver() {
 		this.setVisible(false);	
+		infoFrame.setVisible(false);
 		EndScreen endScreen=new EndScreen(p.score+"",p.name,difficulty);
 	}
+
 	private void makeAsteroid(){
 		int x = 0,y = 0;
 		int[] increment;
@@ -221,6 +245,10 @@ public class Game extends JFrame implements KeyListener{
 			enemyBullets.remove(b);
 		}
 		for(Enemy e: ded){
+			if(e instanceof Boss){
+				bossMode = false;
+				bossHealth.Switch=true;
+			}
 			enemies.remove(e);
 		}
 		for(Asteroid a: noSteroids){
@@ -231,6 +259,19 @@ public class Game extends JFrame implements KeyListener{
 		noSteroids.clear();
 		if(DoublePress.cooldown!=0){
 			DoublePress.cooldown--;
+		}	
+		if(bossMode && bossHealth.Switch){
+			infoPanel.setLayout(new GridLayout(2,2,0,5));
+			infoPanel.add(new JLabel("Boss Health:"));
+			infoPanel.add(bossHealth);
+			infoFrame.pack();
+			bossHealth.Switch=false;
+		}else if(!bossMode && bossHealth.Switch){
+			infoPanel.remove(2);
+			infoPanel.remove(2);
+			infoPanel.setLayout(new GridLayout(1,2,0,0));
+			infoFrame.pack();
+			bossHealth.Switch = false;
 		}
 	}
 
@@ -363,11 +404,50 @@ public class Game extends JFrame implements KeyListener{
 					}
 				}
 			}
-			//code here to draw explosions of blown up bullets and ships
+			playerHealth.repaint();
+			bossHealth.repaint();
+
 		}
 
 	}
 
+	class HealthBar extends JPanel{
+		final static int WIDTH = 101;
+		final static int HEIGHT = 51;
+		boolean Switch = false;
+		Player p;
+		Boss b;
+		HealthBar(){
+			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+		}
+		HealthBar(Player p){
+			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+			this.p = p;
+		}
+		HealthBar(Boss b){
+			this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+			this.b = b;
+		}
+		public void paint(Graphics g){
+			super.paint(g);
+			if(p != null){
+				g.setColor(Color.RED);
+				g.fillRect(0, 0, WIDTH/p.maxHealth*p.health, HEIGHT-1);
+				g.setColor(Color.WHITE);
+				g.fillRect(WIDTH/p.maxHealth*p.health, 0, WIDTH, HEIGHT-1);
+				g.setColor(Color.BLACK);
+				g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
+			}if(b != null){
+				g.setColor(Color.BLUE);
+				g.fillRect(0, 0, WIDTH/b.maxHealth*b.health, HEIGHT-1);
+				g.setColor(Color.WHITE);
+				g.fillRect(WIDTH/b.maxHealth*b.health, 0, WIDTH, HEIGHT-1);
+				g.setColor(Color.BLACK);
+				g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
+			}
+		}
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP ){
 			p.increment[1]=-INCREMENT_AMOUNT;
@@ -404,7 +484,6 @@ public class Game extends JFrame implements KeyListener{
 	public void keyTyped(KeyEvent e) {	
 	}
 	
-
 	static class DoublePress {
 	 
 	    private static int doublePressTime = 200; // double keypressed in ms
