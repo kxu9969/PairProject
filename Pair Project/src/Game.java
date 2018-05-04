@@ -32,18 +32,22 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
-	int waveCounter = 3;
+	int waveCounter = 10;
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
 	Image enemyBullet, playerBullet, enemyFlash, sloopFlash;
 	JFrame infoFrame = new JFrame();
 	JPanel infoPanel = new JPanel();
-	HealthBar playerHealth = new HealthBar(p);
+	HealthBar playerHealth;
+	HealthBar bossHealth;
 
 
 	Game(String playerName, String dif){
 		difficulty=dif;
+		p = new Player(playerName);
 		infoPanel.add(new JLabel(playerName));
+		playerHealth = new HealthBar(p);
+		bossHealth = new HealthBar(boss);
 		infoPanel.add(playerHealth);
 		infoFrame.add(infoPanel);
 		infoFrame.pack();
@@ -53,13 +57,12 @@ public class Game extends JFrame implements KeyListener{
     	
 		this.setSize(new Dimension(Game.Visuals.WIDTH+5,Game.Visuals.HEIGHT+30));
 		this.setResizable(false);
-		p = new Player(playerName);
 		vis = new Visuals();
 		this.add(vis);
 		this.setVisible(true);
 		addKeyListener(this);
 		
-		
+	
 		
 		try{
 			enemyBullet=ImageIO.read(new File("img/Bulletdown.png"));
@@ -204,6 +207,8 @@ public class Game extends JFrame implements KeyListener{
 			System.out.println("BOSS ROUND");
 			bossMode=true;
 			boss = new Boss(p,difficulty);
+			bossHealth=new HealthBar(boss);
+			bossHealth.Switch=true;
 			enemies.add(boss);
 		}
 		waveCounter++;
@@ -211,7 +216,7 @@ public class Game extends JFrame implements KeyListener{
 	
 	private void gameOver() {
 		this.setVisible(false);
-
+		infoFrame.setVisible(false);
 		EndScreen endScreen=new EndScreen(p.score+"",p.name,difficulty);
 	}
 
@@ -238,6 +243,10 @@ public class Game extends JFrame implements KeyListener{
 			enemyBullets.remove(b);
 		}
 		for(Enemy e: ded){
+			if(e instanceof Boss){
+				bossMode = false;
+				bossHealth.Switch=true;
+			}
 			enemies.remove(e);
 		}
 		for(Asteroid a: noSteroids){
@@ -249,6 +258,17 @@ public class Game extends JFrame implements KeyListener{
 		if(DoublePress.cooldown!=0){
 			DoublePress.cooldown--;
 		}	
+		if(bossMode && bossHealth.Switch){
+			infoPanel.add(new JLabel("Boss Health:"));
+			infoPanel.add(bossHealth);
+			infoFrame.pack();
+			bossHealth.Switch=false;
+		}else if(!bossMode && bossHealth.Switch){
+			infoPanel.remove(2);
+			infoPanel.remove(2);
+			infoFrame.pack();
+			bossHealth.Switch = false;
+		}
 	}
 
 	class Visuals extends JPanel{
@@ -380,14 +400,17 @@ public class Game extends JFrame implements KeyListener{
 					}
 				}
 			}
+			playerHealth.repaint();
+			bossHealth.repaint();
 
 		}
 
 	}
 
 	class HealthBar extends JPanel{
-		final static int WIDTH = 100;
-		final static int HEIGHT = 50;
+		final static int WIDTH = 101;
+		final static int HEIGHT = 51;
+		boolean Switch = false;
 		Player p;
 		Boss b;
 		HealthBar(){
@@ -403,6 +426,21 @@ public class Game extends JFrame implements KeyListener{
 		}
 		public void paint(Graphics g){
 			super.paint(g);
+			if(p != null){
+				g.setColor(Color.RED);
+				g.fillRect(0, 0, WIDTH/p.maxHealth*p.health, HEIGHT-1);
+				g.setColor(Color.WHITE);
+				g.fillRect(WIDTH/p.maxHealth*p.health, 0, WIDTH, HEIGHT-1);
+				g.setColor(Color.BLACK);
+				g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
+			}if(b != null){
+				g.setColor(Color.BLUE);
+				g.fillRect(0, 0, WIDTH/b.maxHealth*b.health, HEIGHT-1);
+				g.setColor(Color.WHITE);
+				g.fillRect(WIDTH/b.maxHealth*b.health, 0, WIDTH, HEIGHT-1);
+				g.setColor(Color.BLACK);
+				g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
+			}
 		}
 	}
 	

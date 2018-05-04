@@ -17,7 +17,8 @@ public class Player {
 	int flashCounter = flashMax;
 	boolean dead = false;
 	boolean barrelRoll = false;
-	int health = 100;
+	int maxHealth = 100;
+	int health = maxHealth;
 	int score=0;
 	int bulletSpawn=13;
 	boolean damage1 = false;
