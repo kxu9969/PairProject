@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -45,6 +46,7 @@ public class Game extends JFrame implements KeyListener{
 	Game(String playerName, String dif){
 		difficulty=dif;
 		p = new Player(playerName);
+		infoPanel.setLayout(new GridLayout(1,2,0,0));
 		infoPanel.add(new JLabel(playerName));
 		playerHealth = new HealthBar(p);
 		bossHealth = new HealthBar(boss);
@@ -52,7 +54,7 @@ public class Game extends JFrame implements KeyListener{
 		infoFrame.add(infoPanel);
 		infoFrame.pack();
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    	infoFrame.setLocation(dim.width/2-infoFrame.getSize().width/2-300, dim.height/2-infoFrame.getSize().height/2-100);
+    	infoFrame.setLocation(dim.width/2-infoFrame.getSize().width/2-200, dim.height/2-infoFrame.getSize().height/2-100);
     	infoFrame.setVisible(true);
     	
 		this.setSize(new Dimension(Game.Visuals.WIDTH+5,Game.Visuals.HEIGHT+30));
@@ -259,6 +261,7 @@ public class Game extends JFrame implements KeyListener{
 			DoublePress.cooldown--;
 		}	
 		if(bossMode && bossHealth.Switch){
+			infoPanel.setLayout(new GridLayout(2,2,0,5));
 			infoPanel.add(new JLabel("Boss Health:"));
 			infoPanel.add(bossHealth);
 			infoFrame.pack();
@@ -266,6 +269,7 @@ public class Game extends JFrame implements KeyListener{
 		}else if(!bossMode && bossHealth.Switch){
 			infoPanel.remove(2);
 			infoPanel.remove(2);
+			infoPanel.setLayout(new GridLayout(1,2,0,0));
 			infoFrame.pack();
 			bossHealth.Switch = false;
 		}
