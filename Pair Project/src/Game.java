@@ -36,7 +36,7 @@ public class Game extends JFrame implements KeyListener{
 	int waveCounter = 10;
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
-	Image enemyBullet, playerBullet, enemyFlash, sloopFlash;
+	Image enemyBullet, playerBullet, enemyFlash, sloopFlash, bossFlash;
 	JFrame infoFrame = new JFrame();
 	JPanel infoPanel = new JPanel();
 	HealthBar playerHealth;
@@ -71,6 +71,7 @@ public class Game extends JFrame implements KeyListener{
 			enemyFlash=ImageIO.read(new File("img/Enemygrey.png"));
 			playerBullet=ImageIO.read(new File("img/Bulletup.png"));
 			sloopFlash=ImageIO.read(new File("img/Sloopgrey.png"));
+			bossFlash=ImageIO.read(new File("img/Bossgrey.png"));
 		}catch(Exception e){
 		}
 		t.schedule(new TimerTask(){
@@ -305,7 +306,10 @@ public class Game extends JFrame implements KeyListener{
 					try {
 						if(e instanceof Sloop){
 							g.drawImage(sloopFlash, e.hitbox.getCornerX(), e.hitbox.getCornerY(), null);
-						}else{
+						}else if(e instanceof Boss) {
+							g.drawImage(bossFlash, e.hitbox.getCornerX(),e.hitbox.getCornerY(),null);
+						}
+						else{
 							g.drawImage(enemyFlash, e.hitbox.getCornerX(), e.hitbox.getCornerY(), null);
 						}
 						
