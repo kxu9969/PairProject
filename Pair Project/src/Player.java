@@ -45,7 +45,7 @@ public class Player {
 		if(barrelRoll){
 			warpBox = new Hitbox(new Coordinate(hitbox.c1.x,hitbox.c1.y),new Coordinate(hitbox.c2.x,hitbox.c2.y));
 			warp=true;
-			hitbox.move(increment[0]*barrelRollScalar, increment[1]*barrelRollScalar);
+			hitbox.move(increment[0]*barrelRollScalar, increment[1]*barrelRollScalar,true);
 			barrelRoll = false;
 		}else{
 			hitbox.move(increment[0], increment[1]);
