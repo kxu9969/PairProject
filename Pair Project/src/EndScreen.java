@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	String difficulty;
 	EndScreen(String score, String username, String dif){
 		difficulty=dif;
-		String highscore = score(Integer.parseInt(score));
+		int highscore = score(username,Integer.parseInt(score));
 		screen=new JFrame("Game Over");
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -64,11 +65,12 @@ public class EndScreen extends JPanel implements ActionListener{
 		screen.setVisible(true);
 	}
 	
-	public String score(int score){
+	public int score(String username, int score){
 		boolean newScore = false;
-		String highscore = "0";
+		String nextLine;
+		String Highscore = "0";
+		int highscore = 0;
 		String level="";
-		System.out.println(difficulty);
 		if(difficulty.equals("Easy")){
 			level="src/Easy";
 		}else if(difficulty.equals("Normal")){
@@ -76,27 +78,58 @@ public class EndScreen extends JPanel implements ActionListener{
 		}else if(difficulty.equals("Hard")){
 			level="src/Hard";
 		}
-		try {
+		try{
 			Scanner scan = new Scanner(new File(level+"Score"));
-			if(scan.hasNext()){
-				highscore = scan.nextLine();
-			}
-			try{
-				if(score>Integer.parseInt(highscore)){
-					highscore = Integer.toString(score);
-					newScore = true;
+			while(scan.hasNext()){
+				nextLine = scan.nextLine();
+				if(firstInt(nextLine)!=-1&&firstInt(nextLine)>highscore){
+					highscore = firstInt(nextLine);
 				}
-			} catch(NumberFormatException e){
-				highscore = Integer.toString(score);
 			}
-			System.out.println(highscore);
-			PrintWriter out = new PrintWriter(level+"Score");
-			out.print(highscore);
+			if(score>highscore){
+				highscore = score;
+				newScore = true;
+			}
+			PrintWriter out = new PrintWriter(new File(level+"Score"));
+			out.print(highscore+" "+username);
 			out.close();
-			scan = new Scanner(new File(level+"Score"));
 		}catch(Exception e){
 		}
 		return highscore;
+	}
+	
+	public static void sort(File f,String scoreName){
+		//rewrites the file with highest score to lowest,overwrites score of same player if needed
+		int i = firstInt(scoreName);
+		try {
+			Scanner scan = new Scanner(f);
+			PrintWriter out = new PrintWriter(f);
+			while(scan.hasNext()){
+				if()
+			}
+		} catch (FileNotFoundException e) {
+		}
+		
+	}
+	
+	public static int firstInt(String str){//returns -1 if not found
+		int index = 0;
+		int i = -1;
+		String finalString="";
+		boolean go = true;
+		while(go&&index<str.length()){
+			if(Character.isDigit(str.charAt(index))){
+				finalString+=str.charAt(index);
+			}else{
+				go=false;
+			}
+			index++;
+		}
+		try{
+			i = Integer.parseInt(finalString);
+		}catch(Exception e){
+		}
+		return i;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -108,4 +141,6 @@ public class EndScreen extends JPanel implements ActionListener{
 			System.exit(0);
 		}
 	}
+	
+	
 }
