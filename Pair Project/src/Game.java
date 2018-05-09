@@ -33,7 +33,7 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
-	int waveCounter = 10;
+	int waveCounter = 0;
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
 	Image enemyBullet, playerBullet, enemyFlash, sloopFlash;
