@@ -23,8 +23,8 @@ public class Boss extends Enemy{
 		super(dif);
 		DEFAULT_START_X = 105;
 		DEFAULT_START_Y = 40;
-		WIDTH=220;
-		HEIGHT=40;
+		WIDTH=200;
+		HEIGHT=36;
 		if(dif.equals("Easy")){
 			health=100;
 		}else if(dif.equals("Normal")){
@@ -41,6 +41,7 @@ public class Boss extends Enemy{
 		color= Color.MAGENTA;
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));
+		post = "Boss.png";
 		
 	}
 	
