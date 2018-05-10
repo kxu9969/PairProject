@@ -164,11 +164,12 @@ public class EndScreen extends JPanel implements ActionListener{
 					} 
 				}
 			}
-			//PrintWriter out = new PrintWriter(f);
+			PrintWriter out = new PrintWriter(f);
 			for(int i = 0;i<list.size();i++){
-				//out.print(list.get(i));
+				out.println(list.get(i));
 				System.out.println(list.get(i));
 			}
+			out.close();
 		} catch (FileNotFoundException e) {
 		}
 		
@@ -205,7 +206,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		sort(new File("src/EasyScore"),"1 hi",true);
+		sort(new File("src/EasyScore"),"22 hi",false);
 	}
 	
 }
