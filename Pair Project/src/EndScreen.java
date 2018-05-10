@@ -172,7 +172,7 @@ public class EndScreen extends JPanel implements ActionListener{
 			out.close();
 		} catch (FileNotFoundException e) {
 		}
-		
+
 	}
 
 	public static int firstInt(String str){//returns -1 if not found
@@ -206,7 +206,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		sort(new File("src/EasyScore"),"22 hi",false);
+		sort(new File("src/EasyScore"),"22 hi",true);
 	}
 	
 }
