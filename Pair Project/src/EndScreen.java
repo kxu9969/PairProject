@@ -20,16 +20,18 @@ public class EndScreen extends JPanel implements ActionListener{
 		difficulty=dif;
 		userName = username;
 		String begin="Easy";
-		int typeOfScore = score(username,Integer.parseInt(score));
-		if(typeOfScore>0){
-			if(difficulty.equals("Easy")){
+		if(difficulty.equals("Easy")){
 				begin="src/Easy";
 			}else if(difficulty.equals("Normal")){
 				begin="src/Normal";
 			}else if(difficulty.equals("Hard")){
 				begin="src/Hard";
 			}
-			sort(new File(begin+"File"),score+" "+username,true);
+		int typeOfScore = score(username,Integer.parseInt(score));
+		if(typeOfScore==3){
+			sort(new File(begin+"Score"),score+" "+username,true);
+		}else{
+			sort(new File(begin+"Score"),score+" "+username,false);
 		}
 		screen=new JFrame("Game Over");
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
