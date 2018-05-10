@@ -19,7 +19,18 @@ public class EndScreen extends JPanel implements ActionListener{
 	EndScreen(String score, String username, String dif){
 		difficulty=dif;
 		userName = username;
-		int highscore = score(username,Integer.parseInt(score));
+		String begin="Easy";
+		int typeOfScore = score(username,Integer.parseInt(score));
+		if(typeOfScore>0){
+			if(difficulty.equals("Easy")){
+				begin="src/Easy";
+			}else if(difficulty.equals("Normal")){
+				begin="src/Normal";
+			}else if(difficulty.equals("Hard")){
+				begin="src/Hard";
+			}
+			sort(new File(begin+"File"),score+" "+username,true);
+		}
 		screen=new JFrame("Game Over");
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -36,7 +47,7 @@ public class EndScreen extends JPanel implements ActionListener{
 		gbc_lblGameOver.insets = new Insets(5, 5, 10, 5);
 		this.add(lblGameOver, gbc_lblGameOver);
 		
-		JLabel lblScore = new JLabel(username+": "+highscore + " "+score);
+		JLabel lblScore = new JLabel(username+": "+typeOfScore + " "+score);
 		GridBagConstraints gbc_lblScore = new GridBagConstraints();
 		gbc_lblScore.gridx = 1;
 		gbc_lblScore.gridy = 1;
@@ -71,6 +82,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	public int score(String username, int score){
 		int type=-1; //1 is personal highscore, 2 is local highscore, 3 is new player, 0 is none to the left
 		boolean newScore = false;
+		boolean multipleScores=false;
 		String nextLine;
 		String Highscore = "0";
 		int highscore = 0;
@@ -92,12 +104,15 @@ public class EndScreen extends JPanel implements ActionListener{
 				String something=nextLine;
 				String integerInString=firstInt(nextLine)+"";
 				String subOfString=(nextLine.substring(integerInString.length()+1));
+				
 				if(subOfString.equals(username)&&type==-1){
 					if(firstInt(integerInString)>=score){
 						type=0;
 					}else{
 						type=1;
 					}
+				}else if(subOfString.equals(username)){
+					multipleScores=true;
 				}
 			}
 			if(score>highscore && type!=0){
@@ -108,7 +123,7 @@ public class EndScreen extends JPanel implements ActionListener{
 			
 		}catch(Exception e){
 		}
-		if(type==-1){
+		if(type==-1||!multipleScores){
 			type=3;
 		}
 		System.out.println("Type:"+type);
