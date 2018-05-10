@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -14,8 +15,10 @@ public class EndScreen extends JPanel implements ActionListener{
 	String normalFile = "Z:/git/PairProject/Pair Project/src/NormalScore";
 	String hardFile = "Z:/git/PairProject/Pair Project/src/HardScore";
 	String difficulty;
+	String userName;
 	EndScreen(String score, String username, String dif){
 		difficulty=dif;
+		userName = username;
 		int highscore = score(username,Integer.parseInt(score));
 		screen=new JFrame("Game Over");
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,20 +101,65 @@ public class EndScreen extends JPanel implements ActionListener{
 		return highscore;
 	}
 	
-	public static void sort(File f,String scoreName){
+	public static void sort(File f,String scoreName, boolean newPlayer){
 		//rewrites the file with highest score to lowest,overwrites score of same player if needed
-		int i = firstInt(scoreName);
+		int score = firstInt(scoreName);
+		String name = scoreName.substring((""+score).length()+1);
+		ArrayList<Integer> numList = new ArrayList<Integer>();
+		ArrayList<String> nameList = new ArrayList<String>();
+		ArrayList<String> list = new ArrayList<String>();
 		try {
 			Scanner scan = new Scanner(f);
-			PrintWriter out = new PrintWriter(f);
 			while(scan.hasNext()){
-				if()
+				String str = scan.nextLine();
+				list.add(str);
+				int num = firstInt(str);
+				String i = ""+num;
+				str = str.substring(i.length()+1);
+				numList.add(num);
+				nameList.add(str);
+			}
+			boolean erase = false;
+			if(!newPlayer){
+				int eraseIndex = 0;
+				for(int i = 0;i<nameList.size();i++){
+					if(nameList.get(i).equals(name)){
+						if(numList.get(i)<score){
+							erase = true;
+							eraseIndex = i;
+						}
+					}
+				}
+				if(erase){
+					numList.remove(eraseIndex);
+					nameList.remove(eraseIndex);
+					list.remove(eraseIndex);
+				}
+			}else{
+				erase = true;
+			}
+			boolean lock = false;
+			if(erase){
+				for(int i = 0;i<=numList.size()&&!lock;i++){
+					if(i==numList.size()){
+						list.add(scoreName);
+						lock = true;
+					}else if(numList.get(i)<score){
+						list.add(i, scoreName);
+						lock = true;
+					} 
+				}
+			}
+			//PrintWriter out = new PrintWriter(f);
+			for(int i = 0;i<list.size();i++){
+				//out.print(list.get(i));
+				System.out.println(list.get(i));
 			}
 		} catch (FileNotFoundException e) {
 		}
 		
 	}
-	
+
 	public static int firstInt(String str){//returns -1 if not found
 		int index = 0;
 		int i = -1;
@@ -136,11 +184,14 @@ public class EndScreen extends JPanel implements ActionListener{
 		String whichButton=e.getActionCommand();
 		if(whichButton.equals("Play Again")){
 			screen.setVisible(false);
-			StartScreen start=new StartScreen();
+			StartScreen start=new StartScreen(userName);
 		}else if(whichButton.equals("Exit")){
 			System.exit(0);
 		}
 	}
 	
+	public static void main(String[] args){
+		sort(new File("src/EasyScore"),"1 hi",true);
+	}
 	
 }

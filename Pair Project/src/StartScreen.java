@@ -68,6 +68,62 @@ public class StartScreen extends JPanel implements ActionListener{
 		screen.setVisible(true);
 	}
 
+	StartScreen(String playerName){
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0};
+		gridBagLayout.rowHeights = new int[]{35, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
+		
+		screen = new JFrame();
+		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		panel=new JPanel();
+		panel.setLayout(gridBagLayout);
+		
+		name = new JTextField(playerName);
+		GridBagConstraints gbc_nameField = new GridBagConstraints();
+		gbc_nameField.gridwidth = 1;
+		gbc_nameField.fill=GridBagConstraints.HORIZONTAL;
+		gbc_nameField.insets = new Insets(0, 0, 5, 0);
+		gbc_nameField.gridx = 1;
+		gbc_nameField.gridy = 0;
+		panel.add(name,gbc_nameField);
+		
+		difficulty = new JComboBox(difficulties);
+		GridBagConstraints gbc_difBox = new GridBagConstraints();
+		gbc_difBox.gridwidth = 1;
+		gbc_difBox.insets = new Insets(0, 0, 5, 0);
+		gbc_difBox.gridx = 1;
+		gbc_difBox.gridy = 1;
+		panel.add(difficulty,gbc_difBox);
+		
+		start = new JButton("Start");
+		start.setActionCommand(this.getName());
+		start.addActionListener(this);
+		GridBagConstraints gbc_startbtn = new GridBagConstraints();
+		gbc_startbtn.gridwidth = 1;
+		gbc_startbtn.ipadx=30;
+		gbc_startbtn.insets = new Insets(0, 0, 0, 0);
+		gbc_startbtn.gridx = 0;
+		gbc_startbtn.gridy = 2;
+		panel.add(start,gbc_startbtn);
+		
+		howToPlay = new JButton("How to Play");
+		howToPlay.setActionCommand(this.getName());
+		howToPlay.addActionListener(this);
+		GridBagConstraints gbc_howbtn = new GridBagConstraints();
+		gbc_howbtn.gridwidth = 1;
+		gbc_howbtn.insets = new Insets(0, 0, 0, 0);
+		gbc_howbtn.gridx = 2;
+		gbc_howbtn.gridy = 2;
+		panel.add(howToPlay,gbc_howbtn);
+		
+		screen.add(panel);
+		screen.pack();
+		screenSize=screen.getBounds().getSize();
+		screen.setVisible(true);
+	}
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Start")) {
 			String userName=name.getText();
