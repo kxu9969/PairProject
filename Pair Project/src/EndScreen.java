@@ -69,6 +69,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	}
 	
 	public int score(String username, int score){
+		int type=-1; //1 is personal highscore, 2 is local highscore, 3 is new player, 0 is none to the left
 		boolean newScore = false;
 		String nextLine;
 		String Highscore = "0";
@@ -88,17 +89,30 @@ public class EndScreen extends JPanel implements ActionListener{
 				if(firstInt(nextLine)!=-1&&firstInt(nextLine)>highscore){
 					highscore = firstInt(nextLine);
 				}
+				String something=nextLine;
+				String integerInString=firstInt(nextLine)+"";
+				String subOfString=(nextLine.substring(integerInString.length()+1));
+				if(subOfString.equals(username)&&type==-1){
+					if(firstInt(integerInString)>=score){
+						type=0;
+					}else{
+						type=1;
+					}
+				}
 			}
-			if(score>highscore){
+			if(score>highscore && type!=0){
 				highscore = score;
 				newScore = true;
+				type=2;
 			}
-			PrintWriter out = new PrintWriter(new File(level+"Score"));
-			out.print(highscore+" "+username);
-			out.close();
+			
 		}catch(Exception e){
 		}
-		return highscore;
+		if(type==-1){
+			type=3;
+		}
+		System.out.println("Type:"+type);
+		return type;
 	}
 	
 	public static void sort(File f,String scoreName, boolean newPlayer){
