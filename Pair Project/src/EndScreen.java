@@ -61,6 +61,7 @@ public class EndScreen extends JPanel implements ActionListener{
 		}
 		screen=new JFrame("Game Over");
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		screen.setLayout(new GridLayout(2,1,0,0));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0,0,0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0};
@@ -102,8 +103,43 @@ public class EndScreen extends JPanel implements ActionListener{
 		gbc_exitBtn.gridy = 2;
 		gbc_exitBtn.insets = new Insets(10, 5, 0, 0);
 		this.add(exit,gbc_exitBtn);
-		
 		screen.add(this);
+		try {
+			JPanel leaderboard = new JPanel();
+			leaderboard.setLayout(new GridLayout(11,1,0,0));
+			leaderboard.setBorder(BorderFactory.createEmptyBorder(0, 10, 5, 10));
+			Scanner in = new Scanner(new File("src/"+dif+"Score"));
+			String[] top = new String[10];
+			for(int i = 0;i<10&&in.hasNext();i++){
+				top[i]=in.nextLine();
+			}
+			JLabel title = new JLabel("Leaderboard");
+			title.setHorizontalAlignment(JLabel.CENTER);
+			JLabel l0 = new JLabel(top[0]);
+			JLabel l1 = new JLabel(top[1]);
+			JLabel l2 = new JLabel(top[2]);
+			JLabel l3 = new JLabel(top[3]);
+			JLabel l4 = new JLabel(top[4]);
+			JLabel l5 = new JLabel(top[5]);
+			JLabel l6 = new JLabel(top[6]);
+			JLabel l7 = new JLabel(top[7]);
+			JLabel l8 = new JLabel(top[8]);
+			JLabel l9 = new JLabel(top[9]);
+			leaderboard.add(title);
+			leaderboard.add(l0);
+			leaderboard.add(l1);
+			leaderboard.add(l2);
+			leaderboard.add(l3);
+			leaderboard.add(l4);
+			leaderboard.add(l5);
+			leaderboard.add(l6);
+			leaderboard.add(l7);
+			leaderboard.add(l8);
+			leaderboard.add(l9);
+			screen.add(leaderboard);
+		} catch (FileNotFoundException e) {
+		}
+
 		screen.pack();
 		screen.setVisible(true);
 	}
