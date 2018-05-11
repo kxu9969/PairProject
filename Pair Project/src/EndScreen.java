@@ -82,6 +82,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	}
 	
 	public int score(String username, int score){
+		System.out.println("Start");
 		int type=-1; //1 is personal highscore, 2 is local highscore, 3 is new player, 0 is none to the left
 		boolean newScore = false;
 		boolean multipleScores=false;
@@ -113,7 +114,8 @@ public class EndScreen extends JPanel implements ActionListener{
 					}else{
 						type=1;
 					}
-				}else if(subOfString.equals(username)){
+				}
+				if(subOfString.equals(username)){
 					multipleScores=true;
 				}
 			}
@@ -128,7 +130,7 @@ public class EndScreen extends JPanel implements ActionListener{
 		if(type==-1||!multipleScores){
 			type=3;
 		}
-		System.out.println("Type:"+type);
+		//System.out.println("Type:"+type);
 		return type;
 	}
 	
@@ -184,7 +186,7 @@ public class EndScreen extends JPanel implements ActionListener{
 			PrintWriter out = new PrintWriter(f);
 			for(int i = 0;i<list.size();i++){
 				out.println(list.get(i));
-				System.out.println(list.get(i));
+//				System.out.println(list.get(i));
 			}
 			out.close();
 		} catch (FileNotFoundException e) {
@@ -223,7 +225,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		sort(new File("src/EasyScore"),"22 hi",true);
+		EndScreen endscreen=new EndScreen("13", "Hi", "Normal");
 	}
 	
 }
