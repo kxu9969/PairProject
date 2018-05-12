@@ -10,7 +10,7 @@ public class PlayerBullet extends Bullet{
 		super(spawn,move);
 		post = "Bulletup.png";
 		try {
-			image = ImageIO.read(new File(Game.pre+"Bulletdown.png"));
+			image = ImageIO.read(new File(Game.pre+"Bulletup.png"));
 		} catch (IOException e) {
 		}
 	}
@@ -18,7 +18,7 @@ public class PlayerBullet extends Bullet{
 		super(spawn,move,width,height);
 		post = "Bulletup.png";
 		try {
-			image = ImageIO.read(new File(Game.pre+"Bulletdown.png"));
+			image = ImageIO.read(new File(Game.pre+"Bulletup.png"));
 		} catch (IOException e) {
 		}
 	}

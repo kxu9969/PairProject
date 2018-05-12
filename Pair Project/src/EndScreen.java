@@ -110,6 +110,9 @@ public class EndScreen extends JPanel implements ActionListener{
 			leaderboard.setBorder(BorderFactory.createEmptyBorder(0, 10, 5, 10));
 			Scanner in = new Scanner(new File("src/"+dif+"Score"));
 			String[] top = new String[10];
+			for(int i = 0;i<10;i++) {
+				top[i]="---";
+			}
 			for(int i = 0;i<10&&in.hasNext();i++){
 				top[i]=in.nextLine();
 			}

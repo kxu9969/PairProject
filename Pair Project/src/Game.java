@@ -36,7 +36,7 @@ public class Game extends JFrame implements KeyListener{
 	int waveCounter = 0;
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
-	Image enemyBullet, playerBullet, enemyFlash, sloopFlash, bossFlash;
+	Image playerBullet, enemyFlash, sloopFlash, bossFlash, asteroid;
 	JFrame infoFrame = new JFrame();
 	JPanel infoPanel = new JPanel();
 	HealthBar playerHealth;
@@ -67,11 +67,11 @@ public class Game extends JFrame implements KeyListener{
 	
 		
 		try{
-			enemyBullet=ImageIO.read(new File("img/Bulletdown.png"));
 			enemyFlash=ImageIO.read(new File("img/Enemygrey.png"));
 			playerBullet=ImageIO.read(new File("img/Bulletup.png"));
 			sloopFlash=ImageIO.read(new File("img/Sloopgrey.png"));
 			bossFlash=ImageIO.read(new File("img/Bossgrey.png"));
+			asteroid=ImageIO.read(new File("img/Asteroid.png"));
 		}catch(Exception e){
 		}
 		t.schedule(new TimerTask(){
@@ -359,7 +359,7 @@ public class Game extends JFrame implements KeyListener{
 					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
 				}else {
 					try {
-						g.drawImage(enemyBullet, b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
+						g.drawImage(b.bullet, b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);
 					} catch (Exception e1) {
 				}
 					//g.setColor(Color.YELLOW);
@@ -380,8 +380,7 @@ public class Game extends JFrame implements KeyListener{
 				}else{
 					g.drawLine(a.spawnX, a.spawnY, a.spawnX, Game.Visuals.HEIGHT);
 				}
-				g.setColor(new Color(160,82,45));
-				g.fillRect(a.hitbox.getCornerX(), a.hitbox.getCornerY(), a.WIDTH, a.HEIGHT);
+				g.drawImage(asteroid, a.hitbox.getCornerX(), a.hitbox.getCornerY(), null);
 			}
 			if(bossMode && boss.stage1){
 				if(!boss.fireLazor){
