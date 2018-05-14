@@ -38,21 +38,19 @@ public class Hitbox {
 	}
 	
 	boolean move(int x, int y,boolean identifier){//returns true if the hitbox moved
-		if((c1.x+x)>=0&&(c1.y+y)>=0&&(c2.x+x)<Game.Visuals.WIDTH&&(c2.y+y)<=Game.Visuals.HEIGHT){
-			c1.move(x,y);
-			c2.move(x,y);
-		}
-		if(c1.x+x<0){
+		c1.move(x,y);
+		c2.move(x,y);
+		if(c1.x<0){
 			c1.set(0,c1.y);
 			c2.set(width, c2.y);
-		}else if(c2.x+x>=Game.Visuals.WIDTH){
+		}else if(c2.x>=Game.Visuals.WIDTH){
 			c1.set(Game.Visuals.WIDTH-width-1, c1.y);
 			c2.set(Game.Visuals.WIDTH-1, c2.y);
 		}
-		if(c1.y+y<0){
+		if(c1.y<0){
 			c1.set(c1.x, 0);
 			c2.set(c2.x, height);
-		}else if(c2.y+y>Game.Visuals.HEIGHT){
+		}else if(c2.y>Game.Visuals.HEIGHT){
 			c1.set(c1.x, Game.Visuals.HEIGHT-height);
 			c2.set(c2.x, Game.Visuals.HEIGHT);
 		}
