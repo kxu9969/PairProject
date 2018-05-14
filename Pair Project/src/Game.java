@@ -33,7 +33,7 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
-	int waveCounter = 0;
+	int waveCounter = 10;
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
 	Image playerBullet, enemyFlash, sloopFlash, bossFlash, asteroid;
@@ -357,6 +357,8 @@ public class Game extends JFrame implements KeyListener{
 				if(b instanceof Boss.Lazor) {
 					g.setColor(Color.CYAN);
 					g.fillRect(b.hitbox.getCornerX(),b.hitbox.getCornerY(), b.WIDTH, b.HEIGHT);
+					g.setColor(Color.WHITE);
+					g.fillRect(b.hitbox.getCornerX()+15,b.hitbox.getCornerY(), b.WIDTH-30, b.HEIGHT);
 				}else {
 					try {
 						g.drawImage(b.bullet, b.hitbox.getCornerX(), b.hitbox.getCornerY(), null);

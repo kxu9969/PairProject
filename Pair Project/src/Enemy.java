@@ -27,9 +27,9 @@ public class Enemy {
 		if(dif.equals("Easy")){
 			health=1;
 		}else if(dif.equals("Normal")){
-			health=2;
-		}else if(dif.equals("Hard")){
 			health=3;
+		}else if(dif.equals("Hard")){
+			health=5;
 		}
 		hitbox = new Hitbox(new Coordinate(DEFAULT_START_X,DEFAULT_START_Y),
 				new Coordinate(DEFAULT_START_X+WIDTH,DEFAULT_START_Y+HEIGHT));

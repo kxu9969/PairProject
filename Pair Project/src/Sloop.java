@@ -12,9 +12,9 @@ public class Sloop extends Enemy{
 		if(dif.equals("Easy")){
 			health=2;
 		}else if(dif.equals("Normal")){
-			health=3;
-		}else if(dif.equals("Hard")){
 			health=5;
+		}else if(dif.equals("Hard")){
+			health=7;
 		}
 		DEFAULT_START_X = Math.abs((int)(Math.random()*Game.Visuals.WIDTH-WIDTH));
 		DEFAULT_START_Y = (int)(Math.random()*40+1);
