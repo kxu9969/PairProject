@@ -147,7 +147,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		JLabel instructions=new JLabel("<html>Use the arrow keys to move around. Your goal is to dodge asteroids and"
 				+ " avoid enemy <br/>shots while shooting at them. Shooting is automatic, and you will do so continuously."
 				+ " <br/>Double tapping the arrow keys lets you teleport with a one second cooldown. A boss"
-				+ "<br/> will appear every ten waves with three stages.</html>");
+				+ "<br/> will appear every five waves with three stages.</html>");
 		instructions.setHorizontalAlignment(JLabel.CENTER);
 		instructionPanel.add(instructions);
 		

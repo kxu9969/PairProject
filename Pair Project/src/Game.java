@@ -33,7 +33,7 @@ public class Game extends JFrame implements KeyListener{
 	boolean bossMode;
 	int WAVE_DELAY = 200;//one zero smaller because updates every 10 ms
 	int waveTimer = 400;
-	int waveCounter = 10;
+	int waveCounter = 1;
 	//static String pre = "/Users/kyang/git/PairProject/Pair Project/";
 	static String pre = "img/";
 	Image playerBullet, enemyFlash, sloopFlash, bossFlash, asteroid;
@@ -207,7 +207,7 @@ public class Game extends JFrame implements KeyListener{
 				enemies.add(e);
 			}
 		}
-		if(waveCounter!=0&&waveCounter%10==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
+		if(waveCounter!=0&&waveCounter%5==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
 			//System.out.println("BOSS ROUND");
 			bossMode=true;
 			boss = new Boss(p,difficulty);
@@ -463,9 +463,10 @@ public class Game extends JFrame implements KeyListener{
 			p.increment[0] = -INCREMENT_AMOUNT;
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
 			p.increment[0] = INCREMENT_AMOUNT;
-		} else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			makeAsteroid();
 		}
+//		else if(e.getKeyCode() == KeyEvent.VK_SPACE){
+//			makeAsteroid();
+//		}
 		if (DoublePress.cooldown==0 && DoublePress.released && DoublePress.isDoublePress(e) && DoublePress.lastKeyCode == e.getKeyCode()) {
 			int scalar = 0;
 			p.barrelRoll = true;;
