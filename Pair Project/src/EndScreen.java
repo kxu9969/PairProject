@@ -37,11 +37,11 @@ public class EndScreen extends JPanel implements ActionListener{
 		}
 		boolean localBest=false;
 		try {
-			System.out.println("Yes");
+			//System.out.println("Yes");
 			Scanner scan= new Scanner(new File(begin+"Score"));
 			String nextLine = scan.nextLine();
 		} catch (Exception e) {
-			System.out.println("Exception thrown");
+			//System.out.println("Exception thrown");
 			localBest=true;
 		}
 		if(Integer.parseInt(score)>beforeScore){
@@ -147,7 +147,6 @@ public class EndScreen extends JPanel implements ActionListener{
 	}
 	
 	public int score(String username, int score){
-		System.out.println("Start");
 		int type=-1; //1 is personal highscore, 2 is local highscore, 3 is new player, 0 is none to the left
 		boolean newScore = false;
 		boolean multipleScores=false;
