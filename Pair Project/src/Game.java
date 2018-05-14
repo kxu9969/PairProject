@@ -207,7 +207,7 @@ public class Game extends JFrame implements KeyListener{
 			}
 		}
 		if(waveCounter!=0&&waveCounter%10==0 ){//Boss wave; make waveCounter%10==0//Boss wave; make waveCounter%10==0			
-			System.out.println("BOSS ROUND");
+			//System.out.println("BOSS ROUND");
 			bossMode=true;
 			boss = new Boss(p,difficulty);
 			bossHealth=new HealthBar(boss);
@@ -437,16 +437,16 @@ public class Game extends JFrame implements KeyListener{
 			super.paint(g);
 			if(p != null){
 				g.setColor(Color.RED);
-				g.fillRect(0, 0, WIDTH/p.maxHealth*p.health, HEIGHT-1);
+				g.fillRect(0, 0, (int)((double)WIDTH/(double)p.maxHealth*(double)p.health), HEIGHT-1);
 				g.setColor(Color.WHITE);
-				g.fillRect(WIDTH/p.maxHealth*p.health, 0, WIDTH, HEIGHT-1);
+				g.fillRect((int)((double)WIDTH/(double)p.maxHealth*(double)p.health), 0, WIDTH, HEIGHT-1);
 				g.setColor(Color.BLACK);
 				g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
 			}if(b != null){
 				g.setColor(Color.BLUE);
-				g.fillRect(0, 0, WIDTH/b.maxHealth*b.health, HEIGHT-1);
+				g.fillRect(0, 0, (int)((double)WIDTH/(double)b.maxHealth*(double)b.health), HEIGHT-1);
 				g.setColor(Color.WHITE);
-				g.fillRect(WIDTH/b.maxHealth*b.health, 0, WIDTH, HEIGHT-1);
+				g.fillRect((int)((double)WIDTH/(double)b.maxHealth*(double)b.health), 0, WIDTH, HEIGHT-1);
 				g.setColor(Color.BLACK);
 				g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
 			}
