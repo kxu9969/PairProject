@@ -17,6 +17,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	String hardFile = "Z:/git/PairProject/Pair Project/src/HardScore";
 	String difficulty;
 	String userName;
+	static int beforeScore=0;
 	EndScreen(String score, String username, String dif){
 		difficulty=dif;
 		userName = username;
@@ -34,19 +35,16 @@ public class EndScreen extends JPanel implements ActionListener{
 		}else{
 			sort(new File(begin+"Score"),score+" "+username,false);
 		}
-		int highestScore=0;
 		boolean localBest=false;
 		try {
 			System.out.println("Yes");
 			Scanner scan= new Scanner(new File(begin+"Score"));
 			String nextLine = scan.nextLine();
-			highestScore=firstInt(nextLine);
 		} catch (Exception e) {
 			System.out.println("Exception thrown");
 			localBest=true;
 		}
-		System.out.println(highestScore);
-		if(Integer.parseInt(score)==highestScore){
+		if(Integer.parseInt(score)>beforeScore){
 			localBest=true;
 		}
 		//
@@ -76,7 +74,7 @@ public class EndScreen extends JPanel implements ActionListener{
 		gbc_lblGameOver.insets = new Insets(5, 5, 10, 5);
 		this.add(lblGameOver, gbc_lblGameOver);
 		
-		JLabel lblScore = new JLabel("<html>"+congratulations+"<br/>"+username+": "+typeOfScore + " "+score +"</html>");
+		JLabel lblScore = new JLabel("<html>"+congratulations+"<br/>"+username+": "+score +"</html>");
 		
 		GridBagConstraints gbc_lblScore = new GridBagConstraints();
 		gbc_lblScore.gridx = 1;
@@ -210,6 +208,9 @@ public class EndScreen extends JPanel implements ActionListener{
 				String str = scan.nextLine();
 				list.add(str);
 				int num = firstInt(str);
+				if(num>beforeScore){
+					beforeScore=num;;
+				}
 				String i = ""+num;
 				str = str.substring(i.length()+1);
 				numList.add(num);
@@ -288,7 +289,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		EndScreen endscreen=new EndScreen("13", "hi", "Easy");
+		EndScreen endscreen=new EndScreen("15", "mi", "Easy");
 	}
 	
 }
