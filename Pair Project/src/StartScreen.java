@@ -18,7 +18,7 @@ public class StartScreen extends JPanel implements ActionListener{
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
 		
-		screen = new JFrame();
+		screen = new JFrame("Start");
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel=new JPanel();

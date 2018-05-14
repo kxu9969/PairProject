@@ -50,9 +50,10 @@ public class EndScreen extends JPanel implements ActionListener{
 		//
 		//THIS PART STILL DONT WORK RIGHT
 		//
-		if(typeOfScore==1||localBest){
+		System.out.println(typeOfScore+" "+ localBest);
+		if(typeOfScore==2||localBest){
 			congratulations="New local highscore!";
-		}else if(typeOfScore==2||typeOfScore==3){
+		}else if((typeOfScore==1||typeOfScore==3)&&!localBest){
 			congratulations="Personal best!";
 		}else{
 			congratulations="";
@@ -292,7 +293,7 @@ public class EndScreen extends JPanel implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		EndScreen endscreen=new EndScreen("15", "mi", "Easy");
+		EndScreen endscreen=new EndScreen("155", "Player 4", "Hard");
 	}
 	
 }

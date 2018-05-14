@@ -57,6 +57,7 @@ public class Game extends JFrame implements KeyListener{
     	infoFrame.setLocation(Game.Visuals.WIDTH+10, dim.height/2-infoFrame.getSize().height/2-100);
     	infoFrame.setVisible(true);
     	
+    	this.setTitle("Bullet Purgatory");
 		this.setSize(new Dimension(Game.Visuals.WIDTH+5,Game.Visuals.HEIGHT+30));
 		this.setResizable(false);
 		vis = new Visuals();
